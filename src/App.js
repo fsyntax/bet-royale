@@ -1,9 +1,15 @@
-import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-blue-700">Hello World</h1>
+    <div className="bg-backgroundColor h-screen w-screen flex flex-col items-center font-poppins text-white">
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 };
