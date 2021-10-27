@@ -12,7 +12,7 @@ const Input = React.forwardRef((props, ref) => {
         name={props.name}
         defaultValue={props.defaultValue}
         disabled={props.disabled}
-        className={props.className}
+        className="px-1 py-1 placeholder-black text-black bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
       />
     </div>
   );

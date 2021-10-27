@@ -10,53 +10,35 @@ const CreateBet = () => {
         <div className="flex">
           <div className="mr-3">
             <label htmlFor="deadline">RoyBet Deadline:</label>
-            <Input
-              type="datetime-local"
-              id="deadline"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+            <Input type="datetime-local" id="deadline" />
           </div>
           <div className="mr-3">
-            <label htmlFor="results">RoyBet Deadline:</label>
-            <Input
-              type="datetime-local"
-              id="results"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+            <label htmlFor="results">RoyBet Results:</label>
+            <Input type="datetime-local" id="results" />
           </div>
           <div className="mr-3">
             <label htmlFor="max-royBetters">Max RoyBetters</label>
-            <Input
-              type="number"
-              id="max-royBetters"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+            <Input type="number" id="max-royBetters" />
           </div>
           <div className="mr-3">
             <label htmlFor="betValue">Bet Value</label>
-            <Input
-              type="number"
-              id="betValue"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+            <Input type="number" id="betValue" />
           </div>
         </div>
         <div className="flex justify-center items-center flex-col mt-3 w-full">
           <div className="mt-3 w-full">
-            <label htmlFor="max-royBetters">Max RoyBetters</label>
-            <Input
-              type="number"
-              id="max-royBetters"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+            <label htmlFor="title">Title:</label>
+            <Input type="text" id="title" />
           </div>
-          <div className="mt-3 w-full">
-            <label htmlFor="betValue">Bet Value</label>
-            <Input
-              type="number"
-              id="betValue"
-              className="px-1 py-1 placeholder-black text-black bg-white relative rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-            />
+          <div className="mt-3 w-full flex flex-col">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              className="px-1 py-1 placeholder-black text-black bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
+              name="description"
+              id="description"
+              cols="30"
+              rows="5"
+            ></textarea>
           </div>
         </div>
         <div className="mt-7">
