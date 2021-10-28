@@ -1,0 +1,71 @@
+{
+  "currentBets": [
+    {
+      "deadline": "24/10/2021 16:00",
+      "name": "Man United vs Liverpool",
+      "description": "Who will win?",
+      "results": "24/10/2021 21:00",
+      "size": "10",
+      "currentBets": "10/100"
+    },
+    {
+      "deadline": "24/10/2021 16:59",
+      "name": "Sunday Tournament",
+      "description": "Who will win?",
+      "results": "24/10/2021 21:00",
+      "size": "200",
+      "currentBets": "2/600"
+    },
+    {
+      "deadline": "24/10/2021 17:30",
+      "name": "Final Winner",
+      "description": "Who will win?",
+      "results": "24/10/2021 17:40",
+      "size": "50",
+      "currentBets": "2/250"
+    },
+    {
+      "deadline": "25/10/2021 09:58",
+      "name": "Monday Daily",
+      "description": "Who will win the Monday daily (AM)?",
+      "results": "24/10/2021 09:58",
+      "size": "2",
+      "currentBets": "3/6"
+    },
+    {
+      "deadline": "26/10/2021 09:58",
+      "name": "2,000,000th game",
+      "description": "When will the 2Mth game be played?",
+      "results": "30/10/2021 10:40",
+      "size": "15",
+      "currentBets": "1/15"
+    }
+  ],
+  "betHistory": [
+    {
+      "name": "Chelsea vs Spurs",
+      "result": "Loss",
+      "value": "-10"
+    },
+    {
+      "name": "Daily Winner (Thurs)",
+      "result": "Loss",
+      "value": "-5"
+    },
+    {
+      "name": "Sunday Winner",
+      "result": "Win",
+      "value": "+100"
+    },
+    {
+      "name": "ROY Price 01/01/21",
+      "result": "Win",
+      "value": "+50"
+    },
+    {
+      "name": "How Many Smarties",
+      "result": "Loss",
+      "value": "-15"
+    }
+  ]
+}
