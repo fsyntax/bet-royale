@@ -1,44 +1,72 @@
 {
   "currentBets": [
     {
+      "id": 1,
       "deadline": "24/10/2021 16:00",
       "name": "Man United vs Liverpool",
       "description": "Who will win?",
       "results": "24/10/2021 21:00",
       "size": "10",
-      "currentBets": "10/100"
+      "currentBets": "10/100",
+      "maxBetters": "100"
     },
     {
+      "id": 2,
       "deadline": "24/10/2021 16:59",
       "name": "Sunday Tournament",
       "description": "Who will win?",
       "results": "24/10/2021 21:00",
       "size": "200",
-      "currentBets": "2/600"
+      "currentBets": "2/600",
+      "maxBetters": "600"
     },
     {
+      "id": 3,
       "deadline": "24/10/2021 17:30",
       "name": "Final Winner",
       "description": "Who will win?",
       "results": "24/10/2021 17:40",
       "size": "50",
-      "currentBets": "2/250"
+      "currentBets": "2/250",
+      "maxBetters": "250"
     },
     {
+      "id": 4,
       "deadline": "25/10/2021 09:58",
       "name": "Monday Daily",
       "description": "Who will win the Monday daily (AM)?",
       "results": "24/10/2021 09:58",
       "size": "2",
-      "currentBets": "3/6"
+      "currentBets": "3/6",
+      "maxBetters": "6"
     },
     {
+      "id": 5,
       "deadline": "26/10/2021 09:58",
       "name": "2,000,000th game",
       "description": "When will the 2Mth game be played?",
       "results": "30/10/2021 10:40",
       "size": "15",
-      "currentBets": "1/15"
+      "currentBets": "1/15",
+      "maxBetters": "15"
+    },
+    {
+      "id": 8151,
+      "deadline": "2021-10-31T11:20",
+      "name": "Test 1",
+      "description": "This is test 1.",
+      "results": "2021-10-31T11:20",
+      "size": "10",
+      "maxBetters": "125"
+    },
+    {
+      "id": 9601,
+      "deadline": "2021-10-31T15:40",
+      "name": "Test 2",
+      "description": "This is test 2.",
+      "results": "2021-10-31T17:42",
+      "size": "10",
+      "maxBetters": "1000"
     }
   ],
   "betHistory": [

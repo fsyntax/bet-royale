@@ -70,7 +70,7 @@ const Header = () => {
           href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A5000&response_type=code&scope=identify"
         >
           Link With Discord!
-          <img className="w-8 ml-3" src={discord} alt="discord" />
+          <img className="w-8 ml-3 inline" src={discord} alt="discord" />
         </a>
         <div id="info"></div>
       </div>

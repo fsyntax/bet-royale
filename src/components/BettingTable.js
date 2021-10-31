@@ -1,3 +1,5 @@
+import Moment from "react-moment";
+
 const BettingTable = (props) => {
   return (
     <table className="w-full">
@@ -14,10 +16,14 @@ const BettingTable = (props) => {
       <tbody>
         {props.data.map((currentBet) => (
           <tr className="text-sm hover:bg-indigo-400" key={currentBet.name}>
-            <th>{currentBet.deadline}</th>
+            <th>
+              <Moment date={currentBet.deadline}>{currentBet.deadline}</Moment>
+            </th>
             <th>{currentBet.name}</th>
             <th>{currentBet.description}</th>
-            <th>{currentBet.results}</th>
+            <th>
+              <Moment date={currentBet.results}>{currentBet.results}</Moment>
+            </th>
             <th>{currentBet.size}</th>
             <th>{currentBet.currentBets}</th>
             <th>

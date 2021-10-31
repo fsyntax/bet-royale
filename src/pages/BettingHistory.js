@@ -1,9 +1,21 @@
-import dummyData from "../dummyData.json";
+import { useState, useEffect } from "react";
 
 import Header from "../components/Header";
 import BetHistoryTable from "../components/BetHistoryTable";
 
+import BetService from "../api/Bet";
+
 const BettingHistory = () => {
+  const [betHistory, setBetHistory] = useState([]);
+
+  useEffect(() => {
+    BetService.getInstance()
+      .getBetHistory()
+      .then((data) => {
+        setBetHistory(data);
+      });
+  }, []);
+
   return (
     <div className="container flex items-center flex-col">
       <Header />
@@ -18,14 +30,14 @@ const BettingHistory = () => {
             name="betHistorySort"
             id="betHistorySort"
           >
-            <option value="betsCompleted" selected>
+            <option value="betsCompleted" defaultValue>
               Bets Completed
             </option>
           </select>
         </div>
       </div>
       <div className="mt-10 w-full">
-        <BetHistoryTable data={dummyData.betHistory} />
+        <BetHistoryTable data={betHistory} />
       </div>
     </div>
   );
