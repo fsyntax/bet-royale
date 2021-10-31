@@ -17,6 +17,24 @@
       "results": "2021-11-01T03:30",
       "size": "25",
       "maxBetters": "500"
+    },
+    {
+      "id": 3577,
+      "deadline": "2021-10-31T23:00",
+      "name": "The third RoyBet!",
+      "description": "This is the third RoyBet on this website!\n\n",
+      "results": "2021-11-01T02:00",
+      "size": "10",
+      "maxBetters": "1000"
+    },
+    {
+      "id": 7539,
+      "deadline": "2021-11-01T08:00",
+      "name": "The fourth RoyBet!",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo soluta fugit suscipit quasi, nulla porro, delectus quibusdam esse nihil atque a! Possimus culpa, voluptatum modi beatae ex quia sint consectetur quo fugiat corporis aspernatur ducimus dicta! Doloribus natus fugit veritatis ea accusamus ipsum, vero omnis numquam quam optio neque totam dolores odit voluptates recusandae dolore doloremque quisquam ipsam tenetur, adipisci impedit. Quidem fugiat qui autem excepturi. Eveniet rerum distinctio non nulla beatae? Deleniti beatae eveniet quam neque alias ad perferendis expedita voluptatibus quas cumque, aperiam facilis, et id labore molestiae doloribus maiores laborum veniam! Totam beatae quasi necessitatibus eligendi illum?\nexcepturi. Eveniet rerum distinctio non nulla beatae? Deleniti beatae eveniet quam neque alias ad perferendis expedita voluptatibus quas cumque, aperiam facilis, et id labore molestiae doloribus maiores laborum veniam! Totam beatae quasi necessitatibus eligendi illum?",
+      "results": "2021-11-01T10:00",
+      "size": "50",
+      "maxBetters": "500"
     }
   ],
   "betHistory": [

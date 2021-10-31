@@ -4,6 +4,7 @@ import Moment from "react-moment";
 const BettingTable = (props) => {
   const [betState, setBetState] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [description, setDescription] = useState("");
 
   function placeBet() {
     setBetState(true);
@@ -13,7 +14,8 @@ const BettingTable = (props) => {
     setBetState(false);
   }
 
-  function openDescriptionModal() {
+  function openDescriptionModal(description) {
+    setDescription(description);
     setOpenModal(true);
   }
 
@@ -35,15 +37,11 @@ const BettingTable = (props) => {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-lg leading-relaxed">
-                    {props.data.map((currentBet) => (
-                      <p>{currentBet.description}</p>
-                    ))}
+                  <p className="my-4 text-lg leading-relaxed text-white">
+                    {description}
                   </p>
                 </div>
-                {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -74,7 +72,7 @@ const BettingTable = (props) => {
             <tr
               className="text-sm hover:bg-indigo-400 border-2 border-gray-500"
               key={currentBet.name}
-              onClick={openDescriptionModal}
+              onClick={() => openDescriptionModal(currentBet.description)}
             >
               <th>
                 <Moment date={currentBet.deadline}>
