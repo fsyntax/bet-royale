@@ -1,10 +1,10 @@
-const express = require("express");
 const { port } = require("./config.json");
+const express = require("express");
 
 const app = express();
 
 app.get("/", (request, response) => {
-  return response.render("../public/index.html", { root: "." });
+  return response.sendFile("public/index.html", { root: "." });
 });
 
 app.listen(port, () =>
