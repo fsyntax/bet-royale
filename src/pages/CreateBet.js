@@ -1,8 +1,7 @@
-import { useRef } from "react";
-import { useHistory } from "react-router";
+import { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import Header from "../components/Header";
-import Input from "../components/Input";
 
 import BetService from "../api/Bet";
 
@@ -13,6 +12,8 @@ const CreateBet = () => {
   const betValueInputRef = useRef();
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
+
+  const [alertState, setAlertState] = useState(false);
 
   const history = useHistory();
 
@@ -32,7 +33,7 @@ const CreateBet = () => {
       currentTitle === "" ||
       currentDescription === ""
     ) {
-      alert("One or more of the fields have not been filled out!");
+      setAlertState(true);
       return;
     }
 
@@ -53,51 +54,124 @@ const CreateBet = () => {
       });
   }
 
+  function closeAlert() {
+    setAlertState(false);
+  }
+
   return (
-    <div className="container flex items-center flex-col">
+    <div className="container d-flex align-items-center flex-column">
       <Header />
-      <h1 className="text-4xl">Create a Bet</h1>
-      <div className="flex justify-center items-center w-full flex-col my-10">
-        <div className="flex w-full">
-          <div className="mr-3 flex-1">
-            <label htmlFor="deadline">RoyBet Deadline:</label>
-            <Input type="datetime-local" id="deadline" ref={deadlineInputRef} />
+      {alertState && (
+        <div
+          class="alert alert-danger alert-dismissible fade show w-100 mb-5"
+          role="alert"
+        >
+          One or more of the fields have not been filled!
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            onClick={closeAlert}
+          ></button>
+        </div>
+      )}
+      <h1 className="text-4xl mb-5">Create a Bet</h1>
+      <div className="flex justify-items-center align-items-center w-100 flex-column my-10">
+        <div className="d-flex flex-column w-full">
+          <div className="w-100 d-flex mb-3">
+            <div className="w-100 mr-2">
+              <label htmlFor="deadline" className="d-block">
+                RoyBet Deadline:
+              </label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                placeholder="RoyBet Deadline"
+                aria-label="Deadline"
+                id="deadline"
+                aria-describedby="basic-addon1"
+                ref={deadlineInputRef}
+              />
+            </div>
+            <div className="w-25"></div>
+            <div className="w-100">
+              <label htmlFor="results" className="d-block">
+                RoyBet Results:
+              </label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                placeholder="RoyBet Results"
+                aria-label="Results"
+                id="results"
+                aria-describedby="basic-addon1"
+                ref={resultsInputRef}
+              />
+            </div>
           </div>
-          <div className="mr-3 flex-1">
-            <label htmlFor="results">RoyBet Results:</label>
-            <Input type="datetime-local" id="results" ref={resultsInputRef} />
-          </div>
-          <div className="mr-3 flex-1">
-            <label htmlFor="max-royBetters">Max RoyBetters</label>
-            <Input type="text" id="max-royBetters" ref={maxBettersInputRef} />
-          </div>
-          <div className="mr-3 flex-1">
-            <label htmlFor="betValue">Bet Value</label>
-            <Input type="text" id="betValue" ref={betValueInputRef} />
+          <div className="w-100 d-flex">
+            <div className="w-100">
+              <label htmlFor="maxBetters" className="d-block">
+                Max Betters:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Max RoyBetters"
+                aria-label="Max Betters"
+                id="maxBetters"
+                aria-describedby="basic-addon1"
+                ref={maxBettersInputRef}
+              />
+            </div>
+            <div className="w-25"></div>
+            <div className="w-100">
+              <label htmlFor="betValue" className="d-block">
+                Bet Value:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Bet Value"
+                aria-label="Bet Value"
+                id="betValue"
+                aria-describedby="basic-addon1"
+                ref={betValueInputRef}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex justify-center items-center flex-col mt-3 w-full">
-          <div className="mt-3 w-full">
-            <label htmlFor="title">Title:</label>
-            <Input type="text" id="title" ref={titleInputRef} />
+        <div className="d-flex justify-items-center align-items-center mt-3 w-100">
+          <div className="w-100">
+            <label htmlFor="title" className="d-block">
+              Title:
+            </label>
+            <input
+              type="text"
+              className="form-control w-100"
+              placeholder="Title"
+              aria-label="Title"
+              id="title"
+              aria-describedby="Title"
+              ref={titleInputRef}
+            />
           </div>
-          <div className="mt-3 w-full flex flex-col">
-            <label htmlFor="description">Description:</label>
+          <div className="w-25"></div>
+          <div className="w-100">
+            <label htmlFor="description" className="d-block">
+              Description:
+            </label>
             <textarea
-              className="resize-none px-1 py-1 placeholder-black text-black bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-              name="description"
+              className="form-control w-100"
               id="description"
-              cols="30"
-              rows="5"
+              placeholder="Description"
               ref={descriptionInputRef}
             ></textarea>
           </div>
         </div>
-        <div className="mt-7">
-          <button
-            className="outline-none bg-green-400 rounded p-3"
-            onClick={createBet}
-          >
+        <div className="mt-5 d-flex justify-items-center align-items-center w-100">
+          <button type="button" className="btn btn-success" onClick={createBet}>
             Create RoyBet
           </button>
         </div>

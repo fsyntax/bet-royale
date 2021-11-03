@@ -1,11 +1,11 @@
 const BetHistoryTable = (props) => {
   return (
-    <table className="w-full">
+    <table className="w-full table table-dark table-striped text-white border border-secondary">
       <thead>
         <tr>
-          <th className="text-yellow-300">Name</th>
-          <th className="text-yellow-300">Result</th>
-          <th className="text-yellow-300">Value</th>
+          <th>Name</th>
+          <th>Result</th>
+          <th>Value</th>
         </tr>
       </thead>
       <tbody>

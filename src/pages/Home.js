@@ -17,10 +17,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container flex items-center flex-col h-full w-full">
+    <div className="container d-flex align-items-center flex-column h-full w-full">
       <Header />
-      <h1 className="text-4xl">RoyBet Centre</h1>
-      <div className="mt-10 w-full flex justify-center items-center">
+      <h1 className="text-4xl mb-5">RoyBet Centre</h1>
+      <div className="mt-10 mw-100 d-flex justify-items-center align-items-center">
         <BettingTable data={currentBets} />
       </div>
     </div>

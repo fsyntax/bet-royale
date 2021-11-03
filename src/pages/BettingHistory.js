@@ -17,26 +17,22 @@ const BettingHistory = () => {
   }, []);
 
   return (
-    <div className="container flex items-center flex-col">
+    <div className="container d-flex align-items-center flex-column">
       <Header />
       <h1 className="text-4xl">Betting History</h1>
-      <div className="my-10 w-full flex justify-end items-center">
-        <div className="flex flex-col">
+      <div className="my-10 w-100 d-flex justify-items-end align-items-center">
+        <div className="d-flex flex-column">
           <label className="mb-1" htmlFor="betHistorySort">
             Sort By:
           </label>
-          <select
-            className="px-3 py-3 placeholder-black text-black bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring"
-            name="betHistorySort"
-            id="betHistorySort"
-          >
+          <select class="form-select">
             <option value="betsCompleted" defaultValue>
               Bets Completed
             </option>
           </select>
         </div>
       </div>
-      <div className="mt-10 w-full">
+      <div className="mt-5 d-flex justify-items-center align-items-center w-100">
         <BetHistoryTable data={betHistory} />
       </div>
     </div>
