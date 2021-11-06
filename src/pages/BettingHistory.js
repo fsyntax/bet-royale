@@ -25,7 +25,7 @@ const BettingHistory = () => {
           <label className="mb-1" htmlFor="betHistorySort">
             Sort By:
           </label>
-          <select class="form-select">
+          <select className="form-select">
             <option value="betsCompleted" defaultValue>
               Bets Completed
             </option>
