@@ -13,7 +13,7 @@ const CreateBet = () => {
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
 
-  const [alertState, setAlertState] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const history = useHistory();
 
@@ -33,7 +33,7 @@ const CreateBet = () => {
       currentTitle === "" ||
       currentDescription === ""
     ) {
-      setAlertState(true);
+      setAlert(true);
       return;
     }
 
@@ -55,21 +55,21 @@ const CreateBet = () => {
   }
 
   function closeAlert() {
-    setAlertState(false);
+    setAlert(false);
   }
 
   return (
     <div className="container d-flex align-items-center flex-column">
       <Header />
-      {alertState && (
+      {alert && (
         <div
-          class="alert alert-danger alert-dismissible fade show w-100 mb-5"
+          className="alert alert-danger alert-dismissible fade show w-100 mb-5"
           role="alert"
         >
           One or more of the fields have not been filled!
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             onClick={closeAlert}
