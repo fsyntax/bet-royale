@@ -43,6 +43,8 @@
             document.getElementById(
               "info"
             ).innerText += ` ${username}#${discriminator}`;
+
+            localStorage.setItem("username", `${username}#${discriminator}`);
           })
           .catch(console.error);
       };

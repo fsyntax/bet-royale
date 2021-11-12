@@ -12,7 +12,18 @@ const Home = () => {
     BetService.getInstance()
       .getCurrentBets()
       .then((data) => {
-        setCurrentBets(data);
+        const currentBetLogs = [];
+
+        for (const key in data) {
+          const currentBetLog = {
+            id: key,
+            ...data[key],
+          };
+
+          currentBetLogs.push(currentBetLog);
+        }
+
+        setCurrentBets(currentBetLogs);
       });
   }, []);
 

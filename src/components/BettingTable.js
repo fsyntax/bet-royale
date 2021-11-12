@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { ethers } from "ethers";
+import { GetHash } from "../utils/Common";
 import Moment from "react-moment";
+
+import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
 
@@ -11,16 +14,23 @@ const BettingTable = (props) => {
   const [alert, setAlert] = useState(false);
   const [transactionResponse, setTransactionResponse] = useState([]);
 
-  async function placeBet(amount) {
+  async function placeBet(data) {
     await handleBet({
       setTransactionResponse,
-      amount: amount,
+      amount: data.size,
       address: "0x8192b322276B0E19B26bd1A25C1Ccc03Be0ef31E",
+      objData: data,
     });
   }
 
-  async function handleBet({ setTransactionResponse, amount, address }) {
+  async function handleBet({
+    setTransactionResponse,
+    amount,
+    address,
+    objData,
+  }) {
     if (!window.ethereum) {
+      setDescription("Please install Metamask!");
       setAlert(true);
       return;
     }
@@ -38,9 +48,19 @@ const BettingTable = (props) => {
       value: ethers.utils.parseEther(amount),
     });
 
+    let user = GetHash(localStorage.getItem("address"));
+
+    console.log(user);
+
     setTransactionResponse([transactionResponse]);
 
     setBetState(true);
+
+    if (localStorage.getItem("address")) {
+      BetService.getInstance().logBet(objData);
+    } else {
+      setDescription("Please connect your wallet!");
+    }
   }
 
   function openDescriptionModal(description) {
@@ -89,7 +109,7 @@ const BettingTable = (props) => {
           className="alert alert-danger alert-dismissible fade show w-100 mb-5"
           role="alert"
         >
-          Please install Metamask!
+          {description}
           <button
             type="button"
             className="btn-close"
@@ -104,10 +124,9 @@ const BettingTable = (props) => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">RoyBet Deadline</th>
-            <th scope="col">Description</th>
             <th scope="col">RoyBet Name</th>
-            <th scope="col">Bet Size</th>
             <th scope="col">Result Time</th>
+            <th scope="col">Bet Size</th>
             <th scope="col">Players/Pot so far</th>
           </tr>
         </thead>
@@ -130,16 +149,18 @@ const BettingTable = (props) => {
                 </Moment>
               </th>
               <th>{currentBet.name}</th>
+
               <th>
                 <Moment date={currentBet.results}>{currentBet.results}</Moment>
               </th>
               <th>{currentBet.size}</th>
+
               <th>{currentBet.currentBets}</th>
               <th>
                 {!betState && (
                   <button
                     className="outline-none btn btn-success rounded bg-green-400 text-white p-3 m-2"
-                    onClick={() => placeBet(currentBet.size)}
+                    onClick={() => placeBet(currentBet)}
                   >
                     Place Bet
                   </button>

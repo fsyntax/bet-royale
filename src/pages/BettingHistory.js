@@ -12,7 +12,18 @@ const BettingHistory = () => {
     BetService.getInstance()
       .getBetHistory()
       .then((data) => {
-        setBetHistory(data);
+        const betLogs = [];
+
+        for (const key in data) {
+          const betLog = {
+            id: key,
+            ...data[key],
+          };
+
+          betLogs.push(betLog);
+        }
+
+        setBetHistory(betLogs);
       });
   }, []);
 

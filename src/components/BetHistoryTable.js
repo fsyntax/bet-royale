@@ -12,8 +12,8 @@ const BetHistoryTable = (props) => {
         {props.data.map((betLog) => (
           <tr className="text-sm hover:bg-indigo-400" key={betLog.name}>
             <th>{betLog.name}</th>
-            <th>{betLog.result}</th>
-            <th>{betLog.value}</th>
+            <th>Some Result</th>
+            <th>{betLog.size}</th>
           </tr>
         ))}
       </tbody>

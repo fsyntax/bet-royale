@@ -14,6 +14,7 @@ const CreateBet = () => {
   const descriptionInputRef = useRef();
 
   const [alert, setAlert] = useState(false);
+  const [alertDescription, setAlertDescription] = useState("");
 
   const history = useHistory();
 
@@ -25,6 +26,12 @@ const CreateBet = () => {
     const currentTitle = titleInputRef.current.value;
     const currentDescription = descriptionInputRef.current.value;
 
+    if (!localStorage.getItem("username")) {
+      setAlert(true);
+      setAlertDescription("Please sign in with your Discord account!");
+      return;
+    }
+
     if (
       currentDeadline === "" ||
       currentResults === "" ||
@@ -34,6 +41,7 @@ const CreateBet = () => {
       currentDescription === ""
     ) {
       setAlert(true);
+      setAlertDescription("One or more of the fields have not been filled!");
       return;
     }
 
@@ -45,6 +53,7 @@ const CreateBet = () => {
       results: currentResults,
       size: currentBetValue,
       maxBetters: currentMaxBetters,
+      betCreator: localStorage.getItem("username"),
     };
 
     BetService.getInstance()
@@ -66,7 +75,7 @@ const CreateBet = () => {
           className="alert alert-danger alert-dismissible fade show w-100 mb-5"
           role="alert"
         >
-          One or more of the fields have not been filled!
+          {alertDescription}
           <button
             type="button"
             className="btn-close"
