@@ -7,7 +7,6 @@ import discord from "../images/discord.svg";
 const Header = () => {
   const location = useLocation();
 
-  const [defaultAccount, setDefaultAccount] = useState(null);
   const [alert, setAlert] = useState(false);
 
   function connectToWallet() {
@@ -17,6 +16,15 @@ const Header = () => {
         .then((result) => {
           accountChangedHandler(result[0]);
           localStorage.setItem("address", result[0]);
+
+          let startingAddress = localStorage.getItem("address").substring(0, 5);
+          let endingAddress = localStorage
+            .getItem("address")
+            .substr(localStorage.getItem("address").length - 3);
+
+          let shortenedAddress = `${startingAddress}...${endingAddress}`;
+
+          localStorage.setItem("shortenedAddress", shortenedAddress);
         });
     } else {
       setAlert(true);
@@ -24,8 +32,16 @@ const Header = () => {
   }
 
   function accountChangedHandler(newAccount) {
-    setDefaultAccount(newAccount);
     localStorage.setItem("address", newAccount);
+
+    let startingAddress = localStorage.getItem("address").substring(0, 5);
+    let endingAddress = localStorage
+      .getItem("address")
+      .substr(localStorage.getItem("address").length - 3);
+
+    let shortenedAddress = `${startingAddress}...${endingAddress}`;
+
+    localStorage.setItem("shortenedAddress", shortenedAddress);
   }
 
   function chainChangedHandler() {
@@ -107,18 +123,19 @@ const Header = () => {
             Betting History
           </Link>
 
-          {defaultAccount && (
+          {localStorage.getItem("address") && (
             <div
               className="ml-3 d-flex flex-column"
               style={{ marginLeft: "15px" }}
             >
-              <span>Address: {defaultAccount}</span>
+              <button className="btn btn-secondary">
+                Address: {localStorage.getItem("shortenedAddress")}
+              </button>
             </div>
           )}
-          {!defaultAccount && (
-            <div>
+          {!localStorage.getItem("address") && (
+            <div style={{ marginLeft: "15px" }}>
               <button
-                style={{ marginLeft: "15px", height: "65px" }}
                 onClick={connectToWallet}
                 className="btn btn-success ml-3"
               >
@@ -126,23 +143,31 @@ const Header = () => {
               </button>
             </div>
           )}
-          <a
-            className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
-            style={{ marginLeft: "15px" }}
-            target="_blank"
-            rel="noreferrer"
-            id="login"
-            href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=identify"
-          >
-            Link With Discord!
-            <img
-              className="ml-3 d-inline img-fluid"
-              style={{ height: "50px", marginLeft: "15px" }}
-              src={discord}
-              alt="discord"
-            />
-          </a>
-          <div id="info" style={{ marginLeft: "15px" }}></div>
+          {localStorage.getItem("username") && (
+            <div style={{ marginLeft: "15px" }}>
+              <button className="btn btn-primary">
+                {localStorage.getItem("username")}
+              </button>
+            </div>
+          )}
+          {!localStorage.getItem("username") && (
+            <a
+              className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
+              style={{ marginLeft: "15px" }}
+              target="_blank"
+              rel="noreferrer"
+              id="login"
+              href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=identify"
+            >
+              Link With Discord!
+              <img
+                className="ml-3 d-inline img-fluid"
+                style={{ height: "25px", marginLeft: "15px" }}
+                src={discord}
+                alt="discord"
+              />
+            </a>
+          )}
         </div>
       </header>
     </div>

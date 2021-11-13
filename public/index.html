@@ -29,7 +29,7 @@
         ];
 
         if (!accessToken) {
-          return (document.getElementById("login").style.display = "block");
+          return;
         }
 
         fetch("https://discord.com/api/users/@me", {
@@ -40,10 +40,6 @@
           .then((result) => result.json())
           .then((response) => {
             const { username, discriminator } = response;
-            document.getElementById(
-              "info"
-            ).innerText += ` ${username}#${discriminator}`;
-
             localStorage.setItem("username", `${username}#${discriminator}`);
           })
           .catch(console.error);

@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import Header from "../components/Header";
-
 import BetService from "../api/Bet";
 
 const CreateBet = () => {
@@ -69,7 +67,6 @@ const CreateBet = () => {
 
   return (
     <div className="container d-flex align-items-center flex-column">
-      <Header />
       {alert && (
         <div
           className="alert alert-danger alert-dismissible fade show w-100 mb-5"
