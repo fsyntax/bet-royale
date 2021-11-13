@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ethers } from "ethers";
 
 import logo from "../images/logo.png";
 import discord from "../images/discord.svg";
@@ -9,7 +8,6 @@ const Header = () => {
   const location = useLocation();
 
   const [defaultAccount, setDefaultAccount] = useState(null);
-  const [balance, setBalance] = useState(null);
   const [alert, setAlert] = useState(false);
 
   function connectToWallet() {
@@ -28,15 +26,6 @@ const Header = () => {
   function accountChangedHandler(newAccount) {
     setDefaultAccount(newAccount);
     localStorage.setItem("address", newAccount);
-    getUserBalance(newAccount.toString());
-  }
-
-  function getUserBalance(address) {
-    window.ethereum
-      .request({ method: "eth_getBalance", params: [address, "latest"] })
-      .then((balance) => {
-        setBalance(ethers.utils.formatEther(balance));
-      });
   }
 
   function chainChangedHandler() {
@@ -124,7 +113,6 @@ const Header = () => {
               style={{ marginLeft: "15px" }}
             >
               <span>Address: {defaultAccount}</span>
-              <span>Balance: {balance}</span>
             </div>
           )}
           {!defaultAccount && (
