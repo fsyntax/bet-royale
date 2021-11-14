@@ -36,13 +36,21 @@ export class BetService extends Component {
     });
   }
 
+  async deleteBet(id) {
+    let url = `https://bet-royale-testing-default-rtdb.firebaseio.com/currentBets/${id}.json`;
+
+    return await fetch(url, {
+      method: "DELETE",
+    });
+  }
+
   async getBetHistory() {
     let address = GetHash(localStorage.getItem("address"));
 
     try {
       let response = await fetch(
         `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${address}/betHistory.json`
-      );
+      );  
 
       let responseJson = await response.json();
 

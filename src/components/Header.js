@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 import logo from "../images/logo.png";
 import discord from "../images/discord.svg";
@@ -7,7 +8,8 @@ import discord from "../images/discord.svg";
 const Header = () => {
   const location = useLocation();
 
-  const [alert, setAlert] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [description, setDescription] = useState("");
 
   function connectToWallet() {
     if (window.ethereum) {
@@ -27,7 +29,8 @@ const Header = () => {
           localStorage.setItem("shortenedAddress", shortenedAddress);
         });
     } else {
-      setAlert(true);
+      setModal(true);
+      setDescription("Please install Metamask!");
     }
   }
 
@@ -53,27 +56,38 @@ const Header = () => {
     window.ethereum.on("chainChanged", chainChangedHandler);
   }
 
-  function closeAlert() {
-    setAlert(false);
+  function closeModal() {
+    setModal(false);
   }
 
   return (
     <div className="w-100 mt-4">
-      {alert && (
-        <div
-          className="alert alert-danger alert-dismissible fade show w-100 mb-5"
-          role="alert"
-        >
-          Please install Metamask!
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-            onClick={closeAlert}
-          ></button>
+      <Modal show={modal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Alert</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p>{description}</p>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
         </div>
-      )}
+      </Modal>
       <header
         className="container d-flex justify-content-between align-items-center w-100 h-100 p-5 mb-10"
         style={{

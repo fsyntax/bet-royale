@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 import BetService from "../api/Bet";
 
@@ -11,8 +12,8 @@ const CreateBet = () => {
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
 
-  const [alert, setAlert] = useState(false);
-  const [alertDescription, setAlertDescription] = useState("");
+  const [modal, setModal] = useState(false);
+  const [description, setDescription] = useState("");
 
   const history = useHistory();
 
@@ -25,8 +26,8 @@ const CreateBet = () => {
     const currentDescription = descriptionInputRef.current.value;
 
     if (!localStorage.getItem("username")) {
-      setAlert(true);
-      setAlertDescription("Please sign in with your Discord account!");
+      setModal(true);
+      setDescription("Please sign in with your Discord account!");
       return;
     }
 
@@ -38,13 +39,12 @@ const CreateBet = () => {
       currentTitle === "" ||
       currentDescription === ""
     ) {
-      setAlert(true);
-      setAlertDescription("One or more of the fields have not been filled!");
+      setModal(true);
+      setDescription("One or more of the fields have not been filled!");
       return;
     }
 
     const data = {
-      id: Math.floor(Math.random() * 10000) + 1,
       deadline: currentDeadline,
       name: currentTitle,
       description: currentDescription,
@@ -61,27 +61,38 @@ const CreateBet = () => {
       });
   }
 
-  function closeAlert() {
-    setAlert(false);
+  function closeModal() {
+    setModal(false);
   }
 
   return (
     <div className="container d-flex align-items-center flex-column">
-      {alert && (
-        <div
-          className="alert alert-danger alert-dismissible fade show w-100 mb-5"
-          role="alert"
-        >
-          {alertDescription}
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-            onClick={closeAlert}
-          ></button>
+      <Modal show={modal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Alert</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p>{description}</p>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
         </div>
-      )}
+      </Modal>
       <h1 className="text-4xl mb-5">Create a Bet</h1>
       <div className="flex justify-items-center align-items-center w-100 flex-column my-10">
         <div className="d-flex flex-column w-full">

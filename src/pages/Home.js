@@ -27,9 +27,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container d-flex align-items-center flex-column h-full w-full">
+    <div className="container d-flex align-items-center flex-column h-100 w-100">
       <h1 className="text-4xl mb-5">RoyBet Centre</h1>
-      <div className="mt-10 mw-100 d-flex justify-items-center align-items-center">
+      <div className="mt-10 w-100 d-flex justify-items-center align-items-center">
         <BettingTable data={currentBets} />
       </div>
     </div>

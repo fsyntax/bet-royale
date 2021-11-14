@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import { GetHash } from "../utils/Common";
+import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
 
 import BetService from "../api/Bet";
@@ -8,10 +8,11 @@ import BetService from "../api/Bet";
 import Modal from "react-bootstrap/Modal";
 
 const BettingTable = (props) => {
-  const [betState, setBetState] = useState(false);
+  const [betState, setBetState] = useState([]);
   const [descriptionModal, setDescriptionModal] = useState(false);
+  const [betDeleteModal, setBetDeleteModal] = useState(false);
+  const [metamaskModal, setMetamaskModal] = useState(false);
   const [description, setDescription] = useState("");
-  const [alert, setAlert] = useState(false);
   const [transactionResponse, setTransactionResponse] = useState([]);
 
   async function placeBet(data) {
@@ -30,8 +31,8 @@ const BettingTable = (props) => {
     objData,
   }) {
     if (!window.ethereum) {
+      setMetamaskModal(true);
       setDescription("Please install Metamask!");
-      setAlert(true);
       return;
     }
 
@@ -48,13 +49,13 @@ const BettingTable = (props) => {
       value: ethers.utils.parseEther(amount),
     });
 
-    let user = GetHash(localStorage.getItem("address"));
-
-    console.log(user);
-
     setTransactionResponse([transactionResponse]);
 
-    setBetState(true);
+    console.log(objData.id);
+
+    setBetState([...betState, objData.id]);
+
+    console.log(betState);
 
     if (localStorage.getItem("address")) {
       BetService.getInstance().logBet(objData);
@@ -72,12 +73,25 @@ const BettingTable = (props) => {
     setDescriptionModal(false);
   }
 
-  function closeAlert() {
-    setAlert(false);
+  function closeBetDeleteModal() {
+    setBetDeleteModal(false);
+  }
+
+  function closemetamaskModal() {
+    setMetamaskModal(false);
+  }
+
+  function deleteCurrentBet(id) {
+    console.log(id);
+
+    setBetDeleteModal(true);
+    setDescription("Are you sure you want to delete this bet?");
+
+    BetService.getInstance().deleteBet(id);
   }
 
   return (
-    <div className="w-full">
+    <div className="w-100">
       <Modal show={descriptionModal}>
         <div className="modal-content">
           <div className="modal-header">
@@ -104,25 +118,71 @@ const BettingTable = (props) => {
           </div>
         </div>
       </Modal>
-      {alert && (
-        <div
-          className="alert alert-danger alert-dismissible fade show w-100 mb-5"
-          role="alert"
-        >
-          {description}
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-            onClick={closeAlert}
-          ></button>
+      <Modal show={metamaskModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Alert</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closemetamaskModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p>{description}</p>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={closemetamaskModal}
+            >
+              Close
+            </button>
+          </div>
         </div>
-      )}
+      </Modal>
+      <Modal show={betDeleteModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Description</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeBetDeleteModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p>{description}</p>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={closeBetDeleteModal}
+            >
+              No
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={closeBetDeleteModal}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
       <table className="w-full table table-dark table-striped text-white border border-secondary">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col"></th>
+            <th scope="col">Bet Creator</th>
             <th scope="col">RoyBet Deadline</th>
             <th scope="col">RoyBet Name</th>
             <th scope="col">Result Time</th>
@@ -135,29 +195,37 @@ const BettingTable = (props) => {
             <tr
               className="text-sm border border-secondary"
               key={currentBet.name}
+              id={index}
             >
-              <th
-                scope="row"
+              <td
                 style={{ cursor: "pointer" }}
                 onClick={() => openDescriptionModal(currentBet.description)}
               >
                 {index + 1}
-              </th>
-              <th className="text-center">
-                <Moment date={currentBet.deadline}>
-                  {currentBet.deadline}
-                </Moment>
-              </th>
-              <th>{currentBet.name}</th>
-
-              <th>
-                <Moment date={currentBet.results}>{currentBet.results}</Moment>
-              </th>
-              <th>{currentBet.size}</th>
-
-              <th>{currentBet.currentBets}</th>
-              <th>
-                {!betState && (
+              </td>
+              {localStorage.getItem("username") === currentBet.betCreator && (
+                <td>
+                  <Trash
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteCurrentBet(currentBet.id)}
+                  />
+                </td>
+              )}
+              <td>{currentBet.betCreator}</td>
+              <td className="text-center">
+                <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
+                UTC
+              </td>
+              <td>{currentBet.name}</td>
+              <td>
+                <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
+                UTC
+              </td>
+              <td>{currentBet.size}</td>
+              <td>{currentBet.currentBets}</td>
+              <td>
+                {console.log(betState)}
+                {!betState.includes(currentBet.id) && (
                   <button
                     className="outline-none btn btn-success rounded bg-green-400 text-white p-3 m-2"
                     onClick={() => placeBet(currentBet)}
@@ -165,12 +233,12 @@ const BettingTable = (props) => {
                     Place Bet
                   </button>
                 )}
-                {betState && (
+                {betState.includes(currentBet.id) && (
                   <button className="outline-none btn btn-danger rounded bg-red-400 text-white p-3 m-2">
                     Bet Placed
                   </button>
                 )}
-              </th>
+              </td>
             </tr>
           ))}
         </tbody>
