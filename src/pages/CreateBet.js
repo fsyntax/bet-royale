@@ -5,15 +5,15 @@ import { Modal } from "react-bootstrap";
 import BetService from "../api/Bet";
 
 const CreateBet = () => {
+  const [modal, setModal] = useState(false);
+  const [description, setDescription] = useState("");
+
   const deadlineInputRef = useRef();
   const resultsInputRef = useRef();
   const maxBettersInputRef = useRef();
   const betValueInputRef = useRef();
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
-
-  const [modal, setModal] = useState(false);
-  const [description, setDescription] = useState("");
 
   const history = useHistory();
 
@@ -36,8 +36,7 @@ const CreateBet = () => {
       currentResults === "" ||
       currentMaxBetters === "" ||
       currentBetValue === "" ||
-      currentTitle === "" ||
-      currentDescription === ""
+      currentTitle === ""
     ) {
       setModal(true);
       setDescription("One or more of the fields have not been filled!");
@@ -133,7 +132,7 @@ const CreateBet = () => {
                 Max Betters:
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Max RoyBetters"
                 aria-label="Max Betters"
@@ -148,7 +147,7 @@ const CreateBet = () => {
                 Bet Value:
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Bet Value"
                 aria-label="Bet Value"

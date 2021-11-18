@@ -6,12 +6,16 @@ import Moment from "react-moment";
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [metamaskModal, setMetamaskModal] = useState(false);
+  const [betToast, setBetToast] = useState(false);
+  const [betToastDescription, setBetToastDescription] = useState("");
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
 
@@ -19,18 +23,11 @@ const BettingTable = (props) => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
 
-    console.clear();
-    console.log(currentBets);
-    console.log(betHistory);
-
     const historyIds = betHistory.map((a) => a.id);
-    console.log(historyIds);
 
     const remainingIds = currentBets.filter(
       (cb) => !historyIds.includes(cb.id)
     );
-
-    console.log(remainingIds);
 
     setFilteredBets(remainingIds);
   }, [props.data, props.betHistoryData]);
@@ -63,11 +60,10 @@ const BettingTable = (props) => {
       value: ethers.utils.parseEther(amount),
     });
 
-    console.log(objData.id);
+    setBetToast(true);
+    setBetToastDescription("This bet has been successfully placed!");
 
     setBetState([...betState, objData.id]);
-
-    console.log(betState);
 
     if (localStorage.getItem("address")) {
       BetService.getInstance().logBet(objData);
@@ -93,13 +89,19 @@ const BettingTable = (props) => {
     setMetamaskModal(false);
   }
 
-  function deleteCurrentBet(id) {
+  function deleteCurrentBet(id, name) {
     console.log(id);
 
     setBetDeleteModal(true);
-    setDescription("Are you sure you want to delete this bet?");
+    setDescription(`Are you sure you want to delete '${name}'?`);
 
-    BetService.getInstance().deleteBet(id);
+    if (!betDeleteModal) {
+      BetService.getInstance().deleteBet(id);
+    }
+  }
+
+  function closeBetToast() {
+    setBetToast(false);
   }
 
   return (
@@ -189,7 +191,27 @@ const BettingTable = (props) => {
           </div>
         </div>
       </Modal>
-      <table className="w-full table table-dark table-striped text-white border border-secondary">
+      <ToastContainer position="bottom-end">
+        <Toast
+          show={betToast}
+          style={{ marginRight: "20px", marginBottom: "20px" }}
+        >
+          <div className="bg-white text-black rounded">
+            <div className="toast-header">
+              <strong className="me-auto">Alert</strong>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+                onClick={closeBetToast}
+              ></button>
+            </div>
+            <div className="toast-body">{betToastDescription}</div>
+          </div>
+        </Toast>
+      </ToastContainer>
+      <table className="w-full table table-dark table-hover text-white border border-secondary">
         <thead>
           <tr>
             <th scope="col"></th>
@@ -205,31 +227,34 @@ const BettingTable = (props) => {
           {props.betHistoryData.map((currentBet, index) => (
             <tr
               className="text-sm border border-secondary"
-              key={currentBet.name}
+              key={currentBet.id}
               id={index}
             >
               {localStorage.getItem("username") === currentBet.betCreator && (
                 <td>
                   <Trash
                     style={{ cursor: "pointer" }}
-                    onClick={() => deleteCurrentBet(currentBet.id)}
+                    onClick={() =>
+                      deleteCurrentBet(currentBet.id, currentBet.name)
+                    }
                   />
                 </td>
               )}
-              <td>{currentBet.betCreator}</td>
+              <td className="text-center">{currentBet.betCreator}</td>
               <td className="text-center">
-                <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
-                UTC
+                <Moment format="YYYY/MM/DD h:mm A">
+                  {currentBet.deadline}
+                </Moment>
               </td>
               <td
                 style={{ cursor: "pointer" }}
                 onClick={() => openDescriptionModal(currentBet.description)}
+                className="text-center"
               >
                 {currentBet.name}
               </td>
               <td>
-                <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
-                UTC
+                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
               </td>
               <td>{currentBet.size}</td>
               <td>{currentBet.currentBets}</td>
@@ -243,7 +268,7 @@ const BettingTable = (props) => {
           {filteredBets.map((currentBet, index) => (
             <tr
               className="text-sm border border-secondary"
-              key={currentBet.name}
+              key={currentBet.id}
               id={index}
             >
               {localStorage.getItem("username") === currentBet.betCreator && (
@@ -255,16 +280,16 @@ const BettingTable = (props) => {
                 </td>
               )}
               <td>{currentBet.betCreator}</td>
-              <td className="text-center">
-                <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
-                UTC
+              <td>
+                <Moment format="YYYY/MM/DD h:mm A">
+                  {currentBet.deadline}
+                </Moment>
               </td>
               <td onClick={() => openDescriptionModal(currentBet.description)}>
                 {currentBet.name}
               </td>
               <td>
-                <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
-                UTC
+                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
               </td>
               <td>{currentBet.size}</td>
               <td>{currentBet.currentBets}</td>

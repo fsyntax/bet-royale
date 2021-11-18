@@ -1,9 +1,13 @@
+import Moment from "react-moment";
+
 const BetHistoryTable = (props) => {
   return (
-    <table className="w-full table table-dark table-striped text-white border border-secondary">
+    <table className="w-100 table table-dark table-hover text-white border border-secondary">
       <thead>
         <tr>
           <th>Name</th>
+          <th>Deadline</th>
+          <th>Results</th>
           <th>Result</th>
           <th>Value</th>
         </tr>
@@ -11,9 +15,15 @@ const BetHistoryTable = (props) => {
       <tbody>
         {props.data.map((betLog) => (
           <tr className="text-sm hover:bg-indigo-400" key={betLog.name}>
-            <th>{betLog.name}</th>
-            <th>Some Result</th>
-            <th>{betLog.size}</th>
+            <td>{betLog.name}</td>
+            <td>
+              <Moment format="YYYY/MM/DD h:mm A">{betLog.deadline}</Moment>
+            </td>
+            <td>
+              <Moment format="YYYY/MM/DD h:mm A">{betLog.results}</Moment>
+            </td>
+            <td>Some Result</td>
+            <td>{betLog.size}</td>
           </tr>
         ))}
       </tbody>
