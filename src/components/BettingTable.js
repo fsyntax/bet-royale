@@ -14,7 +14,6 @@ const BettingTable = (props) => {
   const [metamaskModal, setMetamaskModal] = useState(false);
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
-  const [transactionResponse, setTransactionResponse] = useState([]);
 
   useEffect(() => {
     const currentBets = props.data;
@@ -38,19 +37,13 @@ const BettingTable = (props) => {
 
   async function placeBet(data) {
     await handleBet({
-      setTransactionResponse,
       amount: data.size,
       address: "0x8192b322276B0E19B26bd1A25C1Ccc03Be0ef31E",
       objData: data,
     });
   }
 
-  async function handleBet({
-    setTransactionResponse,
-    amount,
-    address,
-    objData,
-  }) {
+  async function handleBet({ amount, address, objData }) {
     if (!window.ethereum) {
       setMetamaskModal(true);
       setDescription("Please install Metamask!");
@@ -65,12 +58,10 @@ const BettingTable = (props) => {
 
     ethers.utils.getAddress(address);
 
-    const transactionResponse = await signer.sendTransaction({
+    await signer.sendTransaction({
       to: address,
       value: ethers.utils.parseEther(amount),
     });
-
-    setTransactionResponse([transactionResponse]);
 
     console.log(objData.id);
 
@@ -230,7 +221,12 @@ const BettingTable = (props) => {
                 <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
                 UTC
               </td>
-              <td>{currentBet.name}</td>
+              <td
+                style={{ cursor: "pointer" }}
+                onClick={() => openDescriptionModal(currentBet.description)}
+              >
+                {currentBet.name}
+              </td>
               <td>
                 <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
                 UTC
@@ -263,7 +259,9 @@ const BettingTable = (props) => {
                 <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
                 UTC
               </td>
-              <td>{currentBet.name}</td>
+              <td onClick={() => openDescriptionModal(currentBet.description)}>
+                {currentBet.name}
+              </td>
               <td>
                 <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
                 UTC
