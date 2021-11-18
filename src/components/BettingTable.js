@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
@@ -13,7 +13,28 @@ const BettingTable = (props) => {
   const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [metamaskModal, setMetamaskModal] = useState(false);
   const [description, setDescription] = useState("");
+  const [filteredBets, setFilteredBets] = useState([]);
   const [transactionResponse, setTransactionResponse] = useState([]);
+
+  useEffect(() => {
+    const currentBets = props.data;
+    const betHistory = props.betHistoryData;
+
+    console.clear();
+    console.log(currentBets);
+    console.log(betHistory);
+
+    const historyIds = betHistory.map((a) => a.id);
+    console.log(historyIds);
+
+    const remainingIds = currentBets.filter(
+      (cb) => !historyIds.includes(cb.id)
+    );
+
+    console.log(remainingIds);
+
+    setFilteredBets(remainingIds);
+  }, [props.data, props.betHistoryData]);
 
   async function placeBet(data) {
     await handleBet({
@@ -180,7 +201,6 @@ const BettingTable = (props) => {
       <table className="w-full table table-dark table-striped text-white border border-secondary">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col"></th>
             <th scope="col">Bet Creator</th>
             <th scope="col">RoyBet Deadline</th>
@@ -191,18 +211,12 @@ const BettingTable = (props) => {
           </tr>
         </thead>
         <tbody className="text-white text-center">
-          {props.data.map((currentBet, index) => (
+          {props.betHistoryData.map((currentBet, index) => (
             <tr
               className="text-sm border border-secondary"
               key={currentBet.name}
               id={index}
             >
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => openDescriptionModal(currentBet.description)}
-              >
-                {index + 1}
-              </td>
               {localStorage.getItem("username") === currentBet.betCreator && (
                 <td>
                   <Trash
@@ -224,7 +238,39 @@ const BettingTable = (props) => {
               <td>{currentBet.size}</td>
               <td>{currentBet.currentBets}</td>
               <td>
-                {console.log(betState)}
+                <button className="outline-none btn btn-danger rounded bg-red-400 text-white p-3 m-2">
+                  Bet Placed
+                </button>
+              </td>
+            </tr>
+          ))}
+          {filteredBets.map((currentBet, index) => (
+            <tr
+              className="text-sm border border-secondary"
+              key={currentBet.name}
+              id={index}
+            >
+              {localStorage.getItem("username") === currentBet.betCreator && (
+                <td>
+                  <Trash
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteCurrentBet(currentBet.id)}
+                  />
+                </td>
+              )}
+              <td>{currentBet.betCreator}</td>
+              <td className="text-center">
+                <Moment format="YYYY/MM/DD HH:mm">{currentBet.deadline}</Moment>{" "}
+                UTC
+              </td>
+              <td>{currentBet.name}</td>
+              <td>
+                <Moment format="YYYY/MM/DD HH:mm">{currentBet.results}</Moment>{" "}
+                UTC
+              </td>
+              <td>{currentBet.size}</td>
+              <td>{currentBet.currentBets}</td>
+              <td>
                 {!betState.includes(currentBet.id) && (
                   <button
                     className="outline-none btn btn-success rounded bg-green-400 text-white p-3 m-2"

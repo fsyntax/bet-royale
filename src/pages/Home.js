@@ -6,6 +6,7 @@ import BetService from "../api/Bet";
 
 const Home = () => {
   const [currentBets, setCurrentBets] = useState([]);
+  const [betHistory, setBetHistory] = useState([]);
 
   useEffect(() => {
     BetService.getInstance()
@@ -26,11 +27,30 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    BetService.getInstance()
+      .getBetHistory()
+      .then((data) => {
+        const betHistoryLogs = [];
+
+        for (const key in data) {
+          const betHistoryLog = {
+            id: key,
+            ...data[key],
+          };
+
+          betHistoryLogs.push(betHistoryLog);
+        }
+
+        setBetHistory(betHistoryLogs);
+      });
+  }, []);
+
   return (
     <div className="container d-flex align-items-center flex-column h-100 w-100">
       <h1 className="text-4xl mb-5">RoyBet Centre</h1>
       <div className="mt-10 w-100 d-flex justify-items-center align-items-center">
-        <BettingTable data={currentBets} />
+        <BettingTable data={currentBets} betHistoryData={betHistory} />
       </div>
     </div>
   );
