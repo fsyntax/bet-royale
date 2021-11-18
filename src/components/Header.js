@@ -171,7 +171,7 @@ const Header = () => {
               target="_blank"
               rel="noreferrer"
               id="login"
-              href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=identify"
+              href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
             >
               Link With Discord!
               <img
