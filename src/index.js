@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import "./index.css";
+import "./index.scss";
+import "./styles/variables.scss";
 import App from "./App";
 
 // import Web3 from "web3";

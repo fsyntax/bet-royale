@@ -1,0 +1,5 @@
+@import 'variables.scss';
+
+#main-container {
+    margin-top: calc($headerHeight + 1em);
+}

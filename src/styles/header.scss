@@ -1,0 +1,12 @@
+@import 'variables.scss';
+
+
+.header-logo--wrapper {
+  display: flex;
+  align-items: center;
+
+  .header-logo--text {
+    font-size: 1.6em;
+    margin-left: 1em;
+  }
+}
