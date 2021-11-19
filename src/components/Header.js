@@ -156,7 +156,7 @@ const Header = (props) => {
                   </div>
                 )}
                 {!localStorage.getItem("address") && (
-                  <div style={{ marginLeft: "15px" }}>
+                  <div style={{ marginRight: "15px" }}>
                     <button
                       onClick={connectToWallet}
                       className="btn btn-success ml-3"
