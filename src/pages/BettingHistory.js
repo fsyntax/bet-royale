@@ -27,7 +27,7 @@ const BettingHistory = () => {
   }, []);
 
   return (
-    <div className="container d-flex align-items-center flex-column">
+    <div className="container d-flex align-items-center flex-column pt-5">
       <h1 className="text-4xl">Betting History</h1>
       <div className="my-10 w-100 d-flex justify-items-end align-items-center">
         <div className="d-flex flex-column">

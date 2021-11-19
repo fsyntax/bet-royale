@@ -41,37 +41,43 @@ const BettingTable = (props) => {
   }
 
   async function handleBet({ amount, address, objData }) {
-    if (!window.ethereum) {
-      setMetamaskModal(true);
-      setDescription("Please install Metamask!");
-      return;
+    try {
+      if (!window.ethereum) {
+        setMetamaskModal(true);
+        setDescription("Please install Metamask!");
+        return;
+      }
+
+      if (!localStorage.getItem("address")) {
+        setMetamaskModal(true);
+        setDescription("Please connect your wallet!");
+        return;
+      }
+
+      await window.ethereum.send("eth_requestAccounts");
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      const signer = provider.getSigner();
+
+      ethers.utils.getAddress(address);
+
+      await signer.sendTransaction({
+        to: address,
+        value: ethers.utils.parseEther(amount),
+      });
+
+      setBetToast(true);
+      setBetToastDescription("This bet has been successfully placed!");
+
+      setBetState([...betState, objData.id]);
+
+      BetService.getInstance().logBet(objData);
+    } catch (error) {
+      console.clear();
+      setBetToast(true);
+      setBetToastDescription("Bet successfully rejected");
     }
-
-    if (!localStorage.getItem("address")) {
-      setMetamaskModal(true);
-      setDescription("Please connect your wallet!");
-      return;
-    }
-
-    await window.ethereum.send("eth_requestAccounts");
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-    const signer = provider.getSigner();
-
-    ethers.utils.getAddress(address);
-
-    await signer.sendTransaction({
-      to: address,
-      value: ethers.utils.parseEther(amount),
-    });
-
-    setBetToast(true);
-    setBetToastDescription("This bet has been successfully placed!");
-
-    setBetState([...betState, objData.id]);
-
-    BetService.getInstance().logBet(objData);
   }
 
   function openDescriptionModal(description) {
@@ -199,11 +205,11 @@ const BettingTable = (props) => {
           style={{ marginRight: "20px", marginBottom: "20px" }}
         >
           <div className="bg-white text-black rounded">
-            <div className="toast-header">
+            <div className="toast-header bg-success text-white">
               <strong className="me-auto">Alert</strong>
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-white"
                 data-bs-dismiss="toast"
                 aria-label="Close"
                 onClick={closeBetToast}

@@ -11,7 +11,6 @@ const Header = (props) => {
   const [modal, setModal] = useState(false);
   const [description, setDescription] = useState("");
 
-
   function connectToWallet() {
     if (window.ethereum) {
       window.ethereum
@@ -89,8 +88,15 @@ const Header = (props) => {
           </div>
         </div>
       </Modal>
-
-      <Navbar className="main-navbar" collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
+      <Navbar
+        className="main-navbar p-3"
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        fixed="top"
+        style={{ marginBottom: "15px" }}
+      >
         <Container>
           <Navbar.Brand href="#home" className="header-logo--wrapper">
             <img
@@ -99,44 +105,50 @@ const Header = (props) => {
               src={logo}
               alt="logo"
             />
-            <span className="header-logo--text">
-              BetRoyale
-            </span>
+            <span className="header-logo--text">BetRoyale</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="main-navbar-nav" />
           <Navbar.Collapse id="main-navbar-nav">
-            <Nav className="me-auto">
-              <Link className={
-                location.pathname === "/"
-                  ? "pr-3 text-danger text-decoration-none"
-                  : "pr-3 text-white text-decoration-none"
-              }
+            <Nav className="me-auto d-flex">
+              <Link
+                className={
+                  location.pathname === "/"
+                    ? "pr-3 text-danger text-decoration-none"
+                    : "pr-3 text-white text-decoration-none"
+                }
+                style={{ marginRight: "15px" }}
                 to="/"
               >
-                Home</Link>
-              <Link className={
-                location.pathname === "/createBet"
-                  ? "pr-3 text-danger text-decoration-none"
-                  : "pr-3 text-white text-decoration-none"
-              }
+                Home
+              </Link>
+              <Link
+                className={
+                  location.pathname === "/createBet"
+                    ? "pr-3 text-danger text-decoration-none"
+                    : "pr-3 text-white text-decoration-none"
+                }
+                style={{ marginRight: "15px" }}
                 to="/createBet"
               >
-                Create Bet</Link>
-              <Link className={
-                location.pathname === "/bettingHistory"
-                  ? "pr-3 text-danger text-decoration-none"
-                  : "pr-3 text-white text-decoration-none"
-              }
+                Create Bet
+              </Link>
+              <Link
+                className={
+                  location.pathname === "/bettingHistory"
+                    ? "text-danger text-decoration-none"
+                    : "text-white text-decoration-none"
+                }
                 to="/bettingHistory"
               >
-                Betting History</Link>
+                Betting History
+              </Link>
             </Nav>
             <Nav>
-              <Nav.Item >
+              <Nav.Item className="d-flex">
                 {localStorage.getItem("address") && (
                   <div
                     className="ml-3 d-flex flex-column"
-                    style={{ marginLeft: "15px" }}
+                    style={{ marginRight: "15px" }}
                   >
                     <button className="btn btn-secondary">
                       Address: {localStorage.getItem("shortenedAddress")}
@@ -154,18 +166,21 @@ const Header = (props) => {
                   </div>
                 )}
                 {localStorage.getItem("username") && (
-                  <div style={{ marginLeft: "15px" }}>
+                  <div>
                     <button className="btn btn-primary">
                       {localStorage.getItem("username")}
                     </button>
                   </div>
-                )}</Nav.Item>
+                )}
+              </Nav.Item>
               {!localStorage.getItem("username") && (
-                <Nav.Link className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
+                <Nav.Link
+                  className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
                   target="_blank"
                   rel="noreferrer"
-                  id="login" href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify">
-
+                  id="login"
+                  href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
+                >
                   Link With Discord!
                   <img
                     className="ml-3 d-inline img-fluid"

@@ -65,7 +65,7 @@ const CreateBet = () => {
   }
 
   return (
-    <div className="container d-flex align-items-center flex-column">
+    <div className="container d-flex align-items-center flex-column pt-5">
       <Modal show={modal}>
         <div className="modal-content">
           <div className="modal-header">
