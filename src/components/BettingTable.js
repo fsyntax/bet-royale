@@ -47,6 +47,12 @@ const BettingTable = (props) => {
       return;
     }
 
+    if (!localStorage.getItem("address")) {
+      setMetamaskModal(true);
+      setDescription("Please connect your wallet!");
+      return;
+    }
+
     await window.ethereum.send("eth_requestAccounts");
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,11 +71,7 @@ const BettingTable = (props) => {
 
     setBetState([...betState, objData.id]);
 
-    if (localStorage.getItem("address")) {
-      BetService.getInstance().logBet(objData);
-    } else {
-      setDescription("Please connect your wallet!");
-    }
+    BetService.getInstance().logBet(objData);
   }
 
   function openDescriptionModal(description) {
@@ -211,16 +213,28 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <table className="w-full table table-dark table-hover text-white border border-secondary">
+      <table className="w-100 table table-dark table-hover text-white border border-secondary">
         <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col">Bet Creator</th>
-            <th scope="col">RoyBet Deadline</th>
-            <th scope="col">RoyBet Name</th>
-            <th scope="col">Result Time</th>
-            <th scope="col">Bet Size</th>
-            <th scope="col">Players/Pot so far</th>
+            <th className="text-center" scope="col">
+              Bet Creator
+            </th>
+            <th className="text-center" scope="col">
+              RoyBet Deadline
+            </th>
+            <th className="text-center" scope="col">
+              RoyBet Name
+            </th>
+            <th className="text-center" scope="col">
+              Result Time
+            </th>
+            <th className="text-center" scope="col">
+              Bet Size
+            </th>
+            <th className="text-center" scope="col">
+              Players/Pot so far
+            </th>
           </tr>
         </thead>
         <tbody className="text-white text-center">
@@ -230,7 +244,7 @@ const BettingTable = (props) => {
               key={currentBet.id}
               id={index}
             >
-              {localStorage.getItem("username") === currentBet.betCreator && (
+              {localStorage.getItem("username") === currentBet.betCreator ? (
                 <td>
                   <Trash
                     style={{ cursor: "pointer" }}
@@ -239,6 +253,8 @@ const BettingTable = (props) => {
                     }
                   />
                 </td>
+              ) : (
+                <td></td>
               )}
               <td className="text-center">{currentBet.betCreator}</td>
               <td className="text-center">
@@ -271,13 +287,17 @@ const BettingTable = (props) => {
               key={currentBet.id}
               id={index}
             >
-              {localStorage.getItem("username") === currentBet.betCreator && (
+              {localStorage.getItem("username") === currentBet.betCreator ? (
                 <td>
                   <Trash
                     style={{ cursor: "pointer" }}
-                    onClick={() => deleteCurrentBet(currentBet.id)}
+                    onClick={() =>
+                      deleteCurrentBet(currentBet.id, currentBet.name)
+                    }
                   />
                 </td>
+              ) : (
+                <td></td>
               )}
               <td>{currentBet.betCreator}</td>
               <td>
@@ -285,7 +305,10 @@ const BettingTable = (props) => {
                   {currentBet.deadline}
                 </Moment>
               </td>
-              <td onClick={() => openDescriptionModal(currentBet.description)}>
+              <td
+                style={{ cursor: "pointer" }}
+                onClick={() => openDescriptionModal(currentBet.description)}
+              >
                 {currentBet.name}
               </td>
               <td>
@@ -296,14 +319,14 @@ const BettingTable = (props) => {
               <td>
                 {!betState.includes(currentBet.id) && (
                   <button
-                    className="outline-none btn btn-success rounded bg-green-400 text-white p-3 m-2"
+                    className="outline-none btn btn-success rounded text-white p-3 m-2"
                     onClick={() => placeBet(currentBet)}
                   >
                     Place Bet
                   </button>
                 )}
                 {betState.includes(currentBet.id) && (
-                  <button className="outline-none btn btn-danger rounded bg-red-400 text-white p-3 m-2">
+                  <button className="outline-none btn btn-danger rounded text-white p-3 m-2">
                     Bet Placed
                   </button>
                 )}
