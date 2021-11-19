@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Modal, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Modal, Navbar, Nav, Container } from "react-bootstrap";
 
 import logo from "../images/logo.png";
 import discord from "../images/discord.svg";
@@ -106,30 +106,30 @@ const Header = (props) => {
           <Navbar.Toggle aria-controls="main-navbar-nav" />
           <Navbar.Collapse id="main-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className={
+              <Link className={
                 location.pathname === "/"
                   ? "pr-3 text-danger text-decoration-none"
                   : "pr-3 text-white text-decoration-none"
               }
                 to="/"
               >
-                Home</Nav.Link>
-              <Nav.Link className={
+                Home</Link>
+              <Link className={
                 location.pathname === "/createBet"
                   ? "pr-3 text-danger text-decoration-none"
                   : "pr-3 text-white text-decoration-none"
               }
                 to="/createBet"
               >
-                Create Bet</Nav.Link>
-              <Nav.Link className={
+                Create Bet</Link>
+              <Link className={
                 location.pathname === "/bettingHistory"
                   ? "pr-3 text-danger text-decoration-none"
                   : "pr-3 text-white text-decoration-none"
               }
                 to="/bettingHistory"
               >
-                Betting History</Nav.Link>
+                Betting History</Link>
             </Nav>
             <Nav>
               <Nav.Item >
