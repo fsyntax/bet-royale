@@ -174,7 +174,7 @@ const Header = (props) => {
                 )}
               </Nav.Item>
               {!localStorage.getItem("username") && (
-                <Nav.Link
+                <a
                   className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
                   target="_blank"
                   rel="noreferrer"
@@ -188,7 +188,7 @@ const Header = (props) => {
                     src={discord}
                     alt="discord"
                   />
-                </Nav.Link>
+                </a>
               )}
             </Nav>
           </Navbar.Collapse>

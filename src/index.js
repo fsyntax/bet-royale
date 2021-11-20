@@ -4,14 +4,6 @@ import "./index.scss";
 import "./styles/variables.scss";
 import App from "./App";
 
-// import Web3 from "web3";
-
-// import { Web3ReactProvider } from "@web3-react/core";
-
-// function getLibrary(provider) {
-//   return new Web3(provider);
-// }
-
 ReactDOM.render(
   <BrowserRouter>
     <App />
