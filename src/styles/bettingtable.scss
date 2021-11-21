@@ -1,0 +1,76 @@
+@import 'variables.scss';
+
+.betting-table {
+    &__bet {
+        background: var(--c-dark-lighten);
+        padding: 1em;
+        margin: 1.5em 0;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+        &__name {
+            border-bottom: 1px solid var(--roy-primary);
+            padding-bottom: .3em;
+            margin-bottom: .3em;
+        }
+
+        &__footer {
+            border-top: 1px solid var(--roy-primary);
+            padding-top: .3em;
+            margin-top: .3em;
+
+            &__creator {
+                font-size: .8em;
+                font-style: italic;
+            }
+        }
+
+        &__body {
+            &__desc {
+                p {
+                    margin: 1em 0;
+
+                    button {
+                        appearance: none;
+                        outline: none;
+                        border: none;
+                        background: none;
+                        padding: 0;
+                        color: var(--roy-secondary);
+                        font-weight: 400;
+                        font-size: .9em;
+                        text-decoration: underline;
+
+                    }
+                }
+
+            }
+
+            &__data {
+                ul {
+                    list-style: none;
+                    padding: 0;
+
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+            }
+
+            &__placebet {
+                margin-bottom: 1em;
+
+                .btn {
+                    width: 100%;
+                    background: var(--roy-primary);
+
+                    &.placed {
+                        background: var(--roy-secondary);
+                    }
+                }
+            }
+        }
+    }
+
+}

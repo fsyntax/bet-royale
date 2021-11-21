@@ -4,6 +4,7 @@ import BettingTable from "../components/BettingTable";
 
 import BetService from "../api/Bet";
 
+
 const Home = () => {
   const [currentBets, setCurrentBets] = useState([]);
   const [betHistory, setBetHistory] = useState([]);

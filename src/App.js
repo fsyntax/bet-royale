@@ -8,6 +8,7 @@ import BettingHistory from "./pages/BettingHistory";
 import "./styles/header.scss";
 import "./index.scss";
 import "./styles/main.scss";
+import './styles/bettingtable.scss';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

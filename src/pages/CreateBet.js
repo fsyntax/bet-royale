@@ -14,6 +14,7 @@ const CreateBet = () => {
   const betValueInputRef = useRef();
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
+  const shortDescriptionInputRef = useRef();
 
   const history = useHistory();
 
@@ -24,6 +25,7 @@ const CreateBet = () => {
     const currentBetValue = betValueInputRef.current.value;
     const currentTitle = titleInputRef.current.value;
     const currentDescription = descriptionInputRef.current.value;
+    const currentShortDescription = shortDescriptionInputRef.current.value;
 
     if (!localStorage.getItem("username")) {
       setModal(true);
@@ -183,6 +185,18 @@ const CreateBet = () => {
               id="description"
               placeholder="Description"
               ref={descriptionInputRef}
+            ></textarea>
+          </div>
+          <div className="w-100">
+            <label htmlFor="short-description" className="d-block">
+              Short Description:
+            </label>
+            <textarea
+              maxLength="75"
+              className="form-control w-100"
+              id="short-description"
+              placeholder="Short description"
+              ref={shortDescriptionInputRef}
             ></textarea>
           </div>
         </div>

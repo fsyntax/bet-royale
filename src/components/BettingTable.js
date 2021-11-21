@@ -220,6 +220,95 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
+
+      <div id="betting-table" className="container betting-table w-100">
+        {props.betHistoryData.map((currentBet, index) => (
+          <div className="betting-table__bet" key={currentBet.id} index={index}>
+            <div className="betting-table__bet__header">
+              <h3 className="betting-table__bet__name">
+                {currentBet.name}
+              </h3>
+            </div>
+            <div className="betting-table__bet__body">
+              <div className="betting-table__bet__body__desc">
+                <p>
+                  {currentBet.description}<br />
+                  <button onClick={() => openDescriptionModal(currentBet.description)}
+                  >Read full description</button>
+                </p>
+              </div>
+              <div className="betting-table__bet__body__data">
+                <h4>About the Bet</h4>
+                <ul>
+                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
+                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
+                  <li><span>Bet Size: </span>{currentBet.size}</li>
+                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                </ul>
+              </div>
+              <div className="betting-table__bet__body__placebet">
+
+                <button className="outline-none btn placed">
+                  Bet Placed
+                </button>
+              </div>
+            </div>
+            <div className="betting-table__bet__footer">
+              <div className="betting-table__bet__footer__creator">
+                Bet created by {currentBet.betCreator}
+              </div>
+            </div>
+          </div>
+        ))}
+        {filteredBets.map((currentBet, index) => (
+          <div className="betting-table__bet" key={currentBet.id} index={index}>
+            <div className="betting-table__bet__header">
+              <h3 className="betting-table__bet__name">
+                {currentBet.name}
+              </h3>
+            </div>
+            <div className="betting-table__bet__body">
+              <div className="betting-table__bet__body__desc">
+                <p>
+                  {currentBet.description}<br />
+                  <button onClick={() => openDescriptionModal(currentBet.description)}
+                  >Read full description</button>
+                </p>
+              </div>
+              <div className="betting-table__bet__body__data">
+                <h4>About the Bet</h4>
+                <ul>
+                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
+                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
+                  <li><span>Bet Size: </span>{currentBet.size}</li>
+                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                </ul>
+              </div>
+              <div className="betting-table__bet__body__placebet">
+                {!betState.includes(currentBet.id) && (
+                  <button
+                    className="outline-none btn"
+                    onClick={() => placeBet(currentBet)}
+                  >
+                    Place Bet
+                  </button>
+                )}
+                {betState.includes(currentBet.id) && (
+                  <button className="outline-none btn placed">
+                    Bet Placed
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="betting-table__bet__footer">
+              <div className="betting-table__bet__footer__creator">
+                Bet created by {currentBet.betCreator}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <Table responsive className="w-100 table table-dark table-hover text-white border border-secondary">
         <thead>
           <tr>
@@ -288,24 +377,14 @@ const BettingTable = (props) => {
               </td>
             </tr>
           ))}
+
           {filteredBets.map((currentBet, index) => (
             <tr
               className="text-sm border border-secondary"
               key={currentBet.id}
               id={index}
             >
-              {localStorage.getItem("username") === currentBet.betCreator ? (
-                <td>
-                  <Trash
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      deleteCurrentBet(currentBet.id, currentBet.name)
-                    }
-                  />
-                </td>
-              ) : (
-                <td></td>
-              )}
+
               <td>{currentBet.betCreator}</td>
               <td>
                 <Moment format="YYYY/MM/DD h:mm A">

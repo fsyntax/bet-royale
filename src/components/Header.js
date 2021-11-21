@@ -166,7 +166,7 @@ const Header = (props) => {
 
                 >
                   <button className="btn btn-secondary">
-                    Address: {localStorage.getItem("shortenedAddress")}
+                    {localStorage.getItem("shortenedAddress")}
                   </button>
                 </div>
               )}
