@@ -8,6 +8,7 @@ const CreateBet = () => {
   const [modal, setModal] = useState(false);
   const [description, setDescription] = useState("");
 
+  const betChoicesInputRef = useRef();
   const deadlineInputRef = useRef();
   const resultsInputRef = useRef();
   const maxBettersInputRef = useRef();
@@ -18,6 +19,7 @@ const CreateBet = () => {
   const history = useHistory();
 
   function createBet() {
+    const currentChoices = betChoicesInputRef.current.value;
     const currentDeadline = deadlineInputRef.current.value;
     const currentResults = resultsInputRef.current.value;
     const currentMaxBetters = maxBettersInputRef.current.value;
@@ -32,6 +34,7 @@ const CreateBet = () => {
     }
 
     if (
+      currentChoices === "" ||
       currentDeadline === "" ||
       currentResults === "" ||
       currentMaxBetters === "" ||
@@ -44,6 +47,7 @@ const CreateBet = () => {
     }
 
     const data = {
+      choices: currentChoices,
       deadline: currentDeadline,
       name: currentTitle,
       description: currentDescription,
@@ -184,6 +188,22 @@ const CreateBet = () => {
               placeholder="Description"
               ref={descriptionInputRef}
             ></textarea>
+          </div>
+        </div>
+        <div className="w-100 d-flex mt-3">
+          <div className="w-100">
+            <label htmlFor="results" className="d-block">
+              RoyBet Choices:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="RoyBet Choices"
+              aria-label="Results"
+              id="results"
+              aria-describedby="basic-addon1"
+              ref={betChoicesInputRef}
+            />
           </div>
         </div>
         <div className="mt-5 d-flex justify-items-center align-items-center w-100">

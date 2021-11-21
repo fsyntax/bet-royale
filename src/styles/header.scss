@@ -9,7 +9,7 @@
     margin-left: 1em;
 
     @media screen and (min-width: $screen-lg) {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
   }
 }
@@ -23,11 +23,11 @@
   }
 
   &__block {
-    padding: .5em 0;
+    padding: 0.5em 0;
   }
 
   &__item {
-    margin: .3em 0;
+    margin: 0.3em 0;
 
     @media (min-width: $screen-lg) {
       margin-right: 1em;
@@ -36,7 +36,7 @@
 
   &__icon {
     font-size: 1.3em;
-    margin-right: .5em;
+    margin-right: 0.5em;
 
     @media (min-width: $screen-lg) {
       display: none;
@@ -44,7 +44,6 @@
   }
 
   &__connect {
-
     .main-nav__item,
     button,
     a {
@@ -55,7 +54,6 @@
     }
   }
 }
-
 
 $stroke-color: lightseagreen;
 

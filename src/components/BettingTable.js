@@ -12,10 +12,14 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
+  const [betData, setBetData] = useState();
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [metamaskModal, setMetamaskModal] = useState(false);
   const [betToast, setBetToast] = useState(false);
+  const [betOptionModal, setBetOptionModal] = useState(false);
+  const [betOptions, setBetOptions] = useState("");
+  const [selectedBetOption, setSelectedBetOption] = useState("");
   const [betToastDescription, setBetToastDescription] = useState("");
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
@@ -68,12 +72,18 @@ const BettingTable = (props) => {
         value: ethers.utils.parseEther(amount),
       });
 
+      setBetOptionModal(false);
+      setBetOptions("");
+      setSelectedBetOption("");
+
       setBetToast(true);
       setBetToastDescription("This bet has been successfully placed!");
 
       setBetState([...betState, objData.id]);
 
       BetService.getInstance().logBet(objData);
+
+      setBetData();
     } catch (error) {
       console.clear();
       setBetToast(true);
@@ -99,8 +109,6 @@ const BettingTable = (props) => {
   }
 
   function deleteCurrentBet(id, name) {
-    console.log(id);
-
     setBetDeleteModal(true);
     setDescription(`Are you sure you want to delete '${name}'?`);
 
@@ -111,6 +119,32 @@ const BettingTable = (props) => {
 
   function closeBetToast() {
     setBetToast(false);
+  }
+
+  function closeBetOptionModal() {
+    setBetOptionModal(false);
+  }
+
+  function openBetOptionModal(bet) {
+    setBetData(bet);
+
+    let newOptions = bet.choices.split(",");
+
+    setBetOptionModal(true);
+    setBetOptions(newOptions);
+  }
+
+  function changeBetOption(e) {
+    setSelectedBetOption(e.target.value);
+  }
+
+  function betOnOption(bet) {
+    if (selectedBetOption !== "") {
+      bet.selectedOption = selectedBetOption;
+      placeBet(bet);
+    } else {
+      return;
+    }
   }
 
   return (
@@ -137,6 +171,44 @@ const BettingTable = (props) => {
               onClick={closeDescriptionModal}
             >
               Close
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal show={betOptionModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Options</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeBetOptionModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <select
+              className="form-select"
+              onChange={changeBetOption}
+              name=""
+              id=""
+            >
+              {betOptions &&
+                betOptions.map((option) => (
+                  <option key={option} value={option} defaultValue>
+                    {option}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={() => betOnOption(betData)}
+            >
+              Bet
             </button>
           </div>
         </div>
@@ -220,7 +292,10 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <Table responsive className="w-100 table table-dark table-hover text-white border border-secondary">
+      <Table
+        responsive
+        className="w-100 table table-dark table-hover text-white border border-secondary"
+      >
         <thead>
           <tr>
             <th scope="col"></th>
@@ -327,7 +402,7 @@ const BettingTable = (props) => {
                 {!betState.includes(currentBet.id) && (
                   <button
                     className="outline-none btn btn-success rounded text-white p-3 m-2"
-                    onClick={() => placeBet(currentBet)}
+                    onClick={() => openBetOptionModal(currentBet)}
                   >
                     Place Bet
                   </button>
