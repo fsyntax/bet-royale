@@ -101,7 +101,6 @@ const Header = (props) => {
         bg="dark"
         variant="dark"
         fixed="top"
-        style={{ marginBottom: "15px" }}
         expanded={expanded}
       >
         <Container>
@@ -126,7 +125,7 @@ const Header = (props) => {
           <Navbar.Collapse id="main-navbar-nav" className="main-nav">
             <Nav className="main-nav__block">
               <Link
-                onClick={() => setExpanded(false)}
+                onClick={() => { setExpanded(false); animHamMenu(); }}
                 className={
                   location.pathname === "/"
                     ? "pr-3 text-danger text-decoration-none main-nav__item"
@@ -137,21 +136,19 @@ const Header = (props) => {
                 <HouseFill className="main-nav__icon" /> Home
               </Link>
               <Link
-                onClick={() => setExpanded(false)}
+                onClick={() => { setExpanded(false); animHamMenu(); }}
 
                 className={
                   location.pathname === "/createBet"
                     ? "pr-3 text-danger text-decoration-none main-nav__item"
                     : "pr-3 text-white text-decoration-none main-nav__item"
                 }
-                style={{ marginRight: "15px" }}
                 to="/createBet"
               >
                 <NodePlusFill className="main-nav__icon" />Create Bet
               </Link>
               <Link
-                onClick={() => setExpanded(false)}
-
+                onClick={() => { setExpanded(false); animHamMenu(); }}
                 className={
                   location.pathname === "/bettingHistory"
                     ? "text-danger text-decoration-none main-nav__item"
@@ -162,7 +159,7 @@ const Header = (props) => {
                 <ClockHistory className="main-nav__icon" />Betting History
               </Link>
             </Nav>
-            <Nav className="main-nav--connect">
+            <Nav className="main-nav__connect">
               {localStorage.getItem("address") && (
                 <div
                   className="ml-3 d-flex flex-column main-nav__item"
@@ -193,16 +190,16 @@ const Header = (props) => {
 
               {!localStorage.getItem("username") && (
                 <a
-                  className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center main-nav__item"
+                  className="text-decoration-none btn btn-success main-nav__item"
                   target="_blank"
                   rel="noreferrer"
                   id="login"
                   href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
                 >
-                  Link With Discord!
+                  Discord
                   <img
                     className="ml-3 d-inline img-fluid"
-                    style={{ height: "25px", marginLeft: "15px" }}
+                    style={{ height: "25px", marginLeft: "10px" }}
                     src={discord}
                     alt="discord"
                   />

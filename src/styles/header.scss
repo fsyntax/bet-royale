@@ -7,11 +7,20 @@
   .header-logo--text {
     font-size: 1.6em;
     margin-left: 1em;
+
+    @media screen and (min-width: $screen-lg) {
+      margin-left: .5em;
+    }
   }
 }
 
 .main-nav {
   margin-top: 1em;
+
+  @media screen and (min-width: $screen-lg) {
+    margin-top: 0;
+    justify-content: space-between;
+  }
 
   &__block {
     padding: .5em 0;
@@ -19,23 +28,34 @@
 
   &__item {
     margin: .3em 0;
+
+    @media (min-width: $screen-lg) {
+      margin-right: 1em;
+    }
   }
 
   &__icon {
     font-size: 1.3em;
     margin-right: .5em;
+
+    @media (min-width: $screen-lg) {
+      display: none;
+    }
   }
 
-  .main-nav--connect {
+  &__connect {
 
+    .main-nav__item,
     button,
     a {
+      justify-content: center;
       width: 100%;
       display: flex;
-      justify-content: center;
+      align-items: center;
     }
   }
 }
+
 
 $stroke-color: lightseagreen;
 
