@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
+import { Table } from "react-bootstrap";
 
 import BetService from "../api/Bet";
 
@@ -219,7 +220,7 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <table className="w-100 table table-dark table-hover text-white border border-secondary">
+      <Table responsive className="w-100 table table-dark table-hover text-white border border-secondary">
         <thead>
           <tr>
             <th scope="col"></th>
@@ -340,7 +341,7 @@ const BettingTable = (props) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };
