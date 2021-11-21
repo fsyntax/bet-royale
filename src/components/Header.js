@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Modal, Navbar, Nav, Container } from "react-bootstrap";
-
+import { HouseFill, NodePlusFill, ClockHistory } from "react-bootstrap-icons";
 import logo from "../images/logo.png";
 import discord from "../images/discord.svg";
 
@@ -10,6 +10,8 @@ const Header = (props) => {
 
   const [modal, setModal] = useState(false);
   const [description, setDescription] = useState("");
+
+  const [expanded, setExpanded] = useState(false);
 
   function connectToWallet() {
     if (window.ethereum) {
@@ -60,6 +62,10 @@ const Header = (props) => {
     setModal(false);
   }
 
+  function animHamMenu() {
+    document.querySelector('#hamburger').classList.toggle('open');;
+  }
+
   return (
     <div className="header-wrapper w-100">
       <Modal show={modal}>
@@ -96,6 +102,7 @@ const Header = (props) => {
         variant="dark"
         fixed="top"
         style={{ marginBottom: "15px" }}
+        expanded={expanded}
       >
         <Container>
           <Navbar.Brand href="#home" className="header-logo--wrapper">
@@ -107,75 +114,86 @@ const Header = (props) => {
             />
             <span className="header-logo--text">BetRoyale</span>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="main-navbar-nav" />
-          <Navbar.Collapse id="main-navbar-nav">
-            <Nav className="me-auto d-flex">
+          <Navbar.Toggle
+            onClick={() => { setExpanded(expanded ? false : "expanded"); animHamMenu() }} >
+            <svg id="hamburger" viewBox="0 0 100 100">
+              <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+              <path class="line line2" d="M 20,50 H 80" />
+              <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+            </svg>
+
+          </Navbar.Toggle>
+          <Navbar.Collapse id="main-navbar-nav" className="main-nav">
+            <Nav className="main-nav__block">
               <Link
+                onClick={() => setExpanded(false)}
                 className={
                   location.pathname === "/"
-                    ? "pr-3 text-danger text-decoration-none"
-                    : "pr-3 text-white text-decoration-none"
+                    ? "pr-3 text-danger text-decoration-none main-nav__item"
+                    : "pr-3 text-white text-decoration-none main-nav__item"
                 }
-                style={{ marginRight: "15px" }}
                 to="/"
               >
-                Home
+                <HouseFill className="main-nav__icon" /> Home
               </Link>
               <Link
+                onClick={() => setExpanded(false)}
+
                 className={
                   location.pathname === "/createBet"
-                    ? "pr-3 text-danger text-decoration-none"
-                    : "pr-3 text-white text-decoration-none"
+                    ? "pr-3 text-danger text-decoration-none main-nav__item"
+                    : "pr-3 text-white text-decoration-none main-nav__item"
                 }
                 style={{ marginRight: "15px" }}
                 to="/createBet"
               >
-                Create Bet
+                <NodePlusFill className="main-nav__icon" />Create Bet
               </Link>
               <Link
+                onClick={() => setExpanded(false)}
+
                 className={
                   location.pathname === "/bettingHistory"
-                    ? "text-danger text-decoration-none"
-                    : "text-white text-decoration-none"
+                    ? "text-danger text-decoration-none main-nav__item"
+                    : "text-white text-decoration-none main-nav__item"
                 }
                 to="/bettingHistory"
               >
-                Betting History
+                <ClockHistory className="main-nav__icon" />Betting History
               </Link>
             </Nav>
-            <Nav>
-              <Nav.Item className="d-flex">
-                {localStorage.getItem("address") && (
-                  <div
-                    className="ml-3 d-flex flex-column"
-                    style={{ marginRight: "15px" }}
+            <Nav className="main-nav--connect">
+              {localStorage.getItem("address") && (
+                <div
+                  className="ml-3 d-flex flex-column main-nav__item"
+
+                >
+                  <button className="btn btn-secondary">
+                    Address: {localStorage.getItem("shortenedAddress")}
+                  </button>
+                </div>
+              )}
+              {!localStorage.getItem("address") && (
+                <div className="main-nav__item">
+                  <button
+                    onClick={connectToWallet}
+                    className="btn btn-success ml-3"
                   >
-                    <button className="btn btn-secondary">
-                      Address: {localStorage.getItem("shortenedAddress")}
-                    </button>
-                  </div>
-                )}
-                {!localStorage.getItem("address") && (
-                  <div style={{ marginRight: "15px" }}>
-                    <button
-                      onClick={connectToWallet}
-                      className="btn btn-success ml-3"
-                    >
-                      Connect to a Wallet
-                    </button>
-                  </div>
-                )}
-                {localStorage.getItem("username") && (
-                  <div>
-                    <button className="btn btn-primary">
-                      {localStorage.getItem("username")}
-                    </button>
-                  </div>
-                )}
-              </Nav.Item>
+                    Connect to a Wallet
+                  </button>
+                </div>
+              )}
+              {localStorage.getItem("username") && (
+                <div className="main-nav__item">
+                  <button className="btn btn-primary">
+                    {localStorage.getItem("username")}
+                  </button>
+                </div>
+              )}
+
               {!localStorage.getItem("username") && (
                 <a
-                  className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center"
+                  className="text-decoration-none btn btn-success d-flex justify-items-center align-items-center main-nav__item"
                   target="_blank"
                   rel="noreferrer"
                   id="login"
