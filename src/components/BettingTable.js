@@ -47,18 +47,6 @@ const BettingTable = (props) => {
 
   async function handleBet({ amount, address, objData }) {
     try {
-      if (!window.ethereum) {
-        setMetamaskModal(true);
-        setDescription("Please install Metamask!");
-        return;
-      }
-
-      if (!localStorage.getItem("address")) {
-        setMetamaskModal(true);
-        setDescription("Please connect your wallet!");
-        return;
-      }
-
       await window.ethereum.send("eth_requestAccounts");
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -126,6 +114,18 @@ const BettingTable = (props) => {
   }
 
   function openBetOptionModal(bet) {
+    if (!window.ethereum) {
+      setMetamaskModal(true);
+      setDescription("Please install Metamask!");
+      return;
+    }
+
+    if (!localStorage.getItem("address")) {
+      setMetamaskModal(true);
+      setDescription("Please connect your wallet!");
+      return;
+    }
+
     setBetData(bet);
 
     let newOptions = bet.choices.split(",");
