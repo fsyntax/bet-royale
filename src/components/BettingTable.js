@@ -254,7 +254,7 @@ const BettingTable = (props) => {
               </div>
             </div>
             <div className="betting-table__bet__footer">
-              <div className="betting-table__bet__footer__creator">
+              <div className="betting-table__bet__footer__creator text-center mt-1">
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
@@ -301,7 +301,7 @@ const BettingTable = (props) => {
               </div>
             </div>
             <div className="betting-table__bet__footer">
-              <div className="betting-table__bet__footer__creator">
+              <div className="betting-table__bet__footer__creator text-center mt-1">
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
@@ -309,118 +309,6 @@ const BettingTable = (props) => {
         ))}
       </div>
 
-      <Table responsive className="w-100 table table-dark table-hover text-white border border-secondary">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th className="text-center" scope="col">
-              Bet Creator
-            </th>
-            <th className="text-center" scope="col">
-              RoyBet Deadline
-            </th>
-            <th className="text-center" scope="col">
-              RoyBet Name
-            </th>
-            <th className="text-center" scope="col">
-              Result Time
-            </th>
-            <th className="text-center" scope="col">
-              Bet Size
-            </th>
-            <th className="text-center" scope="col">
-              Players/Pot so far
-            </th>
-          </tr>
-        </thead>
-        <tbody className="text-white text-center">
-          {props.betHistoryData.map((currentBet, index) => (
-            <tr
-              className="text-sm border border-secondary"
-              key={currentBet.id}
-              id={index}
-            >
-              {localStorage.getItem("username") === currentBet.betCreator ? (
-                <td>
-                  <Trash
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      deleteCurrentBet(currentBet.id, currentBet.name)
-                    }
-                  />
-                </td>
-              ) : (
-                <td></td>
-              )}
-              <td className="text-center">{currentBet.betCreator}</td>
-              <td className="text-center">
-                <Moment format="YYYY/MM/DD h:mm A">
-                  {currentBet.deadline}
-                </Moment>
-              </td>
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => openDescriptionModal(currentBet.description)}
-                className="text-center"
-              >
-                {currentBet.name}
-              </td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
-              </td>
-              <td>{currentBet.size}</td>
-              <td>{currentBet.currentBets}</td>
-              <td>
-                <button className="outline-none btn btn-danger rounded bg-red-400 text-white p-3 m-2">
-                  Bet Placed
-                </button>
-              </td>
-            </tr>
-          ))}
-
-          {filteredBets.map((currentBet, index) => (
-            <tr
-              className="text-sm border border-secondary"
-              key={currentBet.id}
-              id={index}
-            >
-
-              <td>{currentBet.betCreator}</td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">
-                  {currentBet.deadline}
-                </Moment>
-              </td>
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => openDescriptionModal(currentBet.description)}
-              >
-                {currentBet.name}
-              </td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
-              </td>
-              <td>{currentBet.size}</td>
-              <td>{currentBet.currentBets}</td>
-              <td>
-                {!betState.includes(currentBet.id) && (
-                  <button
-                    className="outline-none btn btn-success rounded text-white p-3 m-2"
-                    onClick={() => placeBet(currentBet)}
-                  >
-                    Place Bet
-                  </button>
-                )}
-                {betState.includes(currentBet.id) && (
-                  <button className="outline-none btn btn-danger rounded text-white p-3 m-2">
-                    Bet Placed
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
     </div>
   );
 };

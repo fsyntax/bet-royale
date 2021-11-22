@@ -15,6 +15,9 @@ const BetHistoryTable = (props) => {
             Results
           </th>
           <th scope="col" className="text-center">
+            Selected Option
+          </th>
+          <th scope="col" className="text-center">
             Result
           </th>
           <th scope="col" className="text-center">
@@ -32,6 +35,7 @@ const BetHistoryTable = (props) => {
             <td className="text-center">
               <Moment format="YYYY/MM/DD h:mm A">{betLog.results}</Moment>
             </td>
+            <td className="text-center">{betLog.selectedOption}</td>
             <td className="text-center">Some Result</td>
             <td className="text-center">{betLog.size}</td>
           </tr>
