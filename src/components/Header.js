@@ -183,7 +183,7 @@ const Header = (props) => {
               {localStorage.getItem("address") && (
                 <div className="ml-3 d-flex flex-column main-nav__item">
                   <button className="btn btn-secondary">
-                    Address: {localStorage.getItem("shortenedAddress")}
+                    {localStorage.getItem("shortenedAddress")}
                   </button>
                 </div>
               )}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
-import { Table } from "react-bootstrap";
+
 
 import BetService from "../api/Bet";
 
@@ -292,131 +292,103 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <Table
-        responsive
-        className="w-100 table table-dark table-hover text-white border border-secondary"
-      >
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th className="text-center" scope="col">
-              Bet Creator
-            </th>
-            <th className="text-center" scope="col">
-              RoyBet Deadline
-            </th>
-            <th className="text-center" scope="col">
-              RoyBet Name
-            </th>
-            <th className="text-center" scope="col">
-              Result Time
-            </th>
-            <th className="text-center" scope="col">
-              Bet Size
-            </th>
-            <th className="text-center" scope="col">
-              Players/Pot so far
-            </th>
-          </tr>
-        </thead>
-        <tbody className="text-white text-center">
-          {props.betHistoryData.map((currentBet, index) => (
-            <tr
-              className="text-sm border border-secondary"
-              key={currentBet.id}
-              id={index}
-            >
-              {localStorage.getItem("username") === currentBet.betCreator ? (
-                <td>
-                  <Trash
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      deleteCurrentBet(currentBet.id, currentBet.name)
-                    }
-                  />
-                </td>
-              ) : (
-                <td></td>
-              )}
-              <td className="text-center">{currentBet.betCreator}</td>
-              <td className="text-center">
-                <Moment format="YYYY/MM/DD h:mm A">
-                  {currentBet.deadline}
-                </Moment>
-              </td>
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => openDescriptionModal(currentBet.description)}
-                className="text-center"
-              >
+      <div id="betting-table" className="container betting-table w-100">
+        {props.betHistoryData.map((currentBet, index) => (
+          <div className="betting-table__bet" key={currentBet.id} index={index}>
+            <div className="betting-table__bet__header">
+              <h3 className="betting-table__bet__name">    
                 {currentBet.name}
-              </td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
-              </td>
-              <td>{currentBet.size}</td>
-              <td>{currentBet.currentBets}</td>
-              <td>
-                <button className="outline-none btn btn-danger rounded bg-red-400 text-white p-3 m-2">
+              </h3>
+            </div>
+            <div className="betting-table__bet__body">
+              <div className="betting-table__bet__body__desc">
+                <p>
+                  {currentBet.shortDescription}<br />
+                  <button onClick={() => openDescriptionModal(currentBet.description)}
+                  >Read full description</button>
+                </p>
+              </div>
+              <div className="betting-table__bet__body__data">
+                <h4>About the Bet</h4>
+                <ul>
+                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
+                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
+                  <li><span>Bet Size: </span>{currentBet.size}</li>
+                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                </ul>
+              </div>
+              <div className="betting-table__bet__body__placebet">
+
+                <button className="outline-none btn placed">
                   Bet Placed
                 </button>
-              </td>
-            </tr>
-          ))}
-          {filteredBets.map((currentBet, index) => (
-            <tr
-              className="text-sm border border-secondary"
-              key={currentBet.id}
-              id={index}
-            >
-              {localStorage.getItem("username") === currentBet.betCreator ? (
-                <td>
-                  <Trash
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      deleteCurrentBet(currentBet.id, currentBet.name)
-                    }
-                  />
-                </td>
-              ) : (
-                <td></td>
-              )}
-              <td>{currentBet.betCreator}</td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">
-                  {currentBet.deadline}
-                </Moment>
-              </td>
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => openDescriptionModal(currentBet.description)}
-              >
+              </div>
+            </div>
+            <div className="betting-table__bet__footer">
+              <div className="betting-table__bet__footer__creator text-center mt-1">
+                Bet created by {currentBet.betCreator}
+              </div>
+            </div>
+          </div>
+        ))}
+        {filteredBets.map((currentBet, index) => (
+          <div className="betting-table__bet" key={currentBet.id} index={index}>
+            <div className="betting-table__bet__header">
+              <h3 className="betting-table__bet__name">
                 {currentBet.name}
-              </td>
-              <td>
-                <Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment>
-              </td>
-              <td>{currentBet.size}</td>
-              <td>{currentBet.currentBets}</td>
-              <td>
+              </h3>
+            </div>
+            <div className="betting-table__bet__body">
+              <div className="betting-table__bet__body__desc">
+                <p>
+                  {currentBet.description}<br />
+                  <button onClick={() => openDescriptionModal(currentBet.description)}
+                  >Read full description</button>
+                </p>
+              </div>
+              <div className="betting-table__bet__body__data">
+                <h4>About the Bet</h4>
+                <ul>
+                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
+                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
+                  <li><span>Bet Size: </span>{currentBet.size}</li>
+                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                </ul>
+              </div>
+              <div className="betting-table__bet__body__placebet">
                 {!betState.includes(currentBet.id) && (
                   <button
-                    className="outline-none btn btn-success rounded text-white p-3 m-2"
+                    className="outline-none btn"
                     onClick={() => openBetOptionModal(currentBet)}
                   >
                     Place Bet
                   </button>
                 )}
                 {betState.includes(currentBet.id) && (
-                  <button className="outline-none btn btn-danger rounded text-white p-3 m-2">
+                  <button className="outline-none btn placed">
                     Bet Placed
                   </button>
                 )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+              </div>
+            </div>
+            <div className="betting-table__bet__footer">
+              <div className="betting-table__bet__footer__creator text-center mt-1">
+                Bet created by {currentBet.betCreator}
+                {localStorage.getItem("username") === currentBet.betCreator && (
+                  <div>
+                    <Trash
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        deleteCurrentBet(currentBet.id, currentBet.name)
+                      }
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -15,6 +15,7 @@ const CreateBet = () => {
   const betValueInputRef = useRef();
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
+  const shortDescriptionInputRef = useRef();
 
   const history = useHistory();
 
@@ -26,6 +27,7 @@ const CreateBet = () => {
     const currentBetValue = betValueInputRef.current.value;
     const currentTitle = titleInputRef.current.value;
     const currentDescription = descriptionInputRef.current.value;
+    const currentShortDescription = shortDescriptionInputRef.current.value;
 
     if (!localStorage.getItem("username")) {
       setModal(true);
@@ -39,6 +41,7 @@ const CreateBet = () => {
       currentResults === "" ||
       currentMaxBetters === "" ||
       currentBetValue === "" ||
+      currentShortDescription === "" ||
       currentTitle === ""
     ) {
       setModal(true);
@@ -51,6 +54,7 @@ const CreateBet = () => {
       deadline: currentDeadline,
       name: currentTitle,
       description: currentDescription,
+      shortDescription: currentShortDescription,
       results: currentResults,
       size: currentBetValue,
       maxBetters: currentMaxBetters,
@@ -188,6 +192,34 @@ const CreateBet = () => {
               placeholder="Description"
               ref={descriptionInputRef}
             ></textarea>
+          </div>
+          <div className="w-100">
+            <label htmlFor="short-description" className="d-block">
+              Short Description:
+            </label>
+            <textarea
+              maxLength="75"
+              className="form-control w-100"
+              id="short-description"
+              placeholder="Short description"
+              ref={shortDescriptionInputRef}
+            ></textarea>
+          </div>
+        </div>
+        <div className="w-100 d-flex mt-3">
+          <div className="w-100">
+            <label htmlFor="results" className="d-block">
+              RoyBet Choices:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="RoyBet Choices"
+              aria-label="Results"
+              id="results"
+              aria-describedby="basic-addon1"
+              ref={betChoicesInputRef}
+            />
           </div>
         </div>
         <div className="w-100 d-flex mt-3">
