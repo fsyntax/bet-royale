@@ -3,7 +3,6 @@ import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
 
-
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
@@ -296,32 +295,47 @@ const BettingTable = (props) => {
         {props.betHistoryData.map((currentBet, index) => (
           <div className="betting-table__bet" key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">    
-                {currentBet.name}
-              </h3>
+              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
                 <p>
-                  {currentBet.shortDescription}<br />
-                  <button onClick={() => openDescriptionModal(currentBet.description)}
-                  >Read full description</button>
+                  {currentBet.shortDescription}
+                  <br />
+                  <button
+                    onClick={() => openDescriptionModal(currentBet.description)}
+                  >
+                    Read full description
+                  </button>
                 </p>
               </div>
               <div className="betting-table__bet__body__data">
                 <h4>About the Bet</h4>
                 <ul>
-                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
-                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
-                  <li><span>Bet Size: </span>{currentBet.size}</li>
-                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                  <li>
+                    <span>Deadline:</span>{" "}
+                    <Moment format="YYYY/MM/DD h:mm A">
+                      {currentBet.deadline}
+                    </Moment>
+                  </li>
+                  <li>
+                    <span>Results: </span>
+                    <Moment format="YYYY/MM/DD h:mm A">
+                      {currentBet.results}
+                    </Moment>
+                  </li>
+                  <li>
+                    <span>Bet Size: </span>
+                    {currentBet.size}
+                  </li>
+                  <li>
+                    <span>Players / Pot:</span>
+                    {currentBet.currentBets}
+                  </li>
                 </ul>
               </div>
               <div className="betting-table__bet__body__placebet">
-
-                <button className="outline-none btn placed">
-                  Bet Placed
-                </button>
+                <button className="outline-none btn placed">Bet Placed</button>
               </div>
             </div>
             <div className="betting-table__bet__footer">
@@ -334,25 +348,43 @@ const BettingTable = (props) => {
         {filteredBets.map((currentBet, index) => (
           <div className="betting-table__bet" key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">
-                {currentBet.name}
-              </h3>
+              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
                 <p>
-                  {currentBet.description}<br />
-                  <button onClick={() => openDescriptionModal(currentBet.description)}
-                  >Read full description</button>
+                  {currentBet.description}
+                  <br />
+                  <button
+                    onClick={() => openDescriptionModal(currentBet.description)}
+                  >
+                    Read full description
+                  </button>
                 </p>
               </div>
               <div className="betting-table__bet__body__data">
                 <h4>About the Bet</h4>
                 <ul>
-                  <li><span>Deadline:</span> <Moment format="YYYY/MM/DD h:mm A">{currentBet.deadline}</Moment></li>
-                  <li><span>Results: </span><Moment format="YYYY/MM/DD h:mm A">{currentBet.results}</Moment></li>
-                  <li><span>Bet Size: </span>{currentBet.size}</li>
-                  <li><span>Players / Pot:</span>{currentBet.currentBets}</li>
+                  <li>
+                    <span>Deadline:</span>{" "}
+                    <Moment format="YYYY/MM/DD h:mm A">
+                      {currentBet.deadline}
+                    </Moment>
+                  </li>
+                  <li>
+                    <span>Results: </span>
+                    <Moment format="YYYY/MM/DD h:mm A">
+                      {currentBet.results}
+                    </Moment>
+                  </li>
+                  <li>
+                    <span>Bet Size: </span>
+                    {currentBet.size}
+                  </li>
+                  <li>
+                    <span>Players / Pot:</span>
+                    {currentBet.currentBets}
+                  </li>
                 </ul>
               </div>
               <div className="betting-table__bet__body__placebet">
@@ -372,18 +404,18 @@ const BettingTable = (props) => {
               </div>
             </div>
             <div className="betting-table__bet__footer">
-              <div className="betting-table__bet__footer__creator text-center mt-1">
-                Bet created by {currentBet.betCreator}
+              <div className="betting-table__bet__footer__creator text-center d-flex justify-content-center align-items-center mt-1">
                 {localStorage.getItem("username") === currentBet.betCreator && (
                   <div>
                     <Trash
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", marginRight: "15px" }}
                       onClick={() =>
                         deleteCurrentBet(currentBet.id, currentBet.name)
                       }
                     />
                   </div>
                 )}
+                Bet created by {currentBet.betCreator}
               </div>
             </div>
           </div>

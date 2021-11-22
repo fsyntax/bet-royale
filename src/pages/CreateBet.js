@@ -182,28 +182,31 @@ const CreateBet = () => {
             />
           </div>
           <div className="w-25"></div>
-          <div className="w-100">
-            <label htmlFor="description" className="d-block">
-              Description:
-            </label>
-            <textarea
-              className="form-control w-100"
-              id="description"
-              placeholder="Description"
-              ref={descriptionInputRef}
-            ></textarea>
-          </div>
-          <div className="w-100">
-            <label htmlFor="short-description" className="d-block">
-              Short Description:
-            </label>
-            <textarea
-              maxLength="75"
-              className="form-control w-100"
-              id="short-description"
-              placeholder="Short description"
-              ref={shortDescriptionInputRef}
-            ></textarea>
+          <div className="w-100 d-flex">
+            <div className="w-100">
+              <label htmlFor="description" className="d-block">
+                Description:
+              </label>
+              <textarea
+                className="form-control w-100"
+                id="description"
+                placeholder="Description"
+                ref={descriptionInputRef}
+              ></textarea>
+            </div>
+            <div className="w-25"></div>
+            <div className="w-100">
+              <label htmlFor="short-description" className="d-block">
+                Short Description:
+              </label>
+              <textarea
+                maxLength="75"
+                className="form-control w-100"
+                id="short-description"
+                placeholder="Short description"
+                ref={shortDescriptionInputRef}
+              ></textarea>
+            </div>
           </div>
         </div>
         <div className="w-100 d-flex mt-3">
