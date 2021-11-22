@@ -222,6 +222,22 @@ const CreateBet = () => {
             />
           </div>
         </div>
+        <div className="w-100 d-flex mt-3">
+          <div className="w-100">
+            <label htmlFor="results" className="d-block">
+              RoyBet Choices:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="RoyBet Choices"
+              aria-label="Results"
+              id="results"
+              aria-describedby="basic-addon1"
+              ref={betChoicesInputRef}
+            />
+          </div>
+        </div>
         <div className="mt-5 d-flex justify-items-center align-items-center w-100">
           <button type="button" className="btn btn-success" onClick={createBet}>
             Create RoyBet

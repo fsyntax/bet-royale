@@ -292,12 +292,11 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-
       <div id="betting-table" className="container betting-table w-100">
         {props.betHistoryData.map((currentBet, index) => (
           <div className="betting-table__bet" key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">
+              <h3 className="betting-table__bet__name">    
                 {currentBet.name}
               </h3>
             </div>
@@ -390,7 +389,6 @@ const BettingTable = (props) => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };
