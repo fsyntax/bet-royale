@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
-import { Table } from "react-bootstrap";
+
 
 import BetService from "../api/Bet";
 
@@ -232,7 +232,7 @@ const BettingTable = (props) => {
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
                 <p>
-                  {currentBet.description}<br />
+                  {currentBet.shortDescription}<br />
                   <button onClick={() => openDescriptionModal(currentBet.description)}
                   >Read full description</button>
                 </p>
@@ -303,6 +303,16 @@ const BettingTable = (props) => {
             <div className="betting-table__bet__footer">
               <div className="betting-table__bet__footer__creator text-center mt-1">
                 Bet created by {currentBet.betCreator}
+                {localStorage.getItem("username") === currentBet.betCreator && (
+                  <div>
+                    <Trash
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        deleteCurrentBet(currentBet.id, currentBet.name)
+                      }
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

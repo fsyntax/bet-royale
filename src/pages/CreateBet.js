@@ -41,6 +41,7 @@ const CreateBet = () => {
       currentResults === "" ||
       currentMaxBetters === "" ||
       currentBetValue === "" ||
+      currentShortDescription === "" ||
       currentTitle === ""
     ) {
       setModal(true);
@@ -53,6 +54,7 @@ const CreateBet = () => {
       deadline: currentDeadline,
       name: currentTitle,
       description: currentDescription,
+      shortDescription: currentShortDescription,
       results: currentResults,
       size: currentBetValue,
       maxBetters: currentMaxBetters,
