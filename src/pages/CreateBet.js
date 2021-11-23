@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, Button } from "react-bootstrap";
-
 import BetService from "../api/Bet";
 
 import '../styles/createbet.scss'
@@ -102,7 +101,7 @@ const CreateBet = () => {
           </div>
         </div>
       </Modal>
-      <h1 className="text-4xl mb-5">Create a Bet</h1>
+      <h1 className="text-4xl mb-5">Create your Bet</h1>
 
       <Form>
         <FloatingLabel className="create-bet-form__field create-bet-form__title" controlId="cbf-title" label="Enter the bet title">
@@ -119,7 +118,6 @@ const CreateBet = () => {
           Submit
         </Button>
       </Form>
-
       <div className="flex justify-items-center align-items-center w-100 flex-column my-10">
         <div className="d-flex flex-column w-full">
           <div className="w-100 d-flex mb-3">
