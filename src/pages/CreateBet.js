@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Modal, FloatingLabel, Form, Button, FormGroup } from "react-bootstrap";
+import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
 import BetService from "../api/Bet";
 
 import '../styles/createbet.scss'
