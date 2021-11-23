@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Modal } from "react-bootstrap";
+import { Modal, FloatingLabel, Form, Button } from "react-bootstrap";
 
 import BetService from "../api/Bet";
+
+import '../styles/createbet.scss'
 
 const CreateBet = () => {
   const [modal, setModal] = useState(false);
@@ -73,7 +75,7 @@ const CreateBet = () => {
   }
 
   return (
-    <div className="container d-flex align-items-center flex-column pt-5">
+    <div className="container d-flex align-items-center flex-column pt-5 create-bet-form" >
       <Modal show={modal}>
         <div className="modal-content">
           <div className="modal-header">
@@ -101,6 +103,23 @@ const CreateBet = () => {
         </div>
       </Modal>
       <h1 className="text-4xl mb-5">Create a Bet</h1>
+
+      <Form>
+        <FloatingLabel className="create-bet-form__field create-bet-form__title" controlId="cbf-title" label="Enter the bet title">
+          <Form.Control controlId="cbf-title" type="text" placeholder="Enter the bet title" />
+        </FloatingLabel>
+        <FloatingLabel className="create-bet-form__field create-bet-form__short-desc" controlId="cbf-short-desc" label="Describe your bet in one sentence">
+          <Form.Control controlId="cbf-short-desc" type="text" placeholder="Describe your bet in one sentence" />
+        </FloatingLabel>
+        <FloatingLabel className="create-bet-form__field create-bet-form__desc" controlId="cbf-desc" label="Describe your bet in detail">
+          <Form.Control controlId="cbf-desc" type="textarea" placeholder="Describe your bet in detail" />
+        </FloatingLabel>
+        <h3 class="create-bet-form__config__heading text-center">Configure your Bet</h3>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+
       <div className="flex justify-items-center align-items-center w-100 flex-column my-10">
         <div className="d-flex flex-column w-full">
           <div className="w-100 d-flex mb-3">

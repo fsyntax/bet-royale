@@ -1,0 +1,16 @@
+@import 'variables.scss';
+
+.create-bet-form {
+    label {
+        color: var(--c-dark);
+    }
+
+    &__field {
+        margin-bottom: 1em;
+    }
+
+    #cbf-desc {
+        height: 150px;
+    }
+
+}
