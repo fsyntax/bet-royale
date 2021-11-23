@@ -1,6 +1,12 @@
 @import 'variables.scss';
 
 .create-bet-form {
+    form {
+        @media (min-width: $screen-lg) {
+            max-width: 800px;
+        }
+    }
+
     label {
         color: var(--c-dark);
     }
@@ -29,6 +35,16 @@
     }
 
     &__config {
+        @media (min-width: $screen-lg) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 2em;
+        }
+
+        h3 {
+            grid-column-start: span 2;
+        }
+
         label {
             color: var(--c-light);
             border-bottom: 1px solid var(--roy-primary);
@@ -46,12 +62,24 @@
             box-shadow: var(--box-shadow-primary);
             margin-bottom: 1.5em;
 
+            @media (min-width: $screen-lg) {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
             p {
                 font-size: .9em;
             }
 
             input {
                 text-align: center;
+            }
+        }
+
+        &__options {
+            @media (min-width: $screen-lg) {
+                grid-column-start: span 2;
             }
         }
     }
@@ -66,5 +94,8 @@
         box-shadow: var(--box-shadow-primary);
         border: none;
 
+        @media (min-width: $screen-lg) {
+            grid-column-start: span 2;
+        }
     }
 }

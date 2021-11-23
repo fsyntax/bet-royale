@@ -96,7 +96,7 @@ const Header = (props) => {
         </div>
       </Modal>
       <Navbar
-        className="main-navbar p-3"
+        className="main-navbar"
         collapseOnSelect
         expand="lg"
         bg="dark"

@@ -74,7 +74,7 @@ const CreateBet = () => {
   }
 
   return (
-    <div className="container d-flex align-items-center flex-column pt-5 create-bet-form pb-4" >
+    <div className="container d-flex align-items-center flex-column pt-4 create-bet-form pb-4" >
       <Modal show={modal}>
         <div className="modal-content">
           <div className="modal-header">
@@ -105,7 +105,7 @@ const CreateBet = () => {
       <Form>
         <FormGroup className="create-bet-form__wrap">
           <h3> Basic Bet informations</h3>
-          <p>Fill in the below information to create a bet. Please be aware the once submitted, changes to the bet cannot be made anymore.</p>
+          <p>Fill in the below information to create a bet. Please be aware that once submitted, changes to the bet cannot be done anymore.</p>
           <FloatingLabel className="create-bet-form__field create-bet-form__title" controlId="cbf-title" label="Enter the bet title">
             <Form.Control
               aria-label="Title"
@@ -185,7 +185,7 @@ const CreateBet = () => {
               ref={betValueInputRef}
             />
           </FormGroup>
-          <FormGroup className="create-bet-form__config__field create-bet-form__config__betters">
+          <FormGroup className="create-bet-form__config__field create-bet-form__config__options">
             <label htmlFor="maxBetters" className="d-block">
               What are the possible choices?
             </label>
