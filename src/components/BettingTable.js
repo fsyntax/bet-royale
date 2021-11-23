@@ -68,9 +68,9 @@ const BettingTable = (props) => {
 
       setBetState([...betState, objData.id]);
 
-      BetService.getInstance().logBet(objData);
-
       setBetData();
+
+      incrementCurrentBetters(objData);
     } catch (error) {
       console.clear();
       setBetToast(true);
@@ -144,6 +144,12 @@ const BettingTable = (props) => {
     } else {
       return;
     }
+  }
+
+  function incrementCurrentBetters(data) {
+    data.currentBets = data.currentBets + 1;
+    BetService.getInstance().editBet(data, data.id);
+    BetService.getInstance().logBet(data);
   }
 
   return (
@@ -330,7 +336,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Players / Pot:</span>
-                    {currentBet.currentBets}
+                    {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                 </ul>
               </div>
@@ -383,7 +389,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Players / Pot:</span>
-                    {currentBet.currentBets}
+                    {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                 </ul>
               </div>

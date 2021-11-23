@@ -44,9 +44,17 @@ export class BetService extends Component {
     });
   }
 
+  async editBet(data, id) {
+    let url = `https://bet-royale-testing-default-rtdb.firebaseio.com/currentBets/${id}.json`;
+
+    return await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  }
+
   async getBetHistory() {
     let address = GetHash(localStorage.getItem("address"));
-
     try {
       let response = await fetch(
         `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${address}/betHistory.json`
