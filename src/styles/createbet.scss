@@ -1,0 +1,101 @@
+@import 'variables.scss';
+
+.create-bet-form {
+    form {
+        @media (min-width: $screen-lg) {
+            max-width: 800px;
+        }
+    }
+
+    label {
+        color: var(--c-dark);
+    }
+
+    &__field {
+        margin-bottom: 1em;
+    }
+
+    #cbf-desc {
+        height: 150px;
+    }
+
+    &__wrap {
+        padding: 1em;
+        background: var(--c-dark-lighten);
+        border-radius: 5px;
+        box-shadow: var(--box-shadow-primary);
+        margin-bottom: 1.5em;
+
+        h3 {
+            font-size: 1.2em;
+            border-bottom: 1px solid var(--roy-primary);
+            padding-bottom: .3em;
+            margin-bottom: 1em;
+        }
+    }
+
+    &__config {
+        @media (min-width: $screen-lg) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 2em;
+        }
+
+        h3 {
+            grid-column-start: span 2;
+        }
+
+        label {
+            color: var(--c-light);
+            border-bottom: 1px solid var(--roy-primary);
+            margin-bottom: 1em;
+            padding-bottom: .3em;
+
+
+        }
+
+
+        &__field {
+            padding: 1em;
+            background: var(--c-dark-lighten);
+            border-radius: 5px;
+            box-shadow: var(--box-shadow-primary);
+            margin-bottom: 1.5em;
+
+            @media (min-width: $screen-lg) {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            p {
+                font-size: .9em;
+            }
+
+            input {
+                text-align: center;
+            }
+        }
+
+        &__options {
+            @media (min-width: $screen-lg) {
+                grid-column-start: span 2;
+            }
+        }
+    }
+
+    &__submit {
+        width: 100%;
+        height: 50px;
+        font-size: 1.1em;
+        background: var(--roy-primary);
+        outline: none;
+        border-radius: 5px;
+        box-shadow: var(--box-shadow-primary);
+        border: none;
+
+        @media (min-width: $screen-lg) {
+            grid-column-start: span 2;
+        }
+    }
+}
