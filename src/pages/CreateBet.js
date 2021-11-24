@@ -20,7 +20,9 @@ const CreateBet = () => {
 
   const history = useHistory();
 
-  function createBet() {
+  function createBet(e) {
+    e.preventDefault();
+
     const currentChoices = betChoicesInputRef.current.value;
     const currentDeadline = deadlineInputRef.current.value;
     const currentResults = resultsInputRef.current.value;
@@ -244,11 +246,7 @@ const CreateBet = () => {
               ref={betChoicesInputRef}
             />
           </FormGroup>
-          <button
-            className="create-bet-form__submit"
-            type="submit"
-            onClick={createBet}
-          >
+          <button className="create-bet-form__submit" onClick={createBet}>
             Create RoyBet
           </button>
         </div>
