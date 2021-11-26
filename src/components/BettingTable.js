@@ -341,7 +341,15 @@ const BettingTable = (props) => {
                 </ul>
               </div>
               <div className="betting-table__bet__body__placebet">
-                <button className="outline-none btn placed">Bet Placed</button>
+                {currentBet.currentBets === parseInt(currentBet.maxBetters) ? (
+                  <button className="outline-none btn placement-full">
+                    Bet Placements Full
+                  </button>
+                ) : (
+                  <button className="outline-none btn placed">
+                    Bet Placed
+                  </button>
+                )}
               </div>
             </div>
             <div className="betting-table__bet__footer">
@@ -405,6 +413,11 @@ const BettingTable = (props) => {
                 {betState.includes(currentBet.id) && (
                   <button className="outline-none btn placed">
                     Bet Placed
+                  </button>
+                )}
+                {currentBet.currentBets === parseInt(currentBet.maxBetters) && (
+                  <button className="outline-none btn placed">
+                    Bet Placements Full
                   </button>
                 )}
               </div>

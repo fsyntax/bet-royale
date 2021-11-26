@@ -87,6 +87,11 @@
           &.placed {
             background: var(--roy-secondary);
           }
+
+          &.placement-full {
+            background: var(--roy-grey);
+            color: white;
+          }
         }
       }
     }
