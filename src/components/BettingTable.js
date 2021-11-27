@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
+import moment from "moment";
 
 import BetService from "../api/Bet";
 
@@ -22,6 +23,7 @@ const BettingTable = (props) => {
   const [betToastDescription, setBetToastDescription] = useState("");
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
+  const [betResultModal, setBetResultModal] = useState(false);
 
   useEffect(() => {
     const currentBets = props.data;
@@ -152,6 +154,39 @@ const BettingTable = (props) => {
     BetService.getInstance().logBet(data);
   }
 
+  function closeBetResultModal() {
+    setBetResultModal(false);
+  }
+
+  function openBetResultsModal(bet) {
+    if (!window.ethereum) {
+      setMetamaskModal(true);
+      setDescription("Please install Metamask!");
+      return;
+    }
+
+    if (!localStorage.getItem("address")) {
+      setMetamaskModal(true);
+      setDescription("Please connect your wallet!");
+      return;
+    }
+
+    setBetData(bet);
+
+    let newOptions = bet.choices.split(",");
+
+    setBetResultModal(true);
+    setBetOptions(newOptions);
+  }
+
+  function putBetResult(data) {
+    data.selectedChoice = selectedBetOption;
+
+    BetService.getInstance().editBet(data, data.id);
+
+    setBetResultModal(false);
+  }
+
   return (
     <div className="w-100">
       <Modal show={descriptionModal}>
@@ -214,6 +249,44 @@ const BettingTable = (props) => {
               onClick={() => betOnOption(betData)}
             >
               Bet
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal show={betResultModal}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Set Bet Result</h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={closeBetResultModal}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <select
+              className="form-select"
+              onChange={changeBetOption}
+              name=""
+              id=""
+            >
+              {betOptions &&
+                betOptions.map((option) => (
+                  <option key={option} value={option} defaultValue>
+                    {option}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={() => putBetResult(betData)}
+            >
+              Set Bet Result
             </button>
           </div>
         </div>
@@ -391,16 +464,43 @@ const BettingTable = (props) => {
                     <span>Players / Pot:</span>
                     {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
+                  {currentBet.selectedChoice && (
+                    <li>
+                      <span>Result:</span>
+                      {currentBet.selectedChoice}
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="betting-table__bet__body__placebet">
-                {!betState.includes(currentBet.id) && (
-                  <button
-                    className="outline-none btn"
-                    onClick={() => openBetOptionModal(currentBet)}
-                  >
-                    Place Bet
-                  </button>
+                {!betState.includes(currentBet.id) &&
+                  moment(currentBet.results).format("x") > +new Date() &&
+                  moment(currentBet.deadline).format("x") > +new Date() && (
+                    <button
+                      className="outline-none btn"
+                      onClick={() => openBetOptionModal(currentBet)}
+                    >
+                      Place Bet
+                    </button>
+                  )}
+                {currentBet.betCreator === localStorage.getItem("username") &&
+                  moment(currentBet.results).format("x") < +new Date() &&
+                  !currentBet.selectedChoice && (
+                    <button
+                      className="outline-none btn mt-3"
+                      onClick={() => openBetResultsModal(currentBet)}
+                    >
+                      Set Result
+                    </button>
+                  )}
+                {moment(currentBet.deadline).format("x") < +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() && (
+                    <button className="outline-none btn">
+                      Deadline Passed
+                    </button>
+                  )}
+                {currentBet.selectedChoice && (
+                  <button className="outline-none btn">Bet Finished</button>
                 )}
                 {betState.includes(currentBet.id) && (
                   <button className="outline-none btn placed">
