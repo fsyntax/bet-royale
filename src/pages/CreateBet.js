@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
 import BetService from "../api/Bet";
 
+import moment from "moment";
+
 import "../styles/createbet.scss";
 
 const CreateBet = () => {
@@ -35,6 +37,23 @@ const CreateBet = () => {
     if (!localStorage.getItem("username")) {
       setModal(true);
       setDescription("Please sign in with your Discord account!");
+      return;
+    }
+
+    let today = +new Date();
+
+    let formattedDeadline = parseInt(moment(currentDeadline).format("x"));
+    let formattedResults = parseInt(moment(currentResults).format("x"));
+
+    if (formattedDeadline < today) {
+      setModal(true);
+      setDescription("The deadline is in the past!");
+      return;
+    }
+
+    if (formattedResults < today) {
+      setModal(true);
+      setDescription("The results is in the past!");
       return;
     }
 
