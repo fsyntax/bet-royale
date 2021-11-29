@@ -500,10 +500,10 @@ const BettingTable = (props) => {
                     </button>
                   )}
                 {currentBet.selectedChoice && (
-                  <button className="outline-none btn">Bet Finished</button>
+                  <button className="outline-none btn finished">Bet Finished</button>
                 )}
                 {betState.includes(currentBet.id) && (
-                  <button className="outline-none btn placed">
+                  <button disabled className="outline-none btn placed">
                     Bet Placed
                   </button>
                 )}

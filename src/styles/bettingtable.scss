@@ -16,7 +16,7 @@
   }
 
   &__bet {
-    background: var(--c-dark-lighten);
+    background: var(--c-primary-darken-3);
     padding: 1em;
     border-radius: 5px;
     box-shadow: var(--box-shadow-primary);
@@ -24,14 +24,14 @@
     height: 100%;
 
     &__name {
-      border-bottom: 1px solid var(--roy-primary);
+      border-bottom: 1px solid var(--c-primary-lighten-3);
       padding-bottom: 0.3em;
       margin-bottom: 0.3em;
       font-size: 1.3em;
     }
 
     &__footer {
-      border-top: 1px solid var(--roy-primary);
+      border-top: 1px solid var(--c-primary-lighten-3);
       padding-top: 0.3em;
       margin-top: 0.3em;
 
@@ -52,8 +52,7 @@
             border: none;
             background: none;
             padding: 0;
-            color: var(--roy-secondary);
-            font-weight: 400;
+            color: var(--c-accent-darken-1);
             font-size: 0.8em;
             text-decoration: underline;
           }
@@ -81,12 +80,29 @@
 
         .btn {
           width: 100%;
-          background: var(--roy-primary);
+          background: var(--c-secondary-darken-1);
+          color: var(--c-primary-darken-1);
 
-          // box-shadow: var(--box-shadow-primary);
+          &:focus {
+            outline: none;
+            box-shadow: var(--box-shadow-primary);
+          }
 
           &.placed {
-            background: var(--roy-secondary);
+            background: var(--c-secondary-darken-2);
+          }
+
+          &.finished {
+            background: var(--c-primary-lighten-1);
+            color: var(--c-secondary-darken-1);
+            cursor: no-drop;
+
+            &:focus,
+            :hover,
+            :focus {
+              outline: none;
+              box-shadow: var(--box-shadow-primary);
+            }
           }
 
           &.placement-full {
