@@ -483,6 +483,12 @@ const BettingTable = (props) => {
                       Place Bet
                     </button>
                   )}
+                {moment(currentBet.results).format("x") < +new Date() &&
+                  !currentBet.selectedChoice && (
+                    <button className="outline-none btn">
+                      Result Will Be Selected Soon
+                    </button>
+                  )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
                   moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice && (
