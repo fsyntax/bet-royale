@@ -29,6 +29,11 @@ const Header = (props) => {
 
           let shortenedAddress = `${startingAddress}...${endingAddress}`;
 
+          window.ethereum.request({ method: "eth_chainId" }).then((data) => {
+            console.log(data);
+            localStorage.setItem("chainID", data);
+          });
+
           localStorage.setItem("shortenedAddress", shortenedAddress);
         });
     } else {
@@ -51,7 +56,9 @@ const Header = (props) => {
   }
 
   function chainChangedHandler() {
-    window.location.reload();
+    window.ethereum.request({ method: "eth_chainId" }).then((data) => {
+      localStorage.setItem("chainID", data);
+    });
   }
 
   if (window.ethereum) {
