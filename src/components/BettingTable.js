@@ -534,7 +534,9 @@ const BettingTable = (props) => {
               <div className="betting-table__bet__body__placebet">
                 {!betState.includes(currentBet.id) &&
                   moment(currentBet.results).format("x") > +new Date() &&
-                  moment(currentBet.deadline).format("x") > +new Date() && (
+                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  parseInt(currentBet.currentBets) !==
+                    parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
