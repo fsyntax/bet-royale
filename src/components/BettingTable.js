@@ -576,11 +576,13 @@ const BettingTable = (props) => {
                     Bet Placed
                   </button>
                 )}
-                {currentBet.currentBets === parseInt(currentBet.maxBetters) && (
-                  <button className="outline-none btn placement-full">
-                    Bet Placements Full
-                  </button>
-                )}
+                {currentBet.currentBets === parseInt(currentBet.maxBetters) &&
+                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() && (
+                    <button className="outline-none btn placement-full">
+                      Bet Placements Full
+                    </button>
+                  )}
               </div>
             </div>
             <div className="betting-table__bet__footer">
