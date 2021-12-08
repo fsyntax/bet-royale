@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { ethers } from "ethers";
 import { Trash } from "react-bootstrap-icons";
 import Moment from "react-moment";
 import moment from "moment";
+import Web3 from "web3";
 
 import BetService from "../api/Bet";
 
@@ -26,6 +26,8 @@ const BettingTable = (props) => {
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
+
+  const web3 = new Web3(Web3.givenProvider);
 
   useEffect(() => {
     const currentBets = props.data;
@@ -52,31 +54,70 @@ const BettingTable = (props) => {
     try {
       await window.ethereum.send("eth_requestAccounts");
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      console.log(objData);
 
-      const signer = provider.getSigner();
+      let tokenAddress = "0xfe1b516a7297eb03229a8b5afad80703911e81cb";
+      let toAddress = "0x2ADe6e328953a132911e0ad197E68BE882865241";
+      let fromAddress = localStorage.getItem("address");
 
-      ethers.utils.getAddress(address);
+      let decimals = web3.utils.toBN(18);
 
-      await signer.sendTransaction({
-        to: address,
-        value: ethers.utils.parseEther(amount),
-      });
+      let amount = web3.utils.toBN(parseInt(objData.size));
+
+      let minABI = [
+        {
+          constant: false,
+          inputs: [
+            {
+              name: "_to",
+              type: "address",
+            },
+            {
+              name: "_value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+            },
+          ],
+          type: "function",
+        },
+      ];
+
+      let contract = new web3.eth.Contract(minABI, tokenAddress);
+
+      let value = amount.mul(web3.utils.toBN(10).pow(decimals));
+
+      contract.methods
+        .transfer(toAddress, value)
+        .send({ from: fromAddress })
+        .on("transactionHash", function (hash) {
+          console.log(hash);
+
+          setBetOptionModal(false);
+          setBetOptions("");
+          setSelectedBetOption("");
+
+          setBetToast(true);
+          setBetToastDescription("This bet has been successfully placed!");
+
+          setBetState([...betState, objData.id]);
+
+          setBetData();
+
+          incrementCurrentBetters(objData);
+        });
+    } catch (error) {
+      console.log(error);
 
       setBetOptionModal(false);
       setBetOptions("");
       setSelectedBetOption("");
 
-      setBetToast(true);
-      setBetToastDescription("This bet has been successfully placed!");
-
-      setBetState([...betState, objData.id]);
-
-      setBetData();
-
-      incrementCurrentBetters(objData);
-    } catch (error) {
-      console.clear();
       setBetToast(true);
       setBetToastDescription("Bet successfully rejected");
     }
@@ -129,6 +170,17 @@ const BettingTable = (props) => {
       return;
     }
 
+    if (
+      localStorage.getItem("chainID") !== "0x63564c40" &&
+      localStorage.getItem("chainID") !== "0x63564c41" &&
+      localStorage.getItem("chainID") !== "0x63564c42" &&
+      localStorage.getItem("chainID") !== "0x63564c43"
+    ) {
+      setMetamaskModal(true);
+      setDescription("Please connect to the Harmony Mainet!");
+      return;
+    }
+
     setBetData(bet);
 
     let newOptions = bet.choices.split(",");
@@ -151,8 +203,15 @@ const BettingTable = (props) => {
   }
 
   function incrementCurrentBetters(data) {
+    let selectedOption = data.selectedOption;
+
+    delete data.selectedOption;
+
     data.currentBets = data.currentBets + 1;
     BetService.getInstance().editBet(data, data.id);
+
+    data.selectedOption = selectedOption;
+
     BetService.getInstance().logBet(data);
   }
 
@@ -477,12 +536,22 @@ const BettingTable = (props) => {
               <div className="betting-table__bet__body__placebet">
                 {!betState.includes(currentBet.id) &&
                   moment(currentBet.results).format("x") > +new Date() &&
-                  moment(currentBet.deadline).format("x") > +new Date() && (
+                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  parseInt(currentBet.currentBets) !==
+                    parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
                     >
                       Place Bet
+                    </button>
+                  )}
+                {moment(currentBet.results).format("x") < +new Date() &&
+                  !currentBet.selectedChoice &&
+                  localStorage.getItem("username") !==
+                    currentBet.betCreator && (
+                    <button className="outline-none btn">
+                      Result Will Be Selected Soon
                     </button>
                   )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
@@ -509,11 +578,13 @@ const BettingTable = (props) => {
                     Bet Placed
                   </button>
                 )}
-                {currentBet.currentBets === parseInt(currentBet.maxBetters) && (
-                  <button className="outline-none btn placement-full">
-                    Bet Placements Full
-                  </button>
-                )}
+                {currentBet.currentBets === parseInt(currentBet.maxBetters) &&
+                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() && (
+                    <button className="outline-none btn placement-full">
+                      Bet Placements Full
+                    </button>
+                  )}
               </div>
             </div>
             <div className="betting-table__bet__footer">
