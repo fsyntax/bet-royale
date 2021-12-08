@@ -10,6 +10,8 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
+// import cyanPip from "../images/pip_cyan_2.png";
+
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
@@ -432,7 +434,7 @@ const BettingTable = (props) => {
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
                 <p>
-                  {currentBet.description}
+                  {currentBet.shortDescription}
                   <br />
                   <button
                     onClick={() => openDescriptionModal(currentBet.description)}
