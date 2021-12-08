@@ -137,7 +137,7 @@
     box-shadow: var(--box-shadow-primary);
     border: none;
 
-    animation: animateCreateBtn 10s linear infinite;
+    animation: animateCreateBtn 10s linear infinite alternate-reverse;
     background-image: linear-gradient(90deg, #05aa83, #00cc3a, #00cc9c, #00cc3a);
     background-size: 300% 100%;
 
