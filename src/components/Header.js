@@ -29,6 +29,11 @@ const Header = (props) => {
 
           let shortenedAddress = `${startingAddress}...${endingAddress}`;
 
+          window.ethereum.request({ method: "eth_chainId" }).then((data) => {
+            console.log(data);
+            localStorage.setItem("chainID", data);
+          });
+
           localStorage.setItem("shortenedAddress", shortenedAddress);
         });
     } else {
@@ -51,7 +56,9 @@ const Header = (props) => {
   }
 
   function chainChangedHandler() {
-    window.location.reload();
+    window.ethereum.request({ method: "eth_chainId" }).then((data) => {
+      localStorage.setItem("chainID", data);
+    });
   }
 
   if (window.ethereum) {
@@ -210,7 +217,11 @@ const Header = (props) => {
                   target="_blank"
                   rel="noreferrer"
                   id="login"
-                  href="https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
+                  href={
+                    window.location.href === "http://localhost:3000/"
+                      ? "https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=email"
+                      : "https://discord.com/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
+                  }
                 >
                   Discord
                   <img
