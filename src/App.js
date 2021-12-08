@@ -17,12 +17,7 @@ const App = () => {
   return (
     <div
       id="main-container"
-<<<<<<< HEAD
-      className="min-vh-100  px-3 font-poppins text-white"
-=======
-      className="bg-dark min-vh-100 px-3 font-poppins text-white"
->>>>>>> 74fa9d26fb779ab93fdead0d3abdb0fa22c4aef5
-    >
+      className="min-vh-100  px-3 font-poppins text-white">
       <Header />
       <Switch>
         <Route path="/" exact>

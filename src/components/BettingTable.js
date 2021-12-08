@@ -538,7 +538,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                    parseInt(currentBet.maxBetters) && (
+                  parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
@@ -549,9 +549,9 @@ const BettingTable = (props) => {
                 {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
-                    currentBet.betCreator && (
+                  currentBet.betCreator && (
                     <button className="outline-none btn">
-                      Result Will Be Selected Soon
+                      Results coming soon
                     </button>
                   )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
