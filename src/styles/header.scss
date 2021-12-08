@@ -16,6 +16,7 @@
 
 .main-navbar {
   box-shadow: 0 0 10px -3px black;
+  background: var(--c-primary-darken-3);
 }
 
 .main-nav {
@@ -28,6 +29,10 @@
 
   &__block {
     padding: 0.5em 0;
+
+    .active {
+      color: var(--c-accent);
+    }
   }
 
   &__item {
@@ -48,6 +53,7 @@
   }
 
   &__connect {
+
     .main-nav__item,
     button,
     a {

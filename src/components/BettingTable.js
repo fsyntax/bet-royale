@@ -10,6 +10,8 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
+// import cyanPip from "../images/pip_cyan_2.png";
+
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
@@ -491,7 +493,7 @@ const BettingTable = (props) => {
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
                 <p>
-                  {currentBet.description}
+                  {currentBet.shortDescription}
                   <br />
                   <button
                     onClick={() => openDescriptionModal(currentBet.description)}
@@ -536,7 +538,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                    parseInt(currentBet.maxBetters) && (
+                  parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
@@ -547,9 +549,9 @@ const BettingTable = (props) => {
                 {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
-                    currentBet.betCreator && (
+                  currentBet.betCreator && (
                     <button className="outline-none btn">
-                      Result Will Be Selected Soon
+                      Results coming soon
                     </button>
                   )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
@@ -569,10 +571,10 @@ const BettingTable = (props) => {
                     </button>
                   )}
                 {currentBet.selectedChoice && (
-                  <button className="outline-none btn">Bet Finished</button>
+                  <button className="outline-none btn finished">Bet Finished</button>
                 )}
                 {betState.includes(currentBet.id) && (
-                  <button className="outline-none btn placed">
+                  <button disabled className="outline-none btn placed">
                     Bet Placed
                   </button>
                 )}

@@ -106,7 +106,6 @@ const Header = (props) => {
         className="main-navbar"
         collapseOnSelect
         expand="lg"
-        bg="dark"
         variant="dark"
         fixed="top"
         expanded={expanded}
@@ -148,7 +147,7 @@ const Header = (props) => {
                 }}
                 className={
                   location.pathname === "/"
-                    ? "pr-3 text-danger text-decoration-none main-nav__item"
+                    ? "pr-3 active text-decoration-none main-nav__item"
                     : "pr-3 text-white text-decoration-none main-nav__item"
                 }
                 to="/"
@@ -162,7 +161,7 @@ const Header = (props) => {
                 }}
                 className={
                   location.pathname === "/createBet"
-                    ? "pr-3 text-danger text-decoration-none main-nav__item"
+                    ? "pr-3 active text-decoration-none main-nav__item"
                     : "pr-3 text-white text-decoration-none main-nav__item"
                 }
                 to="/createBet"
@@ -177,7 +176,7 @@ const Header = (props) => {
                 }}
                 className={
                   location.pathname === "/bettingHistory"
-                    ? "text-danger text-decoration-none main-nav__item"
+                    ? "active text-decoration-none main-nav__item"
                     : "text-white text-decoration-none main-nav__item"
                 }
                 to="/bettingHistory"
