@@ -13,8 +13,7 @@ const BetHistoryTable = (props) => {
               <h4>About the Bet</h4>
               <ul>
                 <li>
-                  <span>Selected Choice:</span>{" "}
-                  {currentBet.selectedOption}
+                  <span>Selected Choice:</span> {currentBet.selectedOption}
                 </li>
                 <li>
                   <span>Deadline:</span>{" "}

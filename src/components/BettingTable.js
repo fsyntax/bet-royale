@@ -26,6 +26,7 @@ const BettingTable = (props) => {
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
+  const [betID, setBetID] = useState("");
 
   const web3 = new Web3(Web3.givenProvider);
 
@@ -134,19 +135,22 @@ const BettingTable = (props) => {
 
   function closeBetDeleteModal() {
     setBetDeleteModal(false);
+    setDescription("");
+  }
+
+  function openBetDeleteModal(id, name) {
+    setBetDeleteModal(true);
+    setDescription(`Are you sure you want to delete "${name}"?`);
+    setBetID(id);
+  }
+
+  function closeBetDeleteModalAndDeleteBet() {
+    BetService.getInstance().deleteBet(betID);
+    setBetDeleteModal(false);
   }
 
   function closemetamaskModal() {
     setMetamaskModal(false);
-  }
-
-  function deleteCurrentBet(id, name) {
-    setBetDeleteModal(true);
-    setDescription(`Are you sure you want to delete '${name}'?`);
-
-    if (!betDeleteModal) {
-      BetService.getInstance().deleteBet(id);
-    }
   }
 
   function closeBetToast() {
@@ -404,7 +408,7 @@ const BettingTable = (props) => {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={closeBetDeleteModal}
+              onClick={closeBetDeleteModalAndDeleteBet}
             >
               Yes
             </button>
@@ -538,7 +542,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                  parseInt(currentBet.maxBetters) && (
+                    parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
@@ -549,7 +553,7 @@ const BettingTable = (props) => {
                 {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
-                  currentBet.betCreator && (
+                    currentBet.betCreator && (
                     <button className="outline-none btn">
                       Results coming soon
                     </button>
@@ -571,7 +575,9 @@ const BettingTable = (props) => {
                     </button>
                   )}
                 {currentBet.selectedChoice && (
-                  <button className="outline-none btn finished">Bet Finished</button>
+                  <button className="outline-none btn finished">
+                    Bet Finished
+                  </button>
                 )}
                 {betState.includes(currentBet.id) && (
                   <button disabled className="outline-none btn placed">
@@ -594,7 +600,7 @@ const BettingTable = (props) => {
                     <Trash
                       style={{ cursor: "pointer", marginRight: "15px" }}
                       onClick={() =>
-                        deleteCurrentBet(currentBet.id, currentBet.name)
+                        openBetDeleteModal(currentBet.id, currentBet.name)
                       }
                     />
                   </div>
