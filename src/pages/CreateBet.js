@@ -12,8 +12,8 @@ import "../styles/createbet.scss";
 
 const CreateBet = () => {
   const [modal, setModal] = useState(false);
-  const [description, setDescription] = useState("");
 
+  const [description, setDescription] = useState("");
   const betChoicesInputRef = useRef();
   const deadlineInputRef = useRef();
   const resultsInputRef = useRef();
@@ -22,7 +22,7 @@ const CreateBet = () => {
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
   const shortDescriptionInputRef = useRef();
-  const [convertedText, setConvertedText] = useState("Describe your Bet in detail!");
+  const [convertedText, setConvertedText] = useState("");
 
   const history = useHistory();
 
@@ -35,7 +35,7 @@ const CreateBet = () => {
     const currentMaxBetters = maxBettersInputRef.current.value;
     const currentBetValue = betValueInputRef.current.value;
     const currentTitle = titleInputRef.current.value;
-    const currentDescription = descriptionInputRef.current.value;
+    const currentDescription = convertedText;
     const currentShortDescription = shortDescriptionInputRef.current.value;
 
     if (!localStorage.getItem("username")) {
@@ -186,6 +186,7 @@ const CreateBet = () => {
             value={convertedText}
             onChange={setConvertedText}
             ref={descriptionInputRef}
+            placeholder="Describe your Bet in detail.."
 
           />
         </FormGroup>

@@ -266,7 +266,7 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          <p>{description}</p>
+          {description}
         </div>
         <div className="modal-footer">
 
