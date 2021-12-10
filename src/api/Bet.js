@@ -1,5 +1,4 @@
 import { Component } from "react";
-
 import { GetHash } from "../utils/Common";
 
 export class BetService extends Component {

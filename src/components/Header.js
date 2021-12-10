@@ -218,7 +218,9 @@ const Header = (props) => {
                   rel="noreferrer"
                   id="login"
                   href={
-                    window.location.href === "http://localhost:3000/"
+                    window.location.href === "http://localhost:3000/" ||
+                    "http://localhost:3000/createBet" ||
+                    "http://localhost:3000/betHistory"
                       ? "https://discord.com/api/oauth2/authorize?client_id=903764073966096425&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=email"
                       : "https://discord.com/oauth2/authorize?client_id=903764073966096425&redirect_uri=https%3A%2F%2Fbet-royale.netlify.app%2F&response_type=token&scope=identify"
                   }

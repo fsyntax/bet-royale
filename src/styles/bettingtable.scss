@@ -22,22 +22,74 @@
     box-shadow: var(--box-shadow-primary);
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @keyframes animateBg {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      100% {
+        background-position: 100% 0%;
+      }
+    }
 
     &__name {
-      border-bottom: 1px solid var(--c-primary-lighten-3);
+      // border-bottom: 1px solid var(--c-primary-lighten-3);
       padding-bottom: 0.3em;
       margin-bottom: 0.3em;
       font-size: 1.3em;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        animation: animateBg 14s linear infinite;
+        background-image: linear-gradient(
+          90deg,
+          #5700ed,
+          #00cc9c,
+          #eef300,
+          #5700ed,
+          #00cc9c
+        );
+        background-size: 400% 100%;
+      }
     }
 
     &__footer {
-      border-top: 1px solid var(--c-primary-lighten-3);
       padding-top: 0.3em;
       margin-top: 0.3em;
+      position: relative;
 
       &__creator {
         font-size: 0.8em;
         font-style: italic;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        animation: animateBg 14s linear infinite;
+        background-image: linear-gradient(
+          90deg,
+          #5700ed,
+          #00cc9c,
+          #eef300,
+          #5700ed,
+          #00cc9c
+        );
+        background-size: 400% 100%;
       }
     }
 
@@ -82,6 +134,29 @@
           width: 100%;
           background: var(--c-secondary-darken-1);
           color: var(--c-primary-darken-1);
+          text-transform: uppercase;
+          font-weight: 600;
+          letter-spacing: 1px;
+
+          animation: animatePlaceBtn 10s linear infinite;
+          background-image: linear-gradient(
+            90deg,
+            #05aa83,
+            #00cc3a,
+            #00cc9c,
+            #00cc3a
+          );
+          background-size: 300% 100%;
+
+          @keyframes animatePlaceBtn {
+            0% {
+              background-position: 0% 0%;
+            }
+
+            100% {
+              background-position: 100% 0%;
+            }
+          }
 
           &:focus {
             outline: none;
@@ -89,13 +164,51 @@
           }
 
           &.placed {
-            background: var(--c-secondary-darken-2);
+            // background: var(--c-secondary-darken-1);
+            animation: animatePlacedBtn 10s linear infinite;
+            background-image: linear-gradient(
+              90deg,
+              #820475,
+              #75068c,
+              #820475,
+              #75068c
+            );
+            background-size: 300% 100%;
+
+            @keyframes animatePlacedBtn {
+              0% {
+                background-position: 100% 0%;
+              }
+
+              100% {
+                background-position: 0% 0%;
+              }
+            }
           }
 
           &.finished {
-            background: var(--c-primary-lighten-1);
-            color: var(--c-secondary-darken-1);
+            color: var(--c-secondary-darken-2);
             cursor: no-drop;
+
+            animation: animateFinBtn 15s linear infinite;
+            background-image: linear-gradient(
+              90deg,
+              #1f0054,
+              #001b54,
+              #1f0054,
+              #001b54
+            );
+            background-size: 300% 100%;
+
+            @keyframes animateFinBtn {
+              0% {
+                background-position: 0% 0%;
+              }
+
+              100% {
+                background-position: 100% 0%;
+              }
+            }
 
             &:focus,
             :hover,

@@ -1,5 +1,4 @@
 :root {
-
   --c-primary: #1f0054;
   --c-primary-lighten-1: #320087;
   --c-primary-lighten-2: #5700ed;
@@ -9,7 +8,7 @@
   --c-primary-darken-3: #10002b;
   --c-primary-darken-4: #0c0021;
 
-  --c-secondary: #00FFC3;
+  --c-secondary: #00ffc3;
   --c-secondary-lighten-1: #33ffcf;
   --c-secondary-lighten-2: #80ffe1;
   --c-secondary-lighten-3: #ccfff3;
@@ -17,7 +16,7 @@
   --c-secondary-darken-2: #008062;
   --c-secondary-darken-3: #003327;
 
-  --c-accent: #EEF300;
+  --c-accent: #eef300;
   --c-accent-lighten-1: #faff0d;
   --c-accent-lighten-2: #fbff40;
   --c-accent-lighten-3: #fcff73;
@@ -25,9 +24,11 @@
   --c-accent-darken-2: #bcc000;
   --c-accent-darken-3: #8a8d00;
 
-  --cg-primary: linear-gradient(34deg, rgba(31, 0, 84, 1) 23%, rgba(50, 0, 135, 1) 100%);
-
-
+  --cg-primary: linear-gradient(
+    34deg,
+    rgba(31, 0, 84, 1) 23%,
+    rgba(50, 0, 135, 1) 100%
+  );
 
   --roy-primary: lightseagreen;
   --roy-secondary: lightsalmon;

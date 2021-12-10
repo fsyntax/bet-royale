@@ -45,6 +45,20 @@ const CreateBet = () => {
     let formattedDeadline = parseInt(moment(currentDeadline).format("x"));
     let formattedResults = parseInt(moment(currentResults).format("x"));
 
+    if (
+      currentChoices === "" ||
+      currentDeadline === "" ||
+      currentResults === "" ||
+      currentMaxBetters === "" ||
+      currentBetValue === "" ||
+      currentShortDescription === "" ||
+      currentTitle === ""
+    ) {
+      setModal(true);
+      setDescription("One or more of the fields have not been filled!");
+      return;
+    }
+
     if (formattedDeadline < today) {
       setModal(true);
       setDescription("The deadline is in the past!");
@@ -57,17 +71,21 @@ const CreateBet = () => {
       return;
     }
 
-    if (
-      currentChoices === "" ||
-      currentDeadline === "" ||
-      currentResults === "" ||
-      currentMaxBetters === "" ||
-      currentBetValue === "" ||
-      currentShortDescription === "" ||
-      currentTitle === ""
-    ) {
+    if (formattedDeadline > formattedResults) {
       setModal(true);
-      setDescription("One or more of the fields have not been filled!");
+      setDescription("The results is before the deadline!");
+      return;
+    }
+
+    if (parseInt(currentBetValue) <= 0) {
+      setModal(true);
+      setDescription("The bet size can't be less than or equal to 0!");
+      return;
+    }
+
+    if (parseInt(currentMaxBetters) <= 0) {
+      setModal(true);
+      setDescription("The maximum betters can't be less than or equal to 0!");
       return;
     }
 
