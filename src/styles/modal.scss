@@ -1,0 +1,86 @@
+@import 'variables.scss';
+
+.modal {
+    display: grid !important;
+    place-items: center;
+    width: 90%;
+
+    .modal-dialog {
+        width: clamp(350px, 80%, 400px);
+
+        .modal-content {
+            height: min-content;
+            background: var(--cg-modal);
+            padding: 0 1em;
+            border: none;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset: -2px;
+                z-index: -1;
+                background: linear-gradient(60deg,
+                        var(--c-primary),
+                        var(--c-primary-darken-1),
+                        var(--c-primary-lighten-2),
+                        var(--c-secondary-darken-2),
+                        var(--c-primary-darken-1),
+                        var(--c-primary),
+                        var(--c-primary-lighten-2),
+                        var(--c-secondary-darken-2),
+                        var(--c-primary-darken-1),
+                        var(--c-primary),
+                        var(--c-primary-darken-1),
+                        var(--c-primary-lighten-1),
+                        var(--c-secondary-darken-2));
+                background-size: 300% 300%;
+                background-position: 0 50%;
+                border-radius: 5px;
+                animation: moveGradient 8s alternate infinite;
+            }
+
+            @keyframes moveGradient {
+                0% {
+                    background-position: 0% 0%;
+                }
+
+                100% {
+                    background-position: 100% 0%;
+                }
+            }
+        }
+
+
+        .modal-header {
+            border: none;
+
+            .modal-title {
+                font-size: 1.5em;
+                font-weight: 600;
+                color: #fff;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .btn-close {
+                padding: .4em;
+                background-color: var(--c-primary-lighten-3);
+            }
+        }
+
+        .modal-body {
+            p {
+                color: #fff;
+            }
+        }
+
+        .modal-footer {
+            border: none;
+        }
+    }
+}
+
+.modal-backdrop.show {
+    opacity: .85 !important;
+}

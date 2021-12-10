@@ -181,7 +181,7 @@ const BettingTable = (props) => {
       localStorage.getItem("chainID") !== "0x63564c43"
     ) {
       setMetamaskModal(true);
-      setDescription("Please connect to the Harmony Mainet!");
+      setDescription("Please connect to the Harmony Mainnet!");
       return;
     }
 
@@ -255,164 +255,148 @@ const BettingTable = (props) => {
   return (
     <div className="w-100">
       <Modal show={descriptionModal}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Description</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closeDescriptionModal}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <p>{description}</p>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={closeDescriptionModal}
-            >
-              Close
-            </button>
-          </div>
+        <div className="modal-header">
+          <h4 className="modal-title">Bet Description</h4>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closeDescriptionModal}
+          ></button>
+        </div>
+        <div className="modal-body">
+          <p>{description}</p>
+        </div>
+        <div className="modal-footer">
+
         </div>
       </Modal>
       <Modal show={betOptionModal}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Options</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closeBetOptionModal}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <select
-              className="form-select"
-              onChange={changeBetOption}
-              name=""
-              id=""
-            >
-              {betOptions &&
-                betOptions.map((option) => (
-                  <option key={option} value={option} defaultValue>
-                    {option}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={() => betOnOption(betData)}
-            >
-              Bet
-            </button>
-          </div>
+        <div className="modal-header">
+          <h5 className="modal-title">Options</h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closeBetOptionModal}
+          ></button>
+        </div>
+        <div className="modal-body">
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
+            {betOptions &&
+              betOptions.map((option) => (
+                <option key={option} value={option} defaultValue>
+                  {option}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="modal-footer">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => betOnOption(betData)}
+          >
+            Bet
+          </button>
         </div>
       </Modal>
       <Modal show={betResultModal}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Set Bet Result</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closeBetResultModal}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <select
-              className="form-select"
-              onChange={changeBetOption}
-              name=""
-              id=""
-            >
-              {betOptions &&
-                betOptions.map((option) => (
-                  <option key={option} value={option} defaultValue>
-                    {option}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={() => putBetResult(betData)}
-            >
-              Set Bet Result
-            </button>
-          </div>
+        <div className="modal-header">
+          <h5 className="modal-title">Set Bet Result</h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closeBetResultModal}
+          ></button>
+        </div>
+        <div className="modal-body">
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
+            {betOptions &&
+              betOptions.map((option) => (
+                <option key={option} value={option} defaultValue>
+                  {option}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="modal-footer">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => putBetResult(betData)}
+          >
+            Set Bet Result
+          </button>
         </div>
       </Modal>
       <Modal show={metamaskModal}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Alert</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closemetamaskModal}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <p>{description}</p>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={closemetamaskModal}
-            >
-              Close
-            </button>
-          </div>
+        <div className="modal-header">
+          <h5 className="modal-title">Alert</h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closemetamaskModal}
+          ></button>
+        </div>
+        <div className="modal-body">
+          <p>{description}</p>
+        </div>
+        <div className="modal-footer">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={closemetamaskModal}
+          >
+            Close
+          </button>
         </div>
       </Modal>
       <Modal show={betDeleteModal}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Description</h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              onClick={closeBetDeleteModal}
-            ></button>
-          </div>
-          <div className="modal-body">
-            <p>{description}</p>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={closeBetDeleteModal}
-            >
-              No
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={closeBetDeleteModalAndDeleteBet}
-            >
-              Yes
-            </button>
-          </div>
+        <div className="modal-header">
+          <h5 className="modal-title">Description</h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={closeBetDeleteModal}
+          ></button>
+        </div>
+        <div className="modal-body">
+          <p>{description}</p>
+        </div>
+        <div className="modal-footer">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={closeBetDeleteModal}
+          >
+            No
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={closeBetDeleteModalAndDeleteBet}
+          >
+            Yes
+          </button>
         </div>
       </Modal>
       <ToastContainer position="bottom-end">
@@ -542,7 +526,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                    parseInt(currentBet.maxBetters) && (
+                  parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
@@ -553,7 +537,7 @@ const BettingTable = (props) => {
                 {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
-                    currentBet.betCreator && (
+                  currentBet.betCreator && (
                     <button className="outline-none btn">
                       Results coming soon
                     </button>
