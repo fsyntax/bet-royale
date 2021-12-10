@@ -542,7 +542,9 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                    parseInt(currentBet.maxBetters) && (
+                    parseInt(currentBet.maxBetters) &&
+                  localStorage.getItem("username") !==
+                    currentBet.betCreator && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
