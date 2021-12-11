@@ -21,7 +21,7 @@
 
 
           svg>* {
-            stroke: #fff;
+            stroke: var(--c-secondary-darken-2);
           }
 
           .ql-picker-label {
@@ -35,6 +35,10 @@
 
             &:hover {
               color: var(--c-secondary-darken-1);
+
+              svg>* {
+                stroke: var(--c-secondary-darken-1);
+              }
             }
           }
 

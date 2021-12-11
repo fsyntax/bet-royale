@@ -9,7 +9,7 @@ import BetService from "../api/Bet";
 import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 // import cyanPip from "../images/pip_cyan_2.png";
 
 const BettingTable = (props) => {
@@ -266,7 +266,7 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          {description}
+          {ReactHtmlParser(description)}
         </div>
         <div className="modal-footer">
 
