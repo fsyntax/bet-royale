@@ -3,14 +3,17 @@ import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
 import BetService from "../api/Bet";
 
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
+
 import moment from "moment";
 
 import "../styles/createbet.scss";
 
 const CreateBet = () => {
   const [modal, setModal] = useState(false);
-  const [description, setDescription] = useState("");
 
+  const [description, setDescription] = useState("");
   const betChoicesInputRef = useRef();
   const deadlineInputRef = useRef();
   const resultsInputRef = useRef();
@@ -19,6 +22,7 @@ const CreateBet = () => {
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
   const shortDescriptionInputRef = useRef();
+  const [convertedText, setConvertedText] = useState("");
 
   const history = useHistory();
 
@@ -31,7 +35,7 @@ const CreateBet = () => {
     const currentMaxBetters = maxBettersInputRef.current.value;
     const currentBetValue = betValueInputRef.current.value;
     const currentTitle = titleInputRef.current.value;
-    const currentDescription = descriptionInputRef.current.value;
+    const currentDescription = convertedText;
     const currentShortDescription = shortDescriptionInputRef.current.value;
 
     if (!localStorage.getItem("username")) {
@@ -175,18 +179,16 @@ const CreateBet = () => {
               ref={shortDescriptionInputRef}
             />
           </FloatingLabel>
-          <FloatingLabel
+
+          <ReactQuill
             className="create-bet-form__field create-bet-form__desc"
-            controlid="cbf-desc"
-            label="Describe your bet in detail"
-          >
-            <Form.Control
-              controlid="cbf-desc"
-              type="textarea"
-              placeholder="Describe your bet in detail"
-              ref={descriptionInputRef}
-            />
-          </FloatingLabel>
+            theme='snow'
+            value={convertedText}
+            onChange={setConvertedText}
+            ref={descriptionInputRef}
+            placeholder="Describe your Bet in detail.."
+
+          />
         </FormGroup>
         <div className="create-bet-form__config">
           <h3 className="create-bet-form__config__heading text-center mb-4">
