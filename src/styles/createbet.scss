@@ -12,16 +12,20 @@
 
 
       .ql-formats {
+        &>button {
+          margin: .1em;
+        }
+
         &:last-child {
           margin: 0;
         }
 
         .ql-picker {
-          color: var(--c-secondary-darken-2);
+          color: var(--c-secondary-darken-1);
 
 
           svg>* {
-            stroke: var(--c-secondary-darken-2);
+            stroke: var(--c-secondary-darken-1);
           }
 
           .ql-picker-label {
@@ -30,7 +34,7 @@
 
             &.ql-active {
 
-              color: var(--c-secondary-darken-2);
+              color: var(--c-secondary-darken-1);
             }
 
             &:hover {
@@ -63,7 +67,7 @@
 
         svg {
           &>* {
-            stroke: var(--c-secondary-darken-3);
+            stroke: var(--c-secondary-darken-1);
           }
 
           &:hover {
@@ -73,9 +77,13 @@
           }
         }
 
-        .ql-active {
+        :not(.ql-picker-label).ql-active {
+          border: 1px solid var(--c-secondary);
+          border-radius: 5px;
+
           svg>* {
-            stroke: var(--c-secondary-darken-1);
+
+            stroke: var(--c-secondary);
           }
         }
       }

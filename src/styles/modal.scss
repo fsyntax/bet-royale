@@ -3,10 +3,10 @@
 .modal {
     display: grid !important;
     place-items: center;
-    width: 90%;
+    width: 100%;
 
     .modal-dialog {
-        width: clamp(350px, 80%, 400px);
+        width: clamp(350px, 80%, 700px);
 
         .modal-content {
             height: min-content;
