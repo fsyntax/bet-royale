@@ -38,6 +38,7 @@ const BettingHistory = () => {
             <option value="betsCompleted" defaultValue>
               Bets Completed
             </option>
+            <option value="activeBets">Active Bets</option>
           </select>
         </div>
       </div>
