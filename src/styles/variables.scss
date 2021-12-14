@@ -24,11 +24,17 @@
   --c-accent-darken-2: #bcc000;
   --c-accent-darken-3: #8a8d00;
 
-  --cg-modal: linear-gradient(189deg, rgba(16, 0, 43, 1) 23%, rgba(22, 0, 43, 1) 100%);
+  --cg-modal: linear-gradient(
+    189deg,
+    rgba(16, 0, 43, 1) 23%,
+    rgba(22, 0, 43, 1) 100%
+  );
 
-  --cg-primary: linear-gradient(34deg,
-      rgba(31, 0, 84, 1) 23%,
-      rgba(50, 0, 135, 1) 100%);
+  --cg-primary: linear-gradient(
+    34deg,
+    rgba(31, 0, 84, 1) 23%,
+    rgba(50, 0, 135, 1) 100%
+  );
 
   --roy-primary: lightseagreen;
   --roy-secondary: lightsalmon;

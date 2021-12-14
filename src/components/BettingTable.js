@@ -9,7 +9,7 @@ import BetService from "../api/Bet";
 import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 // import cyanPip from "../images/pip_cyan_2.png";
 
 const BettingTable = (props) => {
@@ -265,12 +265,8 @@ const BettingTable = (props) => {
             onClick={closeDescriptionModal}
           ></button>
         </div>
-        <div className="modal-body">
-          {ReactHtmlParser(description)}
-        </div>
-        <div className="modal-footer">
-
-        </div>
+        <div className="modal-body">{ReactHtmlParser(description)}</div>
+        <div className="modal-footer"></div>
       </Modal>
       <Modal show={betOptionModal}>
         <div className="modal-header">
@@ -463,7 +459,9 @@ const BettingTable = (props) => {
                 </ul>
               </div>
               <div className="betting-table__bet__body__placebet">
-                <button className="outline-none btn placed">Bet Placed</button>
+                <button className="outline-none btn placed no-cursor">
+                  Bet Placed
+                </button>
               </div>
             </div>
             <div className="betting-table__bet__footer">
@@ -526,7 +524,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                  parseInt(currentBet.maxBetters) && (
+                    parseInt(currentBet.maxBetters) && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}
@@ -537,8 +535,8 @@ const BettingTable = (props) => {
                 {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
-                  currentBet.betCreator && (
-                    <button className="outline-none btn">
+                    currentBet.betCreator && (
+                    <button className="outline-none btn no-cursor">
                       Results coming soon
                     </button>
                   )}
@@ -554,17 +552,20 @@ const BettingTable = (props) => {
                   )}
                 {moment(currentBet.deadline).format("x") < +new Date() &&
                   moment(currentBet.results).format("x") > +new Date() && (
-                    <button className="outline-none btn">
+                    <button className="outline-none btn no-cursor">
                       Deadline Passed
                     </button>
                   )}
                 {currentBet.selectedChoice && (
-                  <button className="outline-none btn finished">
+                  <button className="outline-none btn finished no-cursor">
                     Bet Finished
                   </button>
                 )}
                 {betState.includes(currentBet.id) && (
-                  <button disabled className="outline-none btn placed">
+                  <button
+                    disabled
+                    className="outline-none btn placed no-cursor"
+                  >
                     Bet Placed
                   </button>
                 )}

@@ -186,9 +186,12 @@
             }
           }
 
+          &.no-cursor {
+            cursor: no-drop;
+          }
+
           &.finished {
             color: var(--c-secondary-darken-2);
-            cursor: no-drop;
 
             animation: animateFinBtn 15s linear infinite;
             background-image: linear-gradient(
