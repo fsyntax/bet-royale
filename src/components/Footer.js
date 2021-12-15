@@ -13,7 +13,7 @@ const Footer = () => {
     <div className="container d-flex justify-content-center align-items-center w-100 p-4">
       <a href="https://discord.gg/rg9KUUSqfc" target="_blank" rel="noreferrer">
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={discord}
           alt="discord"
         />
@@ -24,7 +24,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={reddit}
           alt="reddit"
         />
@@ -35,14 +35,14 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={twitter}
           alt="twitter"
         />
       </a>
       <a href="https://t.me/cryptoroyaleone" target="_blank" rel="noreferrer">
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={telegram}
           alt="telegram"
         />
@@ -53,7 +53,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={facebook}
           alt="facebook"
         />
@@ -64,7 +64,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={instagram}
           alt="instagram"
         />
@@ -75,7 +75,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={fandom}
           alt="fandom"
         />
@@ -86,7 +86,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={viperswap}
           alt="viperswap"
         />
@@ -97,7 +97,7 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img
-          style={{ height: "25px", marginRight: "10px" }}
+          style={{ height: "25px", width: "25px", marginRight: "10px" }}
           src={harmony}
           alt="harmony"
         />

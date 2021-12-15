@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Modal, Navbar, Nav, Container } from "react-bootstrap";
 import { HouseFill, NodePlusFill, ClockHistory } from "react-bootstrap-icons";
 
-import logo from "../images/logo.png";
+import logo from "../images/logo.webp";
 import discord from "../images/discord.svg";
 
-const Header = (props) => {
+const Header = () => {
   const location = useLocation();
 
   const [modal, setModal] = useState(false);
@@ -111,9 +111,9 @@ const Header = (props) => {
         expanded={expanded}
       >
         <Container>
-          <Navbar.Brand href="#home" className="header-logo--wrapper">
+          <Navbar.Brand href="/" className="header-logo--wrapper">
             <img
-              style={{ height: "50px" }}
+              style={{ height: "50px", width: "50px" }}
               className="header-logo img-fluid"
               src={logo}
               alt="logo"
@@ -210,7 +210,6 @@ const Header = (props) => {
                   </button>
                 </div>
               )}
-
               {!localStorage.getItem("username") && (
                 <a
                   className="text-decoration-none btn btn-success main-nav__item"
@@ -228,7 +227,11 @@ const Header = (props) => {
                   Discord
                   <img
                     className="ml-3 d-inline img-fluid"
-                    style={{ height: "25px", marginLeft: "10px" }}
+                    style={{
+                      height: "25px",
+                      width: "25px",
+                      marginLeft: "10px",
+                    }}
                     src={discord}
                     alt="discord"
                   />
