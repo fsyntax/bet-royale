@@ -445,7 +445,8 @@ const BettingTable = (props) => {
                   <li>
                     <span>Results: </span>
                     <Moment format="YYYY/MM/DD h:mm A">
-                      {currentBet.results}
+                      {console.log(new Date(currentBet.results))}
+                      {new Date(currentBet.results)}
                     </Moment>
                   </li>
                   <li>
@@ -493,14 +494,18 @@ const BettingTable = (props) => {
                 <ul>
                   <li>
                     <span>Deadline:</span>{" "}
-                    <Moment format="YYYY/MM/DD h:mm A">
-                      {currentBet.deadline}
-                    </Moment>
+                    {moment
+                      .utc(currentBet.deadline)
+                      .local()
+                      .format("YYYY/MM/DD h:mm A")}
                   </li>
                   <li>
                     <span>Results: </span>
                     <Moment format="YYYY/MM/DD h:mm A">
-                      {currentBet.results}
+                      {moment
+                        .utc(currentBet.results)
+                        .local()
+                        .format("YYYY/MM/DD h:mm A")}
                     </Moment>
                   </li>
                   <li>
