@@ -4,6 +4,11 @@
   display: flex;
   align-items: center;
 
+  .header-logo {
+    height: 50px;
+    width: 50px;
+  }
+
   .header-logo--text {
     font-size: 1.6em;
     margin-left: 1em;
@@ -117,4 +122,10 @@ $stroke-color: lightseagreen;
       stroke-width: 6;
     }
   }
+}
+
+.discord {
+  height: 25px;
+  width: 25px;
+  margin-left: 10px;
 }

@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Modal, Navbar, Nav, Container } from "react-bootstrap";
-import { HouseFill, NodePlusFill, ClockHistory } from "react-bootstrap-icons";
+
+import {
+  HouseFill,
+  NodePlusFill,
+  ClockHistory,
+  Book,
+} from "react-bootstrap-icons";
 
 import logo from "../images/logo.webp";
 import discord from "../images/discord.svg";
@@ -112,12 +118,7 @@ const Header = () => {
       >
         <Container>
           <Navbar.Brand href="/" className="header-logo--wrapper">
-            <img
-              style={{ height: "50px", width: "50px" }}
-              className="header-logo img-fluid"
-              src={logo}
-              alt="logo"
-            />
+            <img className="header-logo img-fluid" src={logo} alt="logo" />
             <span className="header-logo--text">BetRoyale</span>
           </Navbar.Brand>
           <Navbar.Toggle
@@ -184,6 +185,20 @@ const Header = () => {
                 <ClockHistory className="main-nav__icon" />
                 Betting History
               </Link>
+              <Link
+                onClick={() => {
+                  setExpanded(false);
+                  animHamMenu();
+                }}
+                className={
+                  location.pathname === "/guide"
+                    ? "active text-decoration-none main-nav__item"
+                    : "text-white text-decoration-none main-nav__item"
+                }
+                to="/guide"
+              >
+                <Book className="main-nav__icon" />A Guide to Using Bet Royale
+              </Link>
             </Nav>
             <Nav className="main-nav__connect">
               {localStorage.getItem("address") && (
@@ -222,12 +237,7 @@ const Header = () => {
                 >
                   Discord
                   <img
-                    className="ml-3 d-inline img-fluid"
-                    style={{
-                      height: "25px",
-                      width: "25px",
-                      marginLeft: "10px",
-                    }}
+                    className="ml-3 d-inline img-fluid discord"
                     src={discord}
                     alt="discord"
                   />

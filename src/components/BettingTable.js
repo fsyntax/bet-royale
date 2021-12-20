@@ -395,10 +395,7 @@ const BettingTable = (props) => {
         </div>
       </Modal>
       <ToastContainer position="bottom-end">
-        <Toast
-          show={betToast}
-          style={{ marginRight: "20px", marginBottom: "20px" }}
-        >
+        <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
             <div className="toast-header bg-success text-white">
               <strong className="me-auto">Alert</strong>
@@ -586,7 +583,7 @@ const BettingTable = (props) => {
                 {localStorage.getItem("username") === currentBet.betCreator && (
                   <div>
                     <Trash
-                      style={{ cursor: "pointer", marginRight: "15px" }}
+                      className="trash"
                       onClick={() =>
                         openBetDeleteModal(currentBet.id, currentBet.name)
                       }

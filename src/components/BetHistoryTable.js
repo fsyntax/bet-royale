@@ -1,4 +1,4 @@
-import Moment from "react-moment";
+import moment from "moment";
 
 const BetHistoryTable = (props) => {
   return (
@@ -17,15 +17,17 @@ const BetHistoryTable = (props) => {
                 </li>
                 <li>
                   <span>Deadline:</span>{" "}
-                  <Moment format="YYYY/MM/DD h:mm A">
-                    {currentBet.deadline}
-                  </Moment>
+                  {moment
+                    .utc(currentBet.deadline)
+                    .local()
+                    .format("YYYY/MM/DD h:mm A")}
                 </li>
                 <li>
                   <span>Results: </span>
-                  <Moment format="YYYY/MM/DD h:mm A">
-                    {currentBet.results}
-                  </Moment>
+                  {moment
+                    .utc(currentBet.results)
+                    .local()
+                    .format("YYYY/MM/DD h:mm A")}
                 </li>
                 <li>
                   <span>Bet Size: </span>
