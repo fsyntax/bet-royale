@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Trash } from "react-bootstrap-icons";
-import Moment from "react-moment";
 import moment from "moment";
 import Web3 from "web3";
 
@@ -438,16 +437,17 @@ const BettingTable = (props) => {
                 <ul>
                   <li>
                     <span>Deadline:</span>{" "}
-                    <Moment format="YYYY/MM/DD h:mm A">
-                      {currentBet.deadline}
-                    </Moment>
+                    {moment
+                      .utc(currentBet.deadline)
+                      .local()
+                      .format("YYYY/MM/DD h:mm A")}
                   </li>
                   <li>
                     <span>Results: </span>
-                    <Moment format="YYYY/MM/DD h:mm A">
-                      {console.log(new Date(currentBet.results))}
-                      {new Date(currentBet.results)}
-                    </Moment>
+                    {moment
+                      .utc(currentBet.results)
+                      .local()
+                      .format("YYYY/MM/DD h:mm A")}
                   </li>
                   <li>
                     <span>Bet Size: </span>
@@ -501,12 +501,10 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Results: </span>
-                    <Moment format="YYYY/MM/DD h:mm A">
-                      {moment
-                        .utc(currentBet.results)
-                        .local()
-                        .format("YYYY/MM/DD h:mm A")}
-                    </Moment>
+                    {moment
+                      .utc(currentBet.results)
+                      .local()
+                      .format("YYYY/MM/DD h:mm A")}
                   </li>
                   <li>
                     <span>Bet Size: </span>
