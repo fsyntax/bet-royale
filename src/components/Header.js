@@ -197,7 +197,8 @@ const Header = () => {
                 }
                 to="/guide"
               >
-                <Book className="main-nav__icon" />A Guide to Using Bet Royale
+                <Book className="main-nav__icon" />
+                Guide
               </Link>
             </Nav>
             <Nav className="main-nav__connect">
