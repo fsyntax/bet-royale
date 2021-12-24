@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
 import BetService from "../api/Bet";
 
-import ReactQuill from "react-quill"
-import 'react-quill/dist/quill.snow.css'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import moment from "moment";
 
@@ -12,8 +12,8 @@ import "../styles/createbet.scss";
 
 const CreateBet = () => {
   const [modal, setModal] = useState(false);
-
   const [description, setDescription] = useState("");
+
   const betChoicesInputRef = useRef();
   const deadlineInputRef = useRef();
   const resultsInputRef = useRef();
@@ -182,12 +182,11 @@ const CreateBet = () => {
 
           <ReactQuill
             className="create-bet-form__field create-bet-form__desc"
-            theme='snow'
+            theme="snow"
             value={convertedText}
             onChange={setConvertedText}
             ref={descriptionInputRef}
             placeholder="Describe your Bet in detail.."
-
           />
         </FormGroup>
         <div className="create-bet-form__config">

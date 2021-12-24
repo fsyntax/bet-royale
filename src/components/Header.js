@@ -153,7 +153,8 @@ const Header = () => {
                 }
                 to="/"
               >
-                <HouseFill className="main-nav__icon" /> Home
+                <HouseFill className="main-nav__icon" />
+                Home
               </Link>
               <Link
                 onClick={() => {

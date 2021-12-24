@@ -14,9 +14,9 @@ import ReactHtmlParser from "react-html-parser";
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
+  const [alertModal, setAlertModal] = useState(false);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [betDeleteModal, setBetDeleteModal] = useState(false);
-  const [metamaskModal, setMetamaskModal] = useState(false);
   const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
   const [betOptions, setBetOptions] = useState("");
@@ -148,8 +148,8 @@ const BettingTable = (props) => {
     setBetDeleteModal(false);
   }
 
-  function closemetamaskModal() {
-    setMetamaskModal(false);
+  function closeAlertModal() {
+    setAlertModal(false);
   }
 
   function closeBetToast() {
@@ -162,13 +162,13 @@ const BettingTable = (props) => {
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
-      setMetamaskModal(true);
+      setAlertModal(true);
       setDescription("Please install Metamask!");
       return;
     }
 
     if (!localStorage.getItem("address")) {
-      setMetamaskModal(true);
+      setAlertModal(true);
       setDescription("Please connect your wallet!");
       return;
     }
@@ -179,7 +179,7 @@ const BettingTable = (props) => {
       localStorage.getItem("chainID") !== "0x63564c42" &&
       localStorage.getItem("chainID") !== "0x63564c43"
     ) {
-      setMetamaskModal(true);
+      setAlertModal(true);
       setDescription("Please connect to the Harmony Mainnet!");
       return;
     }
@@ -224,13 +224,13 @@ const BettingTable = (props) => {
 
   function openBetResultsModal(bet) {
     if (!window.ethereum) {
-      setMetamaskModal(true);
+      setAlertModal(true);
       setDescription("Please install Metamask!");
       return;
     }
 
     if (!localStorage.getItem("address")) {
-      setMetamaskModal(true);
+      setAlertModal(true);
       setDescription("Please connect your wallet!");
       return;
     }
@@ -339,7 +339,7 @@ const BettingTable = (props) => {
           </button>
         </div>
       </Modal>
-      <Modal show={metamaskModal}>
+      <Modal show={alertModal}>
         <div className="modal-header">
           <h5 className="modal-title">Alert</h5>
           <button
@@ -347,7 +347,7 @@ const BettingTable = (props) => {
             className="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-            onClick={closemetamaskModal}
+            onClick={closeAlertModal}
           ></button>
         </div>
         <div className="modal-body">
@@ -357,7 +357,7 @@ const BettingTable = (props) => {
           <button
             type="button"
             className="btn btn-danger"
-            onClick={closemetamaskModal}
+            onClick={closeAlertModal}
           >
             Close
           </button>
