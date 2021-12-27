@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Trash } from "react-bootstrap-icons";
 import moment from "moment";
 import Web3 from "web3";
-
+import Masonry from "react-masonry-css";
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
@@ -251,6 +251,12 @@ const BettingTable = (props) => {
     setBetResultModal(false);
   }
 
+  const breakpointColumnsObj = {
+    default: 3,
+    992: 2,
+    576: 1
+  };
+
   return (
     <div className="w-100">
       <Modal show={descriptionModal}>
@@ -411,7 +417,7 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <div id="betting-table" className="container betting-table w-100">
+      <Masonry breakpointCols={breakpointColumnsObj} id="betting-table" className="betting-table">
         {props.betHistoryData.map((currentBet, index) => (
           <div className="betting-table__bet" key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
@@ -595,7 +601,7 @@ const BettingTable = (props) => {
             </div>
           </div>
         ))}
-      </div>
+      </Masonry>
     </div>
   );
 };
