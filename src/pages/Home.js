@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import Loading from "../components/Loading";
 import BettingTable from "../components/BettingTable";
 
 import BetService from "../api/Bet";
@@ -7,8 +8,11 @@ import BetService from "../api/Bet";
 const Home = () => {
   const [currentBets, setCurrentBets] = useState([]);
   const [betHistory, setBetHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     BetService.getInstance()
       .getCurrentBets()
       .then((data) => {
@@ -24,10 +28,14 @@ const Home = () => {
         }
 
         setCurrentBets(currentBetLogs);
+
+        setIsLoading(false);
       });
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
+
     BetService.getInstance()
       .getBetHistory()
       .then((data) => {
@@ -44,7 +52,13 @@ const Home = () => {
 
         setBetHistory(betHistoryLogs);
       });
+
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container d-flex align-items-center flex-column h-100 w-100 pt-4">

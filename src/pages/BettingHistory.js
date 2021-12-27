@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 
+import Loading from "../components/Loading";
 import BetHistoryTable from "../components/BetHistoryTable";
 
 import BetService from "../api/Bet";
 
 const BettingHistory = () => {
   const [betHistory, setBetHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     BetService.getInstance()
       .getBetHistory()
       .then((data) => {
@@ -24,7 +28,13 @@ const BettingHistory = () => {
 
         setBetHistory(betLogs);
       });
+
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container d-flex align-items-center flex-column pt-5">
