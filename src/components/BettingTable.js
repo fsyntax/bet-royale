@@ -258,7 +258,7 @@ const BettingTable = (props) => {
   };
 
   return (
-    <div className="w-100">
+    <div className="w-100 betting-table__wrapper">
       <Modal show={descriptionModal}>
         <div className="modal-header">
           <h4 className="modal-title">Bet Description</h4>
@@ -511,7 +511,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Bet Size: </span>
-                    {currentBet.size}
+                    {currentBet.size} ROY
                   </li>
                   <li>
                     <span>Players / Pot:</span>
