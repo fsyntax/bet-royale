@@ -3,6 +3,7 @@ import { Trash } from "react-bootstrap-icons";
 import moment from "moment";
 import Web3 from "web3";
 import Masonry from "react-masonry-css";
+import { motion } from "framer-motion";
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
@@ -256,7 +257,20 @@ const BettingTable = (props) => {
     992: 2,
     576: 1
   };
-
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+      setIsLoaded(true);
+  }, []);
+  const variants = {
+    loaded: {
+      opacity: 1, 
+      transition: {
+        duration: .7,
+        ease: "backIn"
+      } 
+    },
+    notLoaded: {opacity: 0}
+  }
   return (
     <div className="w-100 betting-table__wrapper">
       <Modal show={descriptionModal}>
@@ -476,7 +490,13 @@ const BettingTable = (props) => {
           </div>
         ))}
         {filteredBets.map((currentBet, index) => (
-          <div className="betting-table__bet" key={currentBet.id} index={index}>
+          <motion.div 
+          className="betting-table__bet" 
+          key={currentBet.id} 
+          index={index} 
+          animate={isLoaded ? "loaded" : "notLoaded"}
+          variants={variants}   
+          >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
@@ -599,7 +619,7 @@ const BettingTable = (props) => {
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </Masonry>
     </div>

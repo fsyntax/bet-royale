@@ -23,6 +23,7 @@
     justify-content: center;
   }
   &__bet {
+    opacity: 0;
     background: var(--c-primary-darken-3);
     padding: 1em;
     border-radius: 5px;
