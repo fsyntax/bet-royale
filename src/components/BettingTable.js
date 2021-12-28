@@ -438,7 +438,7 @@ const BettingTable = (props) => {
           key={currentBet.id} 
           index={index} 
           animate={isLoaded ? "loaded" : "notLoaded"}
-          variants={variants}  key={currentBet.id} index={index}>
+          variants={variants} >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
