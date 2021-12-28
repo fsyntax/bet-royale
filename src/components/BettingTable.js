@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Trash } from "react-bootstrap-icons";
 import moment from "moment";
 import Web3 from "web3";
-
+import Masonry from "react-masonry-css";
+import { motion } from "framer-motion";
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
@@ -251,8 +252,27 @@ const BettingTable = (props) => {
     setBetResultModal(false);
   }
 
+  const breakpointColumnsObj = {
+    default: 3,
+    992: 2,
+    576: 1
+  };
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+      setIsLoaded(true);
+  }, []);
+  const variants = {
+    loaded: {
+      opacity: 1, 
+      transition: {
+        duration: .7,
+        ease: "backIn"
+      } 
+    },
+    notLoaded: {opacity: 0}
+  }
   return (
-    <div className="w-100">
+    <div className="w-100 betting-table__wrapper">
       <Modal show={descriptionModal}>
         <div className="modal-header">
           <h4 className="modal-title">Bet Description</h4>
@@ -411,7 +431,7 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <div id="betting-table" className="container betting-table w-100">
+      <Masonry breakpointCols={breakpointColumnsObj} id="betting-table" className="betting-table">
         {props.betHistoryData.map((currentBet, index) => (
           <div className="betting-table__bet" key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
@@ -470,7 +490,13 @@ const BettingTable = (props) => {
           </div>
         ))}
         {filteredBets.map((currentBet, index) => (
-          <div className="betting-table__bet" key={currentBet.id} index={index}>
+          <motion.div 
+          className="betting-table__bet" 
+          key={currentBet.id} 
+          index={index} 
+          animate={isLoaded ? "loaded" : "notLoaded"}
+          variants={variants}   
+          >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
@@ -505,7 +531,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Bet Size: </span>
-                    {currentBet.size}
+                    {currentBet.size} ROY
                   </li>
                   <li>
                     <span>Players / Pot:</span>
@@ -593,9 +619,9 @@ const BettingTable = (props) => {
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </Masonry>
     </div>
   );
 };

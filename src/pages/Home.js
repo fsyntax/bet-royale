@@ -61,11 +61,9 @@ const Home = () => {
   }
 
   return (
-    <div className="container d-flex align-items-center flex-column h-100 w-100 pt-4">
+    <div className="container-fluid px-0 mx-0 d-flex align-items-center flex-column pt-4">
       <h1 className="text-4xl mb-4">RoyBet Centre</h1>
-      <div className="mt-10 w-100 d-flex justify-items-center align-items-center">
         <BettingTable data={currentBets} betHistoryData={betHistory} />
-      </div>
     </div>
   );
 };

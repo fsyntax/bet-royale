@@ -20,7 +20,7 @@ const App = () => {
   return (
     <div
       id="main-container"
-      className="min-vh-100 px-3 font-poppins text-white"
+      className="min-vh-100 px-4 font-poppins text-white"
     >
       <Header />
       <Switch>
