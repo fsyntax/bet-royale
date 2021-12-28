@@ -433,7 +433,12 @@ const BettingTable = (props) => {
       </ToastContainer>
       <Masonry breakpointCols={breakpointColumnsObj} id="betting-table" className="betting-table">
         {props.betHistoryData.map((currentBet, index) => (
-          <div className="betting-table__bet" key={currentBet.id} index={index}>
+          <motion.div 
+          className="betting-table__bet" 
+          key={currentBet.id} 
+          index={index} 
+          animate={isLoaded ? "loaded" : "notLoaded"}
+          variants={variants}  key={currentBet.id} index={index}>
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
             </div>
@@ -487,7 +492,7 @@ const BettingTable = (props) => {
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
         {filteredBets.map((currentBet, index) => (
           <motion.div 
