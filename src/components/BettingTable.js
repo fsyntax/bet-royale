@@ -27,6 +27,7 @@ const BettingTable = (props) => {
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
   const [betID, setBetID] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const web3 = new Web3(Web3.givenProvider);
 
@@ -257,7 +258,7 @@ const BettingTable = (props) => {
     992: 2,
     576: 1,
   };
-  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -271,6 +272,7 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
+
   return (
     <div className="w-100 betting-table__wrapper">
       <Modal show={descriptionModal}>
@@ -478,7 +480,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Bet Size: </span>
-                    {currentBet.size}
+                    {currentBet.size} ROY
                   </li>
                   <li>
                     <span>Players / Pot:</span>

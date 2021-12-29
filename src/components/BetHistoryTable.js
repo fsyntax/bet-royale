@@ -4,28 +4,31 @@ import { useState, useEffect } from "react";
 
 const BetHistoryTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-      setIsLoaded(true);
+    setIsLoaded(true);
   }, []);
   const variants = {
     loaded: {
-      opacity: 1, 
+      opacity: 1,
       transition: {
-        duration: .7,
-        ease: "backIn"
-      } 
+        duration: 0.7,
+        ease: "backIn",
+      },
     },
-    notLoaded: {opacity: 0}
-  }
+    notLoaded: { opacity: 0 },
+  };
+
   return (
-    <div className="container betting-table w-100">
+    <div className="betting-table w-100">
       {props.data.map((currentBet, index) => (
-          <motion.div 
-          className="betting-table__bet" 
-          key={currentBet.id} 
-          index={index} 
+        <motion.div
+          className="betting-table__bet"
+          key={currentBet.id}
+          index={index}
           animate={isLoaded ? "loaded" : "notLoaded"}
-          variants={variants} >  
+          variants={variants}
+        >
           <div className="betting-table__bet__header">
             <h3 className="betting-table__bet__name">{currentBet.name}</h3>
           </div>
@@ -52,12 +55,12 @@ const BetHistoryTable = (props) => {
                 </li>
                 <li>
                   <span>Bet Size: </span>
-                  {currentBet.size}
+                  {currentBet.size} ROY
                 </li>
               </ul>
             </div>
           </div>
-          </motion.div>
+        </motion.div>
       ))}
     </div>
   );

@@ -2,7 +2,7 @@
 
 .betting-table {
   display: flex;
-  width:auto;
+  width: auto;
   max-width: var(--bet-table--maxwidth);
   // display: grid;
   // place-items: center;
@@ -35,16 +35,16 @@
     justify-content: space-between;
     margin: 1.5em auto;
     transition: width 500ms;
-  @media (min-width: $screen-sm) {
-    margin: 1em .5em;
-  }
-  @media (min-width: $screen-lg) {
-    margin: 1.5em 1em;
-  }
-  @media (min-width: $screen-xl) {
-    margin: 2.5em 1.5em;
-  }
-  
+    @media (min-width: $screen-sm) {
+      margin: 1em 0.5em;
+    }
+    @media (min-width: $screen-lg) {
+      margin: 1.5em 1em;
+    }
+    @media (min-width: $screen-xl) {
+      margin: 2.5em 1.5em;
+    }
+
     @keyframes animateBg {
       0% {
         background-position: 0% 0%;
@@ -115,7 +115,7 @@
     &__body {
       &__desc {
         p {
-          margin: .6em 0;
+          margin: 0.6em 0;
 
           button {
             appearance: none;
