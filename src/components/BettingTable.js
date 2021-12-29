@@ -27,6 +27,7 @@ const BettingTable = (props) => {
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
   const [betID, setBetID] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const web3 = new Web3(Web3.givenProvider);
 
@@ -255,22 +256,23 @@ const BettingTable = (props) => {
   const breakpointColumnsObj = {
     default: 3,
     992: 2,
-    576: 1
+    576: 1,
   };
-  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-      setIsLoaded(true);
+    setIsLoaded(true);
   }, []);
   const variants = {
     loaded: {
-      opacity: 1, 
+      opacity: 1,
       transition: {
-        duration: .7,
-        ease: "backIn"
-      } 
+        duration: 0.7,
+        ease: "backIn",
+      },
     },
-    notLoaded: {opacity: 0}
-  }
+    notLoaded: { opacity: 0 },
+  };
+
   return (
     <div className="w-100 betting-table__wrapper">
       <Modal show={descriptionModal}>
@@ -431,14 +433,18 @@ const BettingTable = (props) => {
           </div>
         </Toast>
       </ToastContainer>
-      <Masonry breakpointCols={breakpointColumnsObj} id="betting-table" className="betting-table">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        id="betting-table"
+        className="betting-table"
+      >
         {props.betHistoryData.map((currentBet, index) => (
-          <motion.div 
-          className="betting-table__bet" 
-          key={currentBet.id} 
-          index={index} 
-          animate={isLoaded ? "loaded" : "notLoaded"}
-          variants={variants}   
+          <motion.div
+            className="betting-table__bet"
+            key={currentBet.id}
+            index={index}
+            animate={isLoaded ? "loaded" : "notLoaded"}
+            variants={variants}
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
@@ -474,7 +480,7 @@ const BettingTable = (props) => {
                   </li>
                   <li>
                     <span>Bet Size: </span>
-                    {currentBet.size}
+                    {currentBet.size} ROY
                   </li>
                   <li>
                     <span>Players / Pot:</span>
@@ -496,12 +502,12 @@ const BettingTable = (props) => {
           </motion.div>
         ))}
         {filteredBets.map((currentBet, index) => (
-          <motion.div 
-          className="betting-table__bet" 
-          key={currentBet.id} 
-          index={index} 
-          animate={isLoaded ? "loaded" : "notLoaded"}
-          variants={variants}   
+          <motion.div
+            className="betting-table__bet"
+            key={currentBet.id}
+            index={index}
+            animate={isLoaded ? "loaded" : "notLoaded"}
+            variants={variants}
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
@@ -556,7 +562,8 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") > +new Date() &&
                   moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
-                    parseInt(currentBet.maxBetters) && (
+                    parseInt(currentBet.maxBetters) &&
+                  !currentBet.selectedChoice && (
                     <button
                       className="outline-none btn"
                       onClick={() => openBetOptionModal(currentBet)}

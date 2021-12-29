@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
+
 import BetService from "../api/Bet";
 
 import ReactQuill from "react-quill";
@@ -13,6 +14,7 @@ import "../styles/createbet.scss";
 const CreateBet = () => {
   const [modal, setModal] = useState(false);
   const [description, setDescription] = useState("");
+  const [convertedText, setConvertedText] = useState("");
 
   const betChoicesInputRef = useRef();
   const deadlineInputRef = useRef();
@@ -22,7 +24,6 @@ const CreateBet = () => {
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
   const shortDescriptionInputRef = useRef();
-  const [convertedText, setConvertedText] = useState("");
 
   const history = useHistory();
 
@@ -277,7 +278,7 @@ const CreateBet = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Option 1, Option2, ..."
+              placeholder="Option 1, Option 2, ..."
               aria-label="Results"
               id="results"
               aria-describedby="basic-addon1"

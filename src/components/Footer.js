@@ -7,6 +7,7 @@ import instagram from "../images/instagram.svg";
 import fandom from "../images/fandom.svg";
 import viperswap from "../images/viperswap.svg";
 import harmony from "../images/harmony.svg";
+import github from "../images/github.svg";
 
 const Footer = () => {
   return (
@@ -65,6 +66,13 @@ const Footer = () => {
         rel="noreferrer"
       >
         <img className="social-media-logo" src={harmony} alt="harmony" />
+      </a>
+      <a
+        href="https://github.com/DevBaddy/bet-royale"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img className="social-media-logo" src={github} alt="github" />
       </a>
     </div>
   );
