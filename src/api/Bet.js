@@ -53,10 +53,11 @@ export class BetService extends Component {
   }
 
   async getBetHistory() {
-    let address = GetHash(localStorage.getItem("address"));
+    let username = GetHash(localStorage.getItem("username"));
+
     try {
       let response = await fetch(
-        `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${address}/betHistory.json`
+        `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${username}/betHistory.json`
       );
 
       let responseJson = await response.json();
@@ -68,9 +69,9 @@ export class BetService extends Component {
   }
 
   async logBet(data) {
-    let address = GetHash(localStorage.getItem("address"));
+    let username = GetHash(localStorage.getItem("username"));
 
-    let url = `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${address}/betHistory.json`;
+    let url = `https://bet-royale-testing-default-rtdb.firebaseio.com/user/${username}/betHistory.json`;
 
     return await fetch(url, {
       method: "POST",

@@ -46,13 +46,11 @@ const BettingTable = (props) => {
 
   async function placeBet(data) {
     await handleBet({
-      amount: data.size,
-      address: "0x8192b322276B0E19B26bd1A25C1Ccc03Be0ef31E",
       objData: data,
     });
   }
 
-  async function handleBet({ amount, address, objData }) {
+  async function handleBet({ objData }) {
     try {
       await window.ethereum.send("eth_requestAccounts");
 
@@ -172,6 +170,12 @@ const BettingTable = (props) => {
     if (!localStorage.getItem("address")) {
       setAlertModal(true);
       setDescription("Please connect your wallet!");
+      return;
+    }
+
+    if (!localStorage.getItem("username")) {
+      setAlertModal(true);
+      setDescription("Please connect your Discord account!");
       return;
     }
 
