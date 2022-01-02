@@ -554,7 +554,7 @@ const BettingTable = (props) => {
                     {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                   {currentBet.selectedChoice && (
-                    <li>
+                    <li class="betting-table__bet__body__data__result">
                       <span>Result:</span>
                       {currentBet.selectedChoice}
                     </li>
