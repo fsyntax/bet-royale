@@ -587,7 +587,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice && (
                     <button
-                      className="outline-none btn mt-3"
+                      className="outline-none btn mt-3 set-result"
                       onClick={() => openBetResultsModal(currentBet)}
                     >
                       Set Result

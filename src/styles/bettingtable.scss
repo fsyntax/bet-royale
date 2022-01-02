@@ -185,7 +185,7 @@
           font-weight: 600;
           letter-spacing: 1px;
           height: 50px;
-          animation: animatePlaceBtn 10s linear infinite;
+          animation: animatePlaceBtn 10s linear infinite alternate;
           background-image: linear-gradient(
             90deg,
             #05aa83,
@@ -208,6 +208,13 @@
           &:focus {
             outline: none;
             box-shadow: var(--box-shadow-primary);
+          }
+          &.set-result {
+            background-image: linear-gradient(90deg, 
+            #aa7105,
+            #cc7c00,
+            #883404, 
+            #cc4300);
           }
 
           &.placed {
