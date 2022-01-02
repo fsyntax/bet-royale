@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Modal, FloatingLabel, Form, FormGroup } from "react-bootstrap";
-
+import { motion } from 'framer-motion';
 import BetService from "../api/Bet";
 
 import ReactQuill from "react-quill";
@@ -118,6 +118,7 @@ const CreateBet = () => {
   }
 
   return (
+    <motion.div initial={{opacity: 0, filter: "blur(2px)" }} transition={{ease: "easeInOut"}} animate={{opacity: 1, filter:"blur(0)"}} exit={{opacity: 0, filter: "blur(2px)"}}>
     <div className="container d-flex align-items-center flex-column pt-4 create-bet-form pb-4">
       <Modal show={modal}>
         <div className="modal-content">
@@ -290,6 +291,7 @@ const CreateBet = () => {
         </div>
       </Form>
     </div>
+    </motion.div>
   );
 };
 
