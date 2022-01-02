@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Loading from "../components/Loading";
 import BetHistoryTable from "../components/BetHistoryTable";
-
+import { motion } from 'framer-motion';
 import BetService from "../api/Bet";
 
 const BettingHistory = () => {
@@ -37,6 +37,8 @@ const BettingHistory = () => {
   }
 
   return (
+    <motion.div initial={{opacity: 0, filter: "blur(2px)" }} transition={{ease: "easeInOut"}} animate={{opacity: 1, filter:"blur(0)"}} exit={{opacity: 0, filter: "blur(2px)"}}>
+
     <div className="container d-flex align-items-center flex-column pt-5">
       <h1 className="text-4xl">Betting History</h1>
       <div className="my-10 w-100 d-flex justify-items-end align-items-center">
@@ -56,6 +58,7 @@ const BettingHistory = () => {
         <BetHistoryTable data={betHistory} />
       </div>
     </div>
+    </motion.div>
   );
 };
 
