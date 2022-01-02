@@ -554,7 +554,7 @@ const BettingTable = (props) => {
                     {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                   {currentBet.selectedChoice && (
-                    <li>
+                    <li class="betting-table__bet__body__data__result">
                       <span>Result:</span>
                       {currentBet.selectedChoice}
                     </li>
@@ -587,7 +587,7 @@ const BettingTable = (props) => {
                   moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice && (
                     <button
-                      className="outline-none btn mt-3"
+                      className="outline-none btn mt-3 set-result"
                       onClick={() => openBetResultsModal(currentBet)}
                     >
                       Set Result
