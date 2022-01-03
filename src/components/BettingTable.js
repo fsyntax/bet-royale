@@ -96,8 +96,6 @@ const BettingTable = (props) => {
         .transfer(toAddress, value)
         .send({ from: fromAddress })
         .on("transactionHash", function (hash) {
-          console.log(hash);
-
           setBetOptionModal(false);
           setBetOptions("");
           betOptionSelectRef.current.value = "";
@@ -301,7 +299,7 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          <select className="form-select" name="" id="">
+          <select className="form-select" ref={betOptionSelectRef}>
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>
@@ -332,7 +330,7 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          <select className="form-select" name="" id="">
+          <select className="form-select" ref={betResultSelectRef}>
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>
