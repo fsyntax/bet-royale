@@ -516,8 +516,8 @@ const BettingTable = (props) => {
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}
-              <Link to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
               </h3>
+              <Link className="betting-table__bet__header__link" to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
