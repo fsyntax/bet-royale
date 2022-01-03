@@ -61,6 +61,8 @@
       margin-bottom: 0.3em;
       font-size: 1.3em;
       position: relative;
+      display: flex;
+      justify-content: space-between;
 
       &::after {
         content: "";
