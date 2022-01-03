@@ -31,7 +31,6 @@ const BettingTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const web3 = new Web3(Web3.givenProvider);
-
   useEffect(() => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
@@ -55,7 +54,7 @@ const BettingTable = (props) => {
     try {
       await window.ethereum.send("eth_requestAccounts");
 
-      console.log(objData);
+      // console.log(objData);
 
       let tokenAddress = "0xfe1b516a7297eb03229a8b5afad80703911e81cb";
       let toAddress = "0x2ADe6e328953a132911e0ad197E68BE882865241";
