@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { Trash } from "react-bootstrap-icons";
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+
+import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
 import moment from "moment";
 import Web3 from "web3";
 import Masonry from "react-masonry-css";
@@ -10,7 +12,6 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import ReactHtmlParser from "react-html-parser";
-// import cyanPip from "../images/pip_cyan_2.png";
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -21,6 +22,7 @@ const BettingTable = (props) => {
   const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
   const [betOptions, setBetOptions] = useState("");
+  const [selectedBetOption, setSelectedBetOption] = useState("");
   const [betToastDescription, setBetToastDescription] = useState("");
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
@@ -29,10 +31,6 @@ const BettingTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const web3 = new Web3(Web3.givenProvider);
-
-  let betOptionSelectRef = useRef();
-  let betResultSelectRef = useRef();
-
   useEffect(() => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
@@ -55,6 +53,8 @@ const BettingTable = (props) => {
   async function handleBet({ objData }) {
     try {
       await window.ethereum.send("eth_requestAccounts");
+
+      // console.log(objData);
 
       let tokenAddress = "0xfe1b516a7297eb03229a8b5afad80703911e81cb";
       let toAddress = "0x2ADe6e328953a132911e0ad197E68BE882865241";
@@ -96,9 +96,11 @@ const BettingTable = (props) => {
         .transfer(toAddress, value)
         .send({ from: fromAddress })
         .on("transactionHash", function (hash) {
+          console.log(hash);
+
           setBetOptionModal(false);
           setBetOptions("");
-          betOptionSelectRef.current.value = "";
+          setSelectedBetOption("");
 
           setBetToast(true);
           setBetToastDescription("This bet has been successfully placed!");
@@ -114,7 +116,7 @@ const BettingTable = (props) => {
 
       setBetOptionModal(false);
       setBetOptions("");
-      betOptionSelectRef.current.value = "";
+      setSelectedBetOption("");
 
       setBetToast(true);
       setBetToastDescription("Bet successfully rejected");
@@ -196,9 +198,13 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
+  function changeBetOption(e) {
+    setSelectedBetOption(e.target.value);
+  }
+
   function betOnOption(bet) {
-    if (betOptionSelectRef.current.value !== "") {
-      bet.selectedOption = betOptionSelectRef.current.value;
+    if (selectedBetOption !== "") {
+      bet.selectedOption = selectedBetOption;
       placeBet(bet);
     } else {
       return;
@@ -244,7 +250,7 @@ const BettingTable = (props) => {
   }
 
   function putBetResult(data) {
-    data.selectedChoice = betResultSelectRef.current.value;
+    data.selectedChoice = selectedBetOption;
 
     BetService.getInstance().editBet(data, data.id);
 
@@ -299,7 +305,12 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          <select className="form-select" ref={betOptionSelectRef}>
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>
@@ -330,7 +341,12 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-          <select className="form-select" ref={betResultSelectRef}>
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>
@@ -436,6 +452,7 @@ const BettingTable = (props) => {
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
+              <BoxArrowUpRight/>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
@@ -498,7 +515,9 @@ const BettingTable = (props) => {
             variants={variants}
           >
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
+              <h3 className="betting-table__bet__name">{currentBet.name}
+              </h3>
+              <Link className="betting-table__bet__header__link" to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
@@ -538,7 +557,7 @@ const BettingTable = (props) => {
                     {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                   {currentBet.selectedChoice && (
-                    <li className="betting-table__bet__body__data__result">
+                    <li class="betting-table__bet__body__data__result">
                       <span>Result:</span>
                       {currentBet.selectedChoice}
                     </li>
@@ -547,10 +566,8 @@ const BettingTable = (props) => {
               </div>
               <div className="betting-table__bet__body__placebet">
                 {!betState.includes(currentBet.id) &&
-                  moment.utc(currentBet.results).local().format("x") >
-                    +new Date() &&
-                  moment.utc(currentBet.deadline).local().format("x") >
-                    +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() &&
+                  moment(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
                     parseInt(currentBet.maxBetters) &&
                   !currentBet.selectedChoice && (
@@ -561,8 +578,7 @@ const BettingTable = (props) => {
                       Place Bet
                     </button>
                   )}
-                {moment.utc(currentBet.results).local().format("x") <
-                  +new Date() &&
+                {moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
                     currentBet.betCreator && (
@@ -571,8 +587,7 @@ const BettingTable = (props) => {
                     </button>
                   )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
-                  moment.utc(currentBet.results).local().format("x") <
-                    +new Date() &&
+                  moment(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice && (
                     <button
                       className="outline-none btn mt-3 set-result"
@@ -581,10 +596,8 @@ const BettingTable = (props) => {
                       Set Result
                     </button>
                   )}
-                {moment.utc(currentBet.deadline).local().format("x") <
-                  +new Date() &&
-                  moment.utc(currentBet.results).local().format("x") >
-                    +new Date() && (
+                {moment(currentBet.deadline).format("x") < +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() && (
                     <button className="outline-none btn no-cursor">
                       Deadline Passed
                     </button>
@@ -603,10 +616,8 @@ const BettingTable = (props) => {
                   </button>
                 )}
                 {currentBet.currentBets === parseInt(currentBet.maxBetters) &&
-                  moment.utc(currentBet.deadline).local().format("x") >
-                    +new Date() &&
-                  moment.utc(currentBet.results).local().format("x") >
-                    +new Date() && (
+                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  moment(currentBet.results).format("x") > +new Date() && (
                     <button className="outline-none btn placement-full">
                       Bet Placements Full
                     </button>

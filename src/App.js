@@ -1,4 +1,4 @@
-import { Route, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -6,6 +6,7 @@ import CreateBet from "./pages/CreateBet";
 import BettingHistory from "./pages/BettingHistory";
 import Guide from "./pages/Guide";
 import Footer from "./components/Footer";
+import Bet from "./pages/Bet"
 import { AnimatePresence } from 'framer-motion';
 import "./styles/header.scss";
 import "./index.scss";
@@ -25,7 +26,7 @@ const App = () => {
     >
       <Header />
       <AnimatePresence exitBeforeEnter>
-      <Switch location={location} key={location.pathname}>
+      <Router location={location} key={location.pathname}>
         <Route path="/" exact>
           <Home />
         </Route>
@@ -38,7 +39,10 @@ const App = () => {
         <Route path="/guide" exact>
           <Guide />
         </Route>
-      </Switch>
+        <Route path="/bet/:id">
+          <Bet/>
+          </Route>
+      </Router>
       <Footer />
       </AnimatePresence>
     </div>
