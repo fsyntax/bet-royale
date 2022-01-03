@@ -12,7 +12,6 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import ReactHtmlParser from "react-html-parser";
-// import cyanPip from "../images/pip_cyan_2.png";
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -518,7 +517,7 @@ const BettingTable = (props) => {
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}
-              <Link to={"/bet/"+currentBet.id}><BoxArrowUpRight/></Link>
+              <Link to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
               </h3>
             </div>
             <div className="betting-table__bet__body">
