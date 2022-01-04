@@ -420,7 +420,7 @@ const BettingTable = (props) => {
           </button>
         </div>
       </Modal>
-      <ToastContainer position="bottom-end">
+      <ToastContainer>
         <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
             <div className="toast-header bg-success text-white">
