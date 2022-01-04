@@ -35,12 +35,15 @@
     justify-content: space-between;
     margin: 1.5em auto;
     transition: width 500ms;
+
     @media (min-width: $screen-sm) {
       margin: 1em 0.5em;
     }
+
     @media (min-width: $screen-lg) {
       margin: 1.5em 1em;
     }
+
     @media (min-width: $screen-xl) {
       margin: 2.5em 1.5em;
     }
@@ -147,7 +150,7 @@
         }
         &__result {
           margin: 1em auto;
-          padding: .8em 1em;
+          padding: 0.8em 1em;
           position: relative;
           background: linear-gradient(
             60deg,
@@ -165,12 +168,11 @@
             0% {
               background-position: 0% 0%;
             }
-    
+
             100% {
               background-position: 100% 0%;
             }
           }
-        
         }
       }
 
@@ -209,12 +211,15 @@
             outline: none;
             box-shadow: var(--box-shadow-primary);
           }
+
           &.set-result {
-            background-image: linear-gradient(90deg, 
-            #aa7105,
-            #cc7c00,
-            #883404, 
-            #cc4300);
+            background-image: linear-gradient(
+              90deg,
+              #aa7105,
+              #cc7c00,
+              #883404,
+              #cc4300
+            );
           }
 
           &.placed {
@@ -286,6 +291,9 @@
 }
 
 .bet-toast {
+  position: fixed;
+  bottom: 0;
+  right: 0;
   margin-right: 20px;
   margin-bottom: 20px;
 }
