@@ -1,9 +1,54 @@
 @import 'variables.scss';
 
+@keyframes animateBg {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
 .bet-details {
     padding-top: 1em;
     margin-top: var(--header-height);
-    &__name {
-        text-align: center;
+
+    &__bg {
+        padding: 1em;
+        background: var(--c-primary-darken-2);
+        border-radius: 5px;
+        box-shadow: var(--box-shadow-secondary);
+    }
+
+    &__heading {
+
+        &__name {
+            text-align: center;
+        }
+
+        &__divider {
+            height: 3px!important;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow-primary);
+            animation: animateBg 14s linear infinite alternate-reverse;
+            background-image: linear-gradient(90deg,
+                    var(--c-primary-lighten-3),
+                    var(--c-primary-lighten-3),
+                    var(--c-secondary),
+                    var(--c-accent));
+            background-size: 400% 100%;
+        }
+
+    }
+    &__main {
+        &__description {
+            h1 {
+                text-align: center;
+            }
+            p {
+                margin-bottom: 0;
+            }
+        }
     }
 }

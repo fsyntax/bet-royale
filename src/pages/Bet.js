@@ -2,6 +2,8 @@ import { withRouter, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import BetService from "../api/Bet";
 import '../styles/bet-details.scss';
+import ReactHtmlParser from "react-html-parser";
+
 
 function Bet(props) {
     const [currentBet, setCurrentBet] = useState([]);
@@ -50,8 +52,17 @@ function Bet(props) {
 //   }, []);
 
     return (
-        <div className="mt-5 bet-details">
-            <h1 className='text-cente bet-details__name'>{currentBet.name}</h1>
+        <div classNameName="mt-5 bet-details">
+          <div className="bet-details__heading">
+            <h1 classNameName='text-cente bet-details__heading__name'>{currentBet.name}</h1>
+            <hr className="bet-details__heading__divider"/>
+            <p className="bet-details__heading__sub bet-details__bg">{currentBet.shortDescription}</p>
+          </div>
+          <div className="bet-details__main ">
+            <div class="bet-details__main__description bet-details__bg">
+              {ReactHtmlParser(currentBet.description)}
+            </div>
+          </div>
         </div>
     )
 }
