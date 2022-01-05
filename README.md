@@ -10,9 +10,7 @@ This is a guide on how to use Bet Royale.
 
 ## What Do You Need To Do Everything On This Website?
 
-You need a Metamask wallet and a Discord account, that's all you need. You need both your Metamask wallet
-
-and Discord account in order to bet. In order to create bets, you just need your Discord account.
+You need a Metamask wallet and a Discord account, that's all you need. You need both your Metamask wallet and Discord account in order to bet. In order to create bets, you just need your Discord account.
 
 ## The Home Page
 
