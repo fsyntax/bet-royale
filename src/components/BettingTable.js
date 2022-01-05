@@ -6,12 +6,15 @@ import moment from "moment";
 import Web3 from "web3";
 import Masonry from "react-masonry-css";
 import { motion } from "framer-motion";
+
 import BetService from "../api/Bet";
 
 import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import ReactHtmlParser from "react-html-parser";
+
+// import Discord from 'discord.js';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -33,6 +36,7 @@ const BettingTable = (props) => {
 
   let betOptionSelectRef = useRef();
   let betResultSelectRef = useRef();
+
 
   useEffect(() => {
     const currentBets = props.data;
