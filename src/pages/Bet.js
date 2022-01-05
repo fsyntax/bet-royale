@@ -52,14 +52,18 @@ function Bet(props) {
 //   }, []);
 
     return (
-        <div classNameName="mt-5 bet-details">
+        <div className="mt-5 bet-details">
           <div className="bet-details__heading">
-            <h1 classNameName='text-cente bet-details__heading__name'>{currentBet.name}</h1>
+            <h1 className='text-cente bet-details__heading__name'>{currentBet.name}</h1>
             <hr className="bet-details__heading__divider"/>
-            <p className="bet-details__heading__sub bet-details__bg">{currentBet.shortDescription}</p>
+            <div className="bet-details__sub">
+
+            <div className="bet-details__sub__avatar">O</div>
+            <p className="bet-details__sub__text bet-details__bg">{currentBet.shortDescription}</p>
           </div>
+            </div>
           <div className="bet-details__main ">
-            <div class="bet-details__main__description bet-details__bg">
+            <div className="bet-details__main__description bet-details__bg">
               {ReactHtmlParser(currentBet.description)}
             </div>
           </div>

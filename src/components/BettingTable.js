@@ -1,4 +1,4 @@
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
@@ -22,6 +22,7 @@ const BettingTable = (props) => {
   const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
   const [betOptions, setBetOptions] = useState("");
+  const [selectedBetOption, setSelectedBetOption] = useState("");
   const [betToastDescription, setBetToastDescription] = useState("");
   const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
@@ -30,10 +31,6 @@ const BettingTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const web3 = new Web3(Web3.givenProvider);
-
-  let betOptionSelectRef = useRef();
-  let betResultSelectRef = useRef();
-
   useEffect(() => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
@@ -99,9 +96,11 @@ const BettingTable = (props) => {
         .transfer(toAddress, value)
         .send({ from: fromAddress })
         .on("transactionHash", function (hash) {
+          console.log(hash);
+
           setBetOptionModal(false);
           setBetOptions("");
-          betOptionSelectRef.current.value = "";
+          setSelectedBetOption("");
 
           setBetToast(true);
           setBetToastDescription("This bet has been successfully placed!");
@@ -117,7 +116,7 @@ const BettingTable = (props) => {
 
       setBetOptionModal(false);
       setBetOptions("");
-      betOptionSelectRef.current.value = "";
+      setSelectedBetOption("");
 
       setBetToast(true);
       setBetToastDescription("Bet successfully rejected");
@@ -199,11 +198,13 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-
+  function changeBetOption(e) {
+    setSelectedBetOption(e.target.value);
+  }
 
   function betOnOption(bet) {
-    if (betOptionSelectRef.current.value !== "") {
-      bet.selectedOption = betOptionSelectRef.current.value;
+    if (selectedBetOption !== "") {
+      bet.selectedOption = selectedBetOption;
       placeBet(bet);
     } else {
       return;
@@ -249,7 +250,7 @@ const BettingTable = (props) => {
   }
 
   function putBetResult(data) {
-    data.selectedChoice = betResultSelectRef.current.value;
+    data.selectedChoice = selectedBetOption;
 
     BetService.getInstance().editBet(data, data.id);
 
@@ -304,7 +305,12 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-        <select className="form-select" ref={betOptionSelectRef}>
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>
@@ -335,7 +341,12 @@ const BettingTable = (props) => {
           ></button>
         </div>
         <div className="modal-body">
-        <select className="form-select" ref={betResultSelectRef}>
+          <select
+            className="form-select"
+            onChange={changeBetOption}
+            name=""
+            id=""
+          >
             {betOptions &&
               betOptions.map((option) => (
                 <option key={option} value={option} defaultValue>

@@ -25,6 +25,7 @@
 
         &__name {
             text-align: center;
+            
         }
 
         &__divider {
@@ -40,6 +41,21 @@
             background-size: 400% 100%;
         }
 
+    }
+    &__sub {
+        display: flex;
+        align-items: center;
+
+        &__avatar {
+            height: 40px;
+            min-width: 40px;
+            width: 40px;
+            background-color: lightseagreen;
+            border-radius: 100vh;
+        }
+        &__text {
+            margin: 1.5em 0 1.5em 1.5em;
+        }
     }
     &__main {
         &__description {
