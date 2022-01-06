@@ -4,16 +4,21 @@ import BetService from "../api/Bet";
 import '../styles/bet-details.scss';
 import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
+import { AnimatePresence, motion } from 'framer-motion';
+import Loading from '../components/Loading';
 
 
 
 function Bet(props) {
     const [currentBet, setCurrentBet] = useState([]);
     // const [betHistory, setBetHistory] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     
     const {id} = useParams();
     useEffect(() => {
+      setIsLoading(true);
     BetService.getInstance()
       .getCurrentBets()
       .then((data) => {
@@ -29,9 +34,11 @@ function Bet(props) {
         }
         const betIndex = currentBetLogs.findIndex(bet => bet.id === id);
         setCurrentBet(currentBetLogs[betIndex]);
-    });
+        
+      });
+      setIsLoading(false);
 
-});
+}, [id]);
 
 // useEffect(() => {
 
@@ -53,8 +60,18 @@ function Bet(props) {
 //       });
 
 //   }, []);
+if (isLoading) {
+  return <Loading />;
+}
     return (
-        <div className="mt-5 bet-details">
+      <AnimatePresence>
+        <motion.div 
+        className="mt-5 bet-details"
+        initial={{opacity: 0, filter: "blur(2px)" }} 
+        transition={{ease: "easeInOut", duration: .5, delay: 1}} 
+        animate={{opacity: 1, filter:"blur(0)"}} 
+        exit={{opacity: 0, filter: "blur(2px)"}}
+        >
           <div className="bet-details__heading">
             <h1 className='text-cente bet-details__heading__name'>{currentBet.name}</h1>
             {/* <hr className="bet-details__heading__divider"/> */}
@@ -66,7 +83,7 @@ function Bet(props) {
             </div>
           <div className="bet-details__main ">
             <h3>Bet Details</h3>
-            <div class="bet-details__main__data bet-details__bg">
+            <div className="bet-details__main__data bet-details__bg">
               <ul>
                 <li>Deadline: 
                   <span>
@@ -96,7 +113,8 @@ function Bet(props) {
               {ReactHtmlParser(currentBet.description)}
             </div>
           </div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
     )
 }
 export default Bet; 

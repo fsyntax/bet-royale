@@ -9,15 +9,6 @@
         background-position: 100% 0%;
     }
 }
-@keyframes moveGradient {
-    0% {
-      background-position: 0% 0%;
-    }
-
-    100% {
-      background-position: 100% 0%;
-    }
-  }
 .bet-details {
     padding-top: 1em;
     margin-top: var(--header-height);
@@ -70,7 +61,7 @@
             position: relative;
 
             &::before {
-                animation: animateBg 15s 3s linear infinite;
+                animation: animateBg 15s 2s linear infinite;
                 background-image: linear-gradient(90deg, #5700ed, #00cc9c, #eef300, #5700ed, #00cc9c);
                 background-size: 400% 100%;
                 content: '';
