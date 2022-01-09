@@ -12,8 +12,8 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-import DescModal from '../components/DescModal';
-import AlertModal from '../components/AlertModal';
+import ModalDesc from '../components/ModalDesc';
+import ModalAlert from '../components/ModalAlert';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -278,8 +278,8 @@ const BettingTable = (props) => {
 
   return (
     <div className="w-100 betting-table__wrapper">
-      <DescModal props={props} betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
-      <AlertModal alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
+      <ModalDesc props={props} betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
+      <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
       <Modal show={betOptionModal}>
         <div className="modal-header">
           <h5 className="modal-title">Options</h5>

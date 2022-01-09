@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 
-const AlertModal = (props) => {
+const ModalAlert = (props) => {
 // console.log(props);
     return (
         <Modal show={props.alertState}>
@@ -22,4 +22,4 @@ const AlertModal = (props) => {
       </Modal>
     )
 }
-export default AlertModal
+export default ModalAlert;
