@@ -11,7 +11,8 @@ import BetService from "../api/Bet";
 import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import ReactHtmlParser from "react-html-parser";
+
+import DescModal from '../components/DescModal';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -34,6 +35,7 @@ const BettingTable = (props) => {
   let betOptionSelectRef = useRef();
   let betResultSelectRef = useRef();
 
+
   useEffect(() => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
@@ -46,6 +48,7 @@ const BettingTable = (props) => {
 
     setFilteredBets(remainingIds);
   }, [props.data, props.betHistoryData]);
+
 
   async function placeBet(data) {
     await handleBet({
@@ -129,9 +132,6 @@ const BettingTable = (props) => {
     setDescriptionModal(true);
   }
 
-  function closeDescriptionModal() {
-    setDescriptionModal(false);
-  }
 
   function closeBetDeleteModal() {
     setBetDeleteModal(false);
@@ -278,20 +278,7 @@ const BettingTable = (props) => {
 
   return (
     <div className="w-100 betting-table__wrapper">
-      <Modal show={descriptionModal}>
-        <div className="modal-header">
-          <h4 className="modal-title">Bet Description</h4>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeDescriptionModal}
-          ></button>
-        </div>
-        <div className="modal-body">{ReactHtmlParser(description)}</div>
-        <div className="modal-footer"></div>
-      </Modal>
+      <DescModal desc={description} state={descriptionModal} stateChanger={setDescriptionModal} />
       <Modal show={betOptionModal}>
         <div className="modal-header">
           <h5 className="modal-title">Options</h5>
