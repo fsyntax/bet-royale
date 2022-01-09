@@ -13,18 +13,21 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
 import DescModal from '../components/DescModal';
+import AlertModal from '../components/AlertModal';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  
   const [descriptionModal, setDescriptionModal] = useState(false);
+  const [description, setDescription] = useState("");
+
   const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
   const [betOptions, setBetOptions] = useState("");
   const [betToastDescription, setBetToastDescription] = useState("");
-  const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
   const [betID, setBetID] = useState("");
@@ -149,9 +152,6 @@ const BettingTable = (props) => {
     setBetDeleteModal(false);
   }
 
-  function closeAlertModal() {
-    setAlertModal(false);
-  }
 
   function closeBetToast() {
     setBetToast(false);
@@ -278,7 +278,8 @@ const BettingTable = (props) => {
 
   return (
     <div className="w-100 betting-table__wrapper">
-      <DescModal desc={description} state={descriptionModal} stateChanger={setDescriptionModal} />
+      <DescModal props={props} betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
+      <AlertModal alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
       <Modal show={betOptionModal}>
         <div className="modal-header">
           <h5 className="modal-title">Options</h5>
@@ -338,30 +339,6 @@ const BettingTable = (props) => {
             onClick={() => putBetResult(betData)}
           >
             Set Bet Result
-          </button>
-        </div>
-      </Modal>
-      <Modal show={alertModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Alert</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeAlertModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <p>{description}</p>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={closeAlertModal}
-          >
-            Close
           </button>
         </div>
       </Modal>
