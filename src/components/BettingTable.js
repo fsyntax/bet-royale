@@ -14,6 +14,7 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 
 import ModalDesc from '../components/ModalDesc';
 import ModalAlert from '../components/ModalAlert';
+import ModalBetOption from '../components/ModalBetOption';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -35,9 +36,7 @@ const BettingTable = (props) => {
 
   const web3 = new Web3(Web3.givenProvider);
 
-  let betOptionSelectRef = useRef();
   let betResultSelectRef = useRef();
-
 
   useEffect(() => {
     const currentBets = props.data;
@@ -62,8 +61,6 @@ const BettingTable = (props) => {
   async function handleBet({ objData }) {
     try {
       await window.ethereum.send("eth_requestAccounts");
-
-      // console.log(objData);
 
       let tokenAddress = "0xfe1b516a7297eb03229a8b5afad80703911e81cb";
       let toAddress = "0x2ADe6e328953a132911e0ad197E68BE882865241";
@@ -107,7 +104,7 @@ const BettingTable = (props) => {
         .on("transactionHash", function (hash) {
           setBetOptionModal(false);
           setBetOptions("");
-          betOptionSelectRef.current.value = "";
+          // betOptionSelectRef.current.value = "";
 
           setBetToast(true);
           setBetToastDescription("This bet has been successfully placed!");
@@ -123,7 +120,7 @@ const BettingTable = (props) => {
 
       setBetOptionModal(false);
       setBetOptions("");
-      betOptionSelectRef.current.value = "";
+      // betOptionSelectRef.current.value = "";
 
       setBetToast(true);
       setBetToastDescription("Bet successfully rejected");
@@ -157,9 +154,6 @@ const BettingTable = (props) => {
     setBetToast(false);
   }
 
-  function closeBetOptionModal() {
-    setBetOptionModal(false);
-  }
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
@@ -201,14 +195,7 @@ const BettingTable = (props) => {
 
 
 
-  function betOnOption(bet) {
-    if (betOptionSelectRef.current.value !== "") {
-      bet.selectedOption = betOptionSelectRef.current.value;
-      placeBet(bet);
-    } else {
-      return;
-    }
-  }
+  
 
   function incrementCurrentBetters(data) {
     let selectedOption = data.selectedOption;
@@ -275,42 +262,12 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
-
+// console.log(betOptionSelectRef);
   return (
     <div className="w-100 betting-table__wrapper">
-      <ModalDesc props={props} betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
+      <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
       <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
-      <Modal show={betOptionModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Options</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetOptionModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-        <select className="form-select" ref={betOptionSelectRef}>
-            {betOptions &&
-              betOptions.map((option) => (
-                <option key={option} value={option} defaultValue>
-                  {option}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => betOnOption(betData)}
-          >
-            Bet
-          </button>
-        </div>
-      </Modal>
+      <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
       <Modal show={betResultModal}>
         <div className="modal-header">
           <h5 className="modal-title">Set Bet Result</h5>
