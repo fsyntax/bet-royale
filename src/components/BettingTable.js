@@ -11,11 +11,11 @@ import BetService from "../api/Bet";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-import ModalDesc from '../components/ModalDesc';
-import ModalAlert from '../components/ModalAlert';
-import ModalBetOption from '../components/ModalBetOption';
-import ModalBetResult from '../components/ModalBetResult';
-import ModalDeleteBet from '../components/ModalDeleteBet';
+import ModalDesc from '../components/modals/ModalDesc';
+import ModalAlert from '../components/modals/ModalAlert';
+import ModalBetOption from '../components/modals/ModalBetOption';
+import ModalBetResult from '../components/modals/ModalBetResult';
+import ModalDeleteBet from '../components/modals/ModalDeleteBet';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
