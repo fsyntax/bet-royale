@@ -1,4 +1,4 @@
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
@@ -15,6 +15,7 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import ModalDesc from '../components/ModalDesc';
 import ModalAlert from '../components/ModalAlert';
 import ModalBetOption from '../components/ModalBetOption';
+import ModalBetResult from '../components/ModalBetResult';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -36,7 +37,6 @@ const BettingTable = (props) => {
 
   const web3 = new Web3(Web3.givenProvider);
 
-  let betResultSelectRef = useRef();
 
   useEffect(() => {
     const currentBets = props.data;
@@ -210,9 +210,6 @@ const BettingTable = (props) => {
     BetService.getInstance().logBet(data);
   }
 
-  function closeBetResultModal() {
-    setBetResultModal(false);
-  }
 
   function openBetResultsModal(bet) {
     if (!window.ethereum) {
@@ -235,13 +232,7 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-  function putBetResult(data) {
-    data.selectedChoice = betResultSelectRef.current.value;
 
-    BetService.getInstance().editBet(data, data.id);
-
-    setBetResultModal(false);
-  }
 
   const breakpointColumnsObj = {
     default: 3,
@@ -268,37 +259,7 @@ const BettingTable = (props) => {
       <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
       <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
       <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
-      <Modal show={betResultModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Set Bet Result</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetResultModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-        <select className="form-select" ref={betResultSelectRef}>
-            {betOptions &&
-              betOptions.map((option) => (
-                <option key={option} value={option} defaultValue>
-                  {option}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => putBetResult(betData)}
-          >
-            Set Bet Result
-          </button>
-        </div>
-      </Modal>
+      <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
       <Modal show={betDeleteModal}>
         <div className="modal-header">
           <h5 className="modal-title">Description</h5>
