@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
 import moment from "moment";
@@ -11,17 +11,17 @@ import BetService from "../api/Bet";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-import ModalDesc from '../components/modals/ModalDesc';
-import ModalAlert from '../components/modals/ModalAlert';
-import ModalBetOption from '../components/modals/ModalBetOption';
-import ModalBetResult from '../components/modals/ModalBetResult';
-import ModalDeleteBet from '../components/modals/ModalDeleteBet';
+import ModalDesc from "../components/modals/ModalDesc";
+import ModalAlert from "../components/modals/ModalAlert";
+import ModalBetOption from "../components/modals/ModalBetOption";
+import ModalBetResult from "../components/modals/ModalBetResult";
+import ModalDeleteBet from "../components/modals/ModalDeleteBet";
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
   const [alertModal, setAlertModal] = useState(false);
-  
+
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [description, setDescription] = useState("");
 
@@ -37,7 +37,6 @@ const BettingTable = (props) => {
 
   const web3 = new Web3(Web3.givenProvider);
 
-
   useEffect(() => {
     const currentBets = props.data;
     const betHistory = props.betHistoryData;
@@ -50,7 +49,6 @@ const BettingTable = (props) => {
 
     setFilteredBets(remainingIds);
   }, [props.data, props.betHistoryData]);
-
 
   async function placeBet(data) {
     await handleBet({
@@ -132,7 +130,6 @@ const BettingTable = (props) => {
     setDescriptionModal(true);
   }
 
-
   function closeBetDeleteModal() {
     setBetDeleteModal(false);
     setDescription("");
@@ -144,11 +141,9 @@ const BettingTable = (props) => {
     setBetID(id);
   }
 
-
   function closeBetToast() {
     setBetToast(false);
   }
-
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
@@ -188,10 +183,6 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-
-
-  
-
   function incrementCurrentBetters(data) {
     let selectedOption = data.selectedOption;
 
@@ -204,7 +195,6 @@ const BettingTable = (props) => {
 
     BetService.getInstance().logBet(data);
   }
-
 
   function openBetResultsModal(bet) {
     if (!window.ethereum) {
@@ -227,8 +217,6 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-
-
   const breakpointColumnsObj = {
     default: 3,
     992: 2,
@@ -248,14 +236,38 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
-// console.log(betOptionSelectRef);
+  // console.log(betOptionSelectRef);
   return (
     <div className="w-100 betting-table__wrapper">
-      <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
-      <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
-      <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
-      <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
-      <ModalDeleteBet deleteDesc={description} betId={betID} betDeleteStateChanger={closeBetDeleteModal} betDeleteState={betDeleteModal} />
+      <ModalDesc
+        betDesc={description}
+        descState={descriptionModal}
+        descStateChanger={setDescriptionModal}
+      />
+      <ModalAlert
+        alertDesc={description}
+        alertState={alertModal}
+        alertStateChanger={setAlertModal}
+      />
+      <ModalBetOption
+        betOptions={betOptions}
+        betOptState={betOptionModal}
+        betOptStateChanger={setBetOptionModal}
+        betData={betData}
+        placeBetFunc={placeBet}
+      />
+      <ModalBetResult
+        betData={betData}
+        betOptions={betOptions}
+        betResultState={betResultModal}
+        betResultStateChanger={setBetResultModal}
+      />
+      <ModalDeleteBet
+        deleteDesc={description}
+        betId={betID}
+        betDeleteStateChanger={closeBetDeleteModal}
+        betDeleteState={betDeleteModal}
+      />
       <ToastContainer>
         <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
@@ -288,7 +300,7 @@ const BettingTable = (props) => {
           >
             <div className="betting-table__bet__header">
               <h3 className="betting-table__bet__name">{currentBet.name}</h3>
-              <BoxArrowUpRight/>
+              <BoxArrowUpRight />
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
@@ -351,9 +363,16 @@ const BettingTable = (props) => {
             variants={variants}
           >
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">{currentBet.name}
-              </h3>
-              <Link className="betting-table__bet__header__link" to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
+              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
+              <Link
+                className="betting-table__bet__header__link"
+                to={{
+                  pathname: "/bet/" + currentBet.id,
+                  state: { currentBet: currentBet },
+                }}
+              >
+                <BoxArrowUpRight />
+              </Link>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
