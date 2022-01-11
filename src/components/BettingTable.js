@@ -8,7 +8,6 @@ import Masonry from "react-masonry-css";
 import { motion } from "framer-motion";
 import BetService from "../api/Bet";
 
-import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
@@ -16,6 +15,7 @@ import ModalDesc from '../components/ModalDesc';
 import ModalAlert from '../components/ModalAlert';
 import ModalBetOption from '../components/ModalBetOption';
 import ModalBetResult from '../components/ModalBetResult';
+import ModalDeleteBet from '../components/ModalDeleteBet';
 
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
@@ -144,11 +144,6 @@ const BettingTable = (props) => {
     setBetID(id);
   }
 
-  function closeBetDeleteModalAndDeleteBet() {
-    BetService.getInstance().deleteBet(betID);
-    setBetDeleteModal(false);
-  }
-
 
   function closeBetToast() {
     setBetToast(false);
@@ -260,41 +255,11 @@ const BettingTable = (props) => {
       <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
       <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
       <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
-      <Modal show={betDeleteModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Description</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetDeleteModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <p>{description}</p>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={closeBetDeleteModal}
-          >
-            No
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={closeBetDeleteModalAndDeleteBet}
-          >
-            Yes
-          </button>
-        </div>
-      </Modal>
+      <ModalDeleteBet deleteDesc={description} betId={betID} betDeleteStateChanger={closeBetDeleteModal} betDeleteState={betDeleteModal} />
       <ToastContainer>
         <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
-            <div className="toast-header bg-success text-white">
+            <div className="toast-header bg-closeBetDeleteModalsuccess text-white">
               <strong className="me-auto">Alert</strong>
               <button
                 type="button"
