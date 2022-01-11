@@ -1,4 +1,4 @@
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
@@ -9,10 +9,14 @@ import { motion } from "framer-motion";
 
 import BetService from "../api/Bet";
 
-import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import ReactHtmlParser from "react-html-parser";
+
+import ModalDesc from '../components/modals/ModalDesc';
+import ModalAlert from '../components/modals/ModalAlert';
+import ModalBetOption from '../components/modals/ModalBetOption';
+import ModalBetResult from '../components/modals/ModalBetResult';
+import ModalDeleteBet from '../components/modals/ModalDeleteBet';
 
 // import Discord from 'discord.js';
 
@@ -20,13 +24,15 @@ const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  
   const [descriptionModal, setDescriptionModal] = useState(false);
+  const [description, setDescription] = useState("");
+
   const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
   const [betOptions, setBetOptions] = useState("");
   const [betToastDescription, setBetToastDescription] = useState("");
-  const [description, setDescription] = useState("");
   const [filteredBets, setFilteredBets] = useState([]);
   const [betResultModal, setBetResultModal] = useState(false);
   const [betID, setBetID] = useState("");
@@ -34,8 +40,6 @@ const BettingTable = (props) => {
 
   const web3 = new Web3(Web3.givenProvider);
 
-  let betOptionSelectRef = useRef();
-  let betResultSelectRef = useRef();
 
 
   useEffect(() => {
@@ -51,6 +55,7 @@ const BettingTable = (props) => {
     setFilteredBets(remainingIds);
   }, [props.data, props.betHistoryData]);
 
+
   async function placeBet(data) {
     await handleBet({
       objData: data,
@@ -60,8 +65,6 @@ const BettingTable = (props) => {
   async function handleBet({ objData }) {
     try {
       await window.ethereum.send("eth_requestAccounts");
-
-      // console.log(objData);
 
       let tokenAddress = "0xfe1b516a7297eb03229a8b5afad80703911e81cb";
       let toAddress = "0x2ADe6e328953a132911e0ad197E68BE882865241";
@@ -105,7 +108,7 @@ const BettingTable = (props) => {
         .on("transactionHash", function (hash) {
           setBetOptionModal(false);
           setBetOptions("");
-          betOptionSelectRef.current.value = "";
+          // betOptionSelectRef.current.value = "";
 
           setBetToast(true);
           setBetToastDescription("This bet has been successfully placed!");
@@ -121,7 +124,7 @@ const BettingTable = (props) => {
 
       setBetOptionModal(false);
       setBetOptions("");
-      betOptionSelectRef.current.value = "";
+      // betOptionSelectRef.current.value = "";
 
       setBetToast(true);
       setBetToastDescription("Bet successfully rejected");
@@ -133,9 +136,6 @@ const BettingTable = (props) => {
     setDescriptionModal(true);
   }
 
-  function closeDescriptionModal() {
-    setDescriptionModal(false);
-  }
 
   function closeBetDeleteModal() {
     setBetDeleteModal(false);
@@ -148,22 +148,11 @@ const BettingTable = (props) => {
     setBetID(id);
   }
 
-  function closeBetDeleteModalAndDeleteBet() {
-    BetService.getInstance().deleteBet(betID);
-    setBetDeleteModal(false);
-  }
-
-  function closeAlertModal() {
-    setAlertModal(false);
-  }
 
   function closeBetToast() {
     setBetToast(false);
   }
 
-  function closeBetOptionModal() {
-    setBetOptionModal(false);
-  }
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
@@ -205,14 +194,7 @@ const BettingTable = (props) => {
 
 
 
-  function betOnOption(bet) {
-    if (betOptionSelectRef.current.value !== "") {
-      bet.selectedOption = betOptionSelectRef.current.value;
-      placeBet(bet);
-    } else {
-      return;
-    }
-  }
+  
 
   function incrementCurrentBetters(data) {
     let selectedOption = data.selectedOption;
@@ -227,9 +209,6 @@ const BettingTable = (props) => {
     BetService.getInstance().logBet(data);
   }
 
-  function closeBetResultModal() {
-    setBetResultModal(false);
-  }
 
   function openBetResultsModal(bet) {
     if (!window.ethereum) {
@@ -252,13 +231,7 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-  function putBetResult(data) {
-    data.selectedChoice = betResultSelectRef.current.value;
 
-    BetService.getInstance().editBet(data, data.id);
-
-    setBetResultModal(false);
-  }
 
   const breakpointColumnsObj = {
     default: 3,
@@ -279,144 +252,18 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
-
+// console.log(betOptionSelectRef);
   return (
     <div className="w-100 betting-table__wrapper">
-      <Modal show={descriptionModal}>
-        <div className="modal-header">
-          <h4 className="modal-title">Bet Description</h4>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeDescriptionModal}
-          ></button>
-        </div>
-        <div className="modal-body">{ReactHtmlParser(description)}</div>
-        <div className="modal-footer"></div>
-      </Modal>
-      <Modal show={betOptionModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Options</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetOptionModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-        <select className="form-select" ref={betOptionSelectRef}>
-            {betOptions &&
-              betOptions.map((option) => (
-                <option key={option} value={option} defaultValue>
-                  {option}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => betOnOption(betData)}
-          >
-            Bet
-          </button>
-        </div>
-      </Modal>
-      <Modal show={betResultModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Set Bet Result</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetResultModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-        <select className="form-select" ref={betResultSelectRef}>
-            {betOptions &&
-              betOptions.map((option) => (
-                <option key={option} value={option} defaultValue>
-                  {option}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => putBetResult(betData)}
-          >
-            Set Bet Result
-          </button>
-        </div>
-      </Modal>
-      <Modal show={alertModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Alert</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeAlertModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <p>{description}</p>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={closeAlertModal}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
-      <Modal show={betDeleteModal}>
-        <div className="modal-header">
-          <h5 className="modal-title">Description</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onClick={closeBetDeleteModal}
-          ></button>
-        </div>
-        <div className="modal-body">
-          <p>{description}</p>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={closeBetDeleteModal}
-          >
-            No
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={closeBetDeleteModalAndDeleteBet}
-          >
-            Yes
-          </button>
-        </div>
-      </Modal>
+      <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
+      <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
+      <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
+      <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
+      <ModalDeleteBet deleteDesc={description} betId={betID} betDeleteStateChanger={closeBetDeleteModal} betDeleteState={betDeleteModal} />
       <ToastContainer>
         <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
-            <div className="toast-header bg-success text-white">
+            <div className="toast-header bg-closeBetDeleteModalsuccess text-white">
               <strong className="me-auto">Alert</strong>
               <button
                 type="button"
