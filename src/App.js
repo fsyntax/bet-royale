@@ -26,24 +26,24 @@ const App = () => {
     >
       <Header />
       <AnimatePresence exitBeforeEnter>
-      <Router location={location} key={location.pathname}>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/createBet" exact>
-          <CreateBet />
-        </Route>
-        <Route path="/bettingHistory" exact>
-          <BettingHistory />
-        </Route>
-        <Route path="/guide" exact>
-          <Guide />
-        </Route>
-        <Route path="/bet/:id">
-          <Bet/>
+        <Router location={location} key={location.pathname}>
+          <Route path="/" exact>
+            <Home />
           </Route>
-      </Router>
-      <Footer />
+          <Route path="/createBet" exact>
+            <CreateBet />
+          </Route>
+          <Route path="/bettingHistory" exact>
+            <BettingHistory />
+          </Route>
+          <Route path="/guide" exact>
+            <Guide />
+          </Route>
+          <Route path="/bet/:id">
+            <Bet />
+          </Route>
+        </Router>
+        <Footer />
       </AnimatePresence>
     </div>
   );

@@ -219,17 +219,19 @@ function Bet(props) {
     return <Loading />;
   }
   return (
-    <div>
+    <motion.div
+    initial={{ opacity: 0, filter: "blur(2px)" }}
+    transition={{ ease: "easeInOut", duration: .5, delay: 1 }}
+    animate={{ opacity: 1, filter: "blur(0)" }}
+    exit={{ opacity: 0, filter: "blur(2px)" }}
+    key="betDetails"
+    >
       <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
       <ModalBetOption placeBetFunc={placeBet} betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} />
       <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
-      <motion.div
+      <div
         className="mt-5 bet-details"
-        initial={{ opacity: 0, filter: "blur(2px)" }}
-        transition={{ ease: "easeInOut", duration: .5, delay: 1 }}
-        animate={{ opacity: 1, filter: "blur(0)" }}
-        exit={{ opacity: 0, filter: "blur(2px)" }}
-        key="betDetails"
+
       >
         <div className="bet-details__heading">
 
@@ -243,7 +245,7 @@ function Bet(props) {
         </div>
         <div className="bet-details__main ">
 
-          <div class="bet-details__main__data__wrapper">
+          <div className="bet-details__main__data__wrapper">
             <h3>Bet Details</h3>
             <div className="bet-details__main__data bet-details__bg">
               <ul>
@@ -272,14 +274,14 @@ function Bet(props) {
             </div>
           </div>
 
-          <div class="bet-details__main__description_wrapper">
+          <div className="bet-details__main__description_wrapper">
             <h3>Full Bet description</h3>
             <div className="bet-details__main__description bet-details__bg">
               {ReactHtmlParser(currentBet.description)}
             </div>
           </div>
 
-          <div class="bet-details__main__placebet">
+          <div className="bet-details__main__placebet">
             {!betState.includes(currentBet.id) &&
               moment(currentBet.results).format("x") > +new Date() &&
               moment(currentBet.deadline).format("x") > +new Date() &&
@@ -341,8 +343,8 @@ function Bet(props) {
           </div>
         </div>
 
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   )
 }
 export default Bet; 
