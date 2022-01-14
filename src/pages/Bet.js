@@ -57,9 +57,8 @@ function Bet(props) {
 
           currentBetLogs.push(currentBetLog);
         }
-        const betIndex = currentBetLogs.findIndex(bet => bet.id === id);
+        const betIndex = currentBetLogs.findIndex((bet) => bet.id === id);
         setCurrentBet(currentBetLogs[betIndex]);
-
 
       });
     setIsLoading(false);
@@ -348,3 +347,4 @@ function Bet(props) {
   )
 }
 export default Bet; 
+

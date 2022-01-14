@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import { Trash, BoxArrowUpRight } from "react-bootstrap-icons";
 import moment from "moment";
@@ -12,11 +12,11 @@ import BetService from "../api/Bet";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-import ModalDesc from '../components/modals/ModalDesc';
-import ModalAlert from '../components/modals/ModalAlert';
-import ModalBetOption from '../components/modals/ModalBetOption';
-import ModalBetResult from '../components/modals/ModalBetResult';
-import ModalDeleteBet from '../components/modals/ModalDeleteBet';
+import ModalDesc from "../components/modals/ModalDesc";
+import ModalAlert from "../components/modals/ModalAlert";
+import ModalBetOption from "../components/modals/ModalBetOption";
+import ModalBetResult from "../components/modals/ModalBetResult";
+import ModalDeleteBet from "../components/modals/ModalDeleteBet";
 
 // import Discord from 'discord.js';
 
@@ -139,7 +139,6 @@ const BettingTable = (props) => {
     setDescriptionModal(true);
   }
 
-
   function closeBetDeleteModal() {
     setBetDeleteModal(false);
     setDescription("");
@@ -151,11 +150,9 @@ const BettingTable = (props) => {
     setBetID(id);
   }
 
-
   function closeBetToast() {
     setBetToast(false);
   }
-
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
@@ -195,10 +192,6 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-
-
-  
-
   function incrementCurrentBetters(data) {
     let selectedOption = data.selectedOption;
 
@@ -211,7 +204,6 @@ const BettingTable = (props) => {
 
     BetService.getInstance().logBet(data);
   }
-
 
   function openBetResultsModal(bet) {
     if (!window.ethereum) {
@@ -234,8 +226,6 @@ const BettingTable = (props) => {
     setBetOptions(newOptions);
   }
 
-
-
   const breakpointColumnsObj = {
     default: 3,
     992: 2,
@@ -257,11 +247,35 @@ const BettingTable = (props) => {
   };
   return (
     <div className="w-100 betting-table__wrapper">
-      <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
-      <ModalAlert alertDesc={description} alertState={alertModal} alertStateChanger={setAlertModal} />
-      <ModalBetOption betOptions={betOptions} betOptState={betOptionModal} betOptStateChanger={setBetOptionModal} betData={betData} placeBetFunc={placeBet} />
-      <ModalBetResult betData={betData} betOptions={betOptions} betResultState={betResultModal} betResultStateChanger={setBetResultModal} />
-      <ModalDeleteBet deleteDesc={description} betId={betID} betDeleteStateChanger={closeBetDeleteModal} betDeleteState={betDeleteModal} />
+      <ModalDesc
+        betDesc={description}
+        descState={descriptionModal}
+        descStateChanger={setDescriptionModal}
+      />
+      <ModalAlert
+        alertDesc={description}
+        alertState={alertModal}
+        alertStateChanger={setAlertModal}
+      />
+      <ModalBetOption
+        betOptions={betOptions}
+        betOptState={betOptionModal}
+        betOptStateChanger={setBetOptionModal}
+        betData={betData}
+        placeBetFunc={placeBet}
+      />
+      <ModalBetResult
+        betData={betData}
+        betOptions={betOptions}
+        betResultState={betResultModal}
+        betResultStateChanger={setBetResultModal}
+      />
+      <ModalDeleteBet
+        deleteDesc={description}
+        betId={betID}
+        betDeleteStateChanger={closeBetDeleteModal}
+        betDeleteState={betDeleteModal}
+      />
       <ToastContainer>
         <Toast className="bet-toast" show={betToast}>
           <div className="bg-white text-black rounded">
@@ -284,7 +298,6 @@ const BettingTable = (props) => {
         id="betting-table"
         className="betting-table"
       >
-
         {allBets.map((currentBet, index) => (
           <motion.div
             className="betting-table__bet"
@@ -294,9 +307,16 @@ const BettingTable = (props) => {
             variants={variants}
           >
             <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">{currentBet.name}
-              </h3>
-              <Link className="betting-table__bet__header__link" to={{pathname: "/bet/"+currentBet.id, state: {currentBet: currentBet}}}><BoxArrowUpRight/></Link>
+              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
+              <Link
+                className="betting-table__bet__header__link"
+                to={{
+                  pathname: "/bet/" + currentBet.id,
+                  state: { currentBet: currentBet },
+                }}
+              >
+                <BoxArrowUpRight />
+              </Link>
             </div>
             <div className="betting-table__bet__body">
               <div className="betting-table__bet__body__desc">
@@ -336,7 +356,7 @@ const BettingTable = (props) => {
                     {currentBet.currentBets}/{currentBet.maxBetters}
                   </li>
                   {currentBet.selectedChoice && (
-                    <li class="betting-table__bet__body__data__result">
+                    <li className="betting-table__bet__body__data__result">
                       <span>Result:</span>
                       {currentBet.selectedChoice}
                     </li>

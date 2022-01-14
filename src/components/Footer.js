@@ -8,11 +8,16 @@ import fandom from "../images/fandom.svg";
 import viperswap from "../images/viperswap.svg";
 import harmony from "../images/harmony.svg";
 import github from "../images/github.svg";
-import {motion} from 'framer-motion';
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <motion.div initial={{opacity: 0 }} transition={{ease: "easeIn", duration: 1, delay: 1.7}} animate={{opacity: 1}} className="container d-flex justify-content-center align-items-center w-100 p-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      transition={{ ease: "easeIn", duration: 1, delay: 1.7 }}
+      animate={{ opacity: 1 }}
+      className="container d-flex justify-content-center align-items-center w-100 p-4"
+    >
       <a href="https://discord.gg/rg9KUUSqfc" target="_blank" rel="noreferrer">
         <img className="social-media-logo" src={discord} alt="discord" />
       </a>

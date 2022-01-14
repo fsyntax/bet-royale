@@ -1,10 +1,10 @@
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import BetService from "../../api/Bet";
-import { useRef } from 'react';
+import { useRef } from "react";
 
 const ModalBetResult = (props) => {
-    let betResultSelectRef = useRef();
-    const betOptions = props.betOptions;
+  let betResultSelectRef = useRef();
+  const betOptions = props.betOptions;
 
     function putBetResult(data) {
         data.selectedChoice = betResultSelectRef.current.value;
@@ -12,7 +12,6 @@ const ModalBetResult = (props) => {
        BetService.getInstance().editBet(data, data.id);
        props.betResultStateChanger(false);
       } 
-
 
     return (
         <Modal show={props.betResultState}>
