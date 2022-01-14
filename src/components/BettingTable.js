@@ -23,18 +23,21 @@ import ModalDeleteBet from '../components/modals/ModalDeleteBet';
 const BettingTable = (props) => {
   const [betState, setBetState] = useState([]);
   const [betData, setBetData] = useState();
-  const [alertModal, setAlertModal] = useState(false);
+  // const [betHistory, setBetHistory] = useState([]);
+  const [allBets, setAllBets] = useState([]);
+
   
+  const [alertModal, setAlertModal] = useState(false);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [description, setDescription] = useState("");
-
-  const [betDeleteModal, setBetDeleteModal] = useState(false);
-  const [betToast, setBetToast] = useState(false);
   const [betOptionModal, setBetOptionModal] = useState(false);
-  const [betOptions, setBetOptions] = useState("");
-  const [betToastDescription, setBetToastDescription] = useState("");
-  const [filteredBets, setFilteredBets] = useState([]);
+  const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [betResultModal, setBetResultModal] = useState(false);
+
+  const [betToast, setBetToast] = useState(false);
+  const [betToastDescription, setBetToastDescription] = useState("");
+  const [betOptions, setBetOptions] = useState("");
+  // const [filteredBets, setFilteredBets] = useState([]);
   const [betID, setBetID] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -44,17 +47,17 @@ const BettingTable = (props) => {
 
   useEffect(() => {
     const currentBets = props.data;
-    const betHistory = props.betHistoryData;
+    // const betHistory = props.betHistoryData;
 
-    const historyIds = betHistory.map((a) => a.id);
+    // const historyIds = betHistory.map((a) => a.id);
 
-    const remainingIds = currentBets.filter(
-      (cb) => !historyIds.includes(cb.id)
-    );
-
-    setFilteredBets(remainingIds);
+    // const remainingIds = currentBets.filter(
+    //   (cb) => !historyIds.includes(cb.id)
+    // );
+    // setBetHistory(betHistory);
+    // setFilteredBets(remainingIds);
+    setAllBets(currentBets);
   }, [props.data, props.betHistoryData]);
-
 
   async function placeBet(data) {
     await handleBet({
@@ -252,7 +255,6 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
-// console.log(betOptionSelectRef);
   return (
     <div className="w-100 betting-table__wrapper">
       <ModalDesc betDesc={description} descState={descriptionModal} descStateChanger={setDescriptionModal} />
@@ -282,71 +284,8 @@ const BettingTable = (props) => {
         id="betting-table"
         className="betting-table"
       >
-        {props.betHistoryData.map((currentBet, index) => (
-          <motion.div
-            className="betting-table__bet"
-            key={currentBet.id}
-            index={index}
-            animate={isLoaded ? "loaded" : "notLoaded"}
-            variants={variants}
-          >
-            <div className="betting-table__bet__header">
-              <h3 className="betting-table__bet__name">{currentBet.name}</h3>
-              <BoxArrowUpRight/>
-            </div>
-            <div className="betting-table__bet__body">
-              <div className="betting-table__bet__body__desc">
-                <p>
-                  {currentBet.shortDescription}
-                  <br />
-                  <button
-                    onClick={() => openDescriptionModal(currentBet.description)}
-                  >
-                    Read full description
-                  </button>
-                </p>
-              </div>
-              <div className="betting-table__bet__body__data">
-                <h4>About the Bet</h4>
-                <ul>
-                  <li>
-                    <span>Deadline:</span>{" "}
-                    {moment
-                      .utc(currentBet.deadline)
-                      .local()
-                      .format("YYYY/MM/DD h:mm A")}
-                  </li>
-                  <li>
-                    <span>Results: </span>
-                    {moment
-                      .utc(currentBet.results)
-                      .local()
-                      .format("YYYY/MM/DD h:mm A")}
-                  </li>
-                  <li>
-                    <span>Bet Size: </span>
-                    {currentBet.size} ROY
-                  </li>
-                  <li>
-                    <span>Players / Pot:</span>
-                    {currentBet.currentBets}/{currentBet.maxBetters}
-                  </li>
-                </ul>
-              </div>
-              <div className="betting-table__bet__body__placebet">
-                <button className="outline-none btn placed no-cursor">
-                  Bet Placed
-                </button>
-              </div>
-            </div>
-            <div className="betting-table__bet__footer">
-              <div className="betting-table__bet__footer__creator text-center mt-1">
-                Bet created by {currentBet.betCreator}
-              </div>
-            </div>
-          </motion.div>
-        ))}
-        {filteredBets.map((currentBet, index) => (
+
+        {allBets.map((currentBet, index) => (
           <motion.div
             className="betting-table__bet"
             key={currentBet.id}
@@ -479,7 +418,9 @@ const BettingTable = (props) => {
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
+            <button onClick={() => console.log(currentBet)}></button>
           </motion.div>
+
         ))}
       </Masonry>
     </div>

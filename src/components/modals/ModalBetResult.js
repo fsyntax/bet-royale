@@ -8,14 +8,12 @@ const ModalBetResult = (props) => {
 
     function putBetResult(data) {
         data.selectedChoice = betResultSelectRef.current.value;
-    
-        BetService.getInstance().editBet(data, data.id);
-    
-        props.betResultStateChanger(false);
+        data.betResult = betResultSelectRef.current.value;
+       BetService.getInstance().editBet(data, data.id);
+       props.betResultStateChanger(false);
       } 
 
 
-    console.log(props)
     return (
         <Modal show={props.betResultState}>
             <div className="modal-header">
@@ -32,7 +30,7 @@ const ModalBetResult = (props) => {
                 <select className="form-select" ref={betResultSelectRef}>
                     {betOptions &&
                         betOptions.map((option) => (
-                            <option key={option} value={option} defaultValue>
+                            <option  key={option} value={option} defaultValue>
                                 {option}
                             </option>
                         ))}
