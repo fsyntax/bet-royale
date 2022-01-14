@@ -418,9 +418,7 @@ const BettingTable = (props) => {
                 Bet created by {currentBet.betCreator}
               </div>
             </div>
-            <button onClick={() => console.log(currentBet)}></button>
           </motion.div>
-
         ))}
       </Masonry>
     </div>
