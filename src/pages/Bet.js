@@ -269,6 +269,12 @@ function Bet(props) {
                 <li>Bet Size: <span>{currentBet.size}</span></li>
                 <li>Players / Pot: <span>{currentBet.currentBets} Bets / {currentBet.currentBets * currentBet.size} ROY</span></li>
                 <li>Maximum Betters: <span>{currentBet.maxBetters}</span></li>
+                {currentBet.selectedChoice && (
+                    <li className="betting-table__bet__body__data__result">
+                      <span>Result:</span>
+                      {currentBet.selectedChoice}
+                    </li>
+                  )}
               </ul>
             </div>
           </div>
