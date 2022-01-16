@@ -238,7 +238,10 @@ function Bet(props) {
           {/* <hr className="bet-details__heading__divider"/> */}
           <div className="bet-details__sub">
 
-            <div className="bet-details__sub__avatar"></div>
+            <div className="bet-details__sub__avatar">
+              <div className="bet-details__sub__avatar__img"></div>
+              <span className="bet-details__sub__avatar__name">{currentBet.betCreator}</span>
+            </div>
             <p className="bet-details__sub__text bet-details__bg">{currentBet.shortDescription}</p>
           </div>
         </div>
