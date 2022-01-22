@@ -1,5 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import BetService from "../../api/Bet";
+
 import { useRef } from "react";
 
 const ModalBetResult = (props) => {

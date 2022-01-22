@@ -206,15 +206,9 @@ const BettingTable = (props) => {
   }
 
   function openBetResultsModal(bet) {
-    if (!window.ethereum) {
+    if (!localStorage.getItem("username")) {
       setAlertModal(true);
-      setDescription("Please install Metamask!");
-      return;
-    }
-
-    if (!localStorage.getItem("address")) {
-      setAlertModal(true);
-      setDescription("Please connect your wallet!");
+      setDescription("Please login with Discord!");
       return;
     }
 
@@ -365,8 +359,8 @@ const BettingTable = (props) => {
               </div>
               <div className="betting-table__bet__body__placebet">
                 {!betState.includes(currentBet.id) &&
-                  moment(currentBet.results).format("x") > +new Date() &&
-                  moment(currentBet.deadline).format("x") > +new Date() &&
+                  moment.utc(currentBet.results).format("x") > +new Date() &&
+                  moment.utc(currentBet.deadline).format("x") > +new Date() &&
                   parseInt(currentBet.currentBets) !==
                     parseInt(currentBet.maxBetters) &&
                   !currentBet.selectedChoice && (
@@ -377,7 +371,7 @@ const BettingTable = (props) => {
                       Place Bet
                     </button>
                   )}
-                {moment(currentBet.results).format("x") < +new Date() &&
+                {moment.utc(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice &&
                   localStorage.getItem("username") !==
                     currentBet.betCreator && (
@@ -386,7 +380,7 @@ const BettingTable = (props) => {
                     </button>
                   )}
                 {currentBet.betCreator === localStorage.getItem("username") &&
-                  moment(currentBet.results).format("x") < +new Date() &&
+                  moment.utc(currentBet.results).format("x") < +new Date() &&
                   !currentBet.selectedChoice && (
                     <button
                       className="outline-none btn mt-3 set-result"
@@ -395,8 +389,8 @@ const BettingTable = (props) => {
                       Set Result
                     </button>
                   )}
-                {moment(currentBet.deadline).format("x") < +new Date() &&
-                  moment(currentBet.results).format("x") > +new Date() && (
+                {moment.utc(currentBet.deadline).format("x") < +new Date() &&
+                  moment.utc(currentBet.results).format("x") > +new Date() && (
                     <button className="outline-none btn no-cursor">
                       Deadline Passed
                     </button>
@@ -415,8 +409,8 @@ const BettingTable = (props) => {
                   </button>
                 )}
                 {currentBet.currentBets === parseInt(currentBet.maxBetters) &&
-                  moment(currentBet.deadline).format("x") > +new Date() &&
-                  moment(currentBet.results).format("x") > +new Date() && (
+                  moment.utc(currentBet.deadline).format("x") > +new Date() &&
+                  moment.utc(currentBet.results).format("x") > +new Date() && (
                     <button className="outline-none btn placement-full">
                       Bet Placements Full
                     </button>
