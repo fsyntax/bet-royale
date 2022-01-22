@@ -66,7 +66,6 @@ function Bet(props) {
       
     }, [id]);
 
-console.log(creatorUrl);
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {

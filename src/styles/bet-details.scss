@@ -93,14 +93,15 @@
             justify-content: center;
             &__img {
 
-                height: 50px;
-                min-width: 50px;
-                width: 50px;
-                background-color: lightseagreen;
-                border-radius: 100vh;
-                margin: 0 1em;
-                max-width: 100%;
-                border-radius: 100vh;
+
+                > img {
+                    height: 50px;
+                    min-width: 50px;
+                    width: 50px;
+                    border-radius: 100vh;
+                    margin: 0 1em;
+                    max-width: 100%;
+                }
             }
             &__name {
                 position: absolute;
