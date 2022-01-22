@@ -12,34 +12,17 @@ import moment from "moment";
 
 
 
-const MyBetHistory = () => {
-  const [myBetHistory, setMyBetHistory] = useState([]);
+const MyBetHistory = (props) => {
   const [activeBets, setActiveBets] = useState([]);
   const [completedBets, setCompletedBets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [sortedTable, setSortedTable] = useState([]);
 
-  let sortVal = useRef("");
-  let currentTime = moment.utc().local().format("YYYY/MM/DD h:mm A");
-
+  let sortVal = useRef("completedBets");
+  
   useEffect(() => {
+    let currentTime = moment.utc().local().format("YYYY/MM/DD h:mm A");
     setIsLoading(true);
-
-    BetService.getInstance()
-    .getCurrentBets()
-    .then((data) => {
-      const currentBetLogs = [];
-
-      for (const key in data) {
-        const currentBetLog = {
-          id: key,
-          ...data[key],
-        };
-        currentBetLogs.push(currentBetLog);
-      }
-      setActiveBets(currentBetLogs.filter(bet => localStorage.getItem('username') === bet.betCreator && moment.utc(bet.results).local().format("YYYY/MM/DD h:mm A") > currentTime));
-    });
 
     BetService.getInstance()
       .getBetHistory()
@@ -54,25 +37,38 @@ const MyBetHistory = () => {
           betLogs.push(betLog);
         }
         setCompletedBets(betLogs);
+        setSortedTable(betLogs)
       });
+
+      
+    BetService.getInstance()
+    .getCurrentBets()
+    .then((data) => {
+      const currentBetLogs = [];
+
+      for (const key in data) {
+        const currentBetLog = {
+          id: key,
+          ...data[key],
+        };
+        currentBetLogs.push(currentBetLog);
+      }
+      setActiveBets(currentBetLogs.filter(bet => localStorage.getItem('username') === bet.betCreator && moment.utc(bet.results).local().format("YYYY/MM/DD h:mm A") > currentTime));
+    });
       
 
-
     setIsLoading(false);
+
   }, []);
 
   function sortTable() {
-    // console.log(currentTime);
     if(sortVal.current.value === "completedBets") {
       setSortedTable(completedBets);
     } else if(sortVal.current.value === "activeBets") {
       setSortedTable(activeBets);
-    } else {
-      setSortedTable()
-    }
+    } 
   }
-  // console.log(sortVal.current.value);
-  console.log(sortedTable);
+
 
 
   if (isLoading) {
@@ -97,13 +93,13 @@ const MyBetHistory = () => {
           <label htmlFor="betHistorySort">
             Sort By:
           </label>
-          <Form.Select onChange={sortTable} size="sm" ref={sortVal}>
+          <Form.Select onChange={() => sortTable()} size="sm" ref={sortVal}>
+            <option value="completedBets">Completed bets</option>
             <option value="activeBets">Active bets</option>
-            <option defaultValue value="completedBets">Completed bets</option>
           </Form.Select>
         </div>
         <div className="bet-history__table-wrapper">
-          <BetHistoryTable data={completedBets} />
+          <BetHistoryTable data={sortedTable} />
         </div>
       </div>
     </motion.div>

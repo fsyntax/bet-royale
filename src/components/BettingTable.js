@@ -230,7 +230,6 @@ const BettingTable = (props) => {
     },
     notLoaded: { opacity: 0 },
   };
-  // console.log(betOptionSelectRef);
   return (
     <div className="w-100 betting-table__wrapper">
       <ModalDesc
