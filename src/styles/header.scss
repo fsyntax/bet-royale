@@ -34,13 +34,19 @@
 
   &__block {
     padding: 0.5em 0;
-
+    @media screen and (min-width: $screen-lg) {
+      display: flex;
+      align-items: center;
+    }
     .active {
       color: var(--c-accent);
     }
   }
 
   &__dropdown {
+    .nav-link {
+      color: #fff!important;
+    }
     > .dropdown-menu {
       background-color: var(--c-primary-darken-1);
     }
