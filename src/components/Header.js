@@ -5,7 +5,6 @@ import { Modal, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import {
   HouseFill,
   NodePlusFill,
-  ClockHistory,
   Book,
 } from "react-bootstrap-icons";
 

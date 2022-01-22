@@ -1,40 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Loading from "../components/Loading";
 import BetHistoryTable from "../components/BetHistoryTable";
 import { motion } from "framer-motion";
 import BetService from "../api/Bet";
+import '../styles/bet-history.scss'
+import { Form } from 'react-bootstrap';
+import moment from "moment";
 
-const BetHistory = () => {
-  const [betHistory, setBetHistory] = useState([]);
+
+
+
+const MyBetHistory = () => {
+  const [activeBets, setActiveBets] = useState([]);
+  const [completedBets, setCompletedBets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortedTable, setSortedTable] = useState([]);
 
+  let sortVal = useRef("completedBets");
+  
   useEffect(() => {
+    let currentTime = moment.utc().local().format("YYYY/MM/DD h:mm A");
     setIsLoading(true);
-
+      
     BetService.getInstance()
-      .getBetHistory()
-      .then((data) => {
-        const betLogs = [];
+    .getCurrentBets()
+    .then((data) => {
+      const currentBetLogs = [];
 
-        for (const key in data) {
-          const betLog = {
-            id: key,
-            ...data[key],
-          };
-
-          betLogs.push(betLog);
-        }
-
-        setBetHistory(betLogs);
-      });
+      for (const key in data) {
+        const currentBetLog = {
+          id: key,
+          ...data[key],
+        };
+        currentBetLogs.push(currentBetLog);
+      }
+      setActiveBets(currentBetLogs.filter(bet => moment.utc(bet.results).local().format("YYYY/MM/DD h:mm A") > currentTime));
+      setCompletedBets(currentBetLogs.filter(bet => moment.utc(bet.results).local().format("YYYY/MM/DD h:mm A") < currentTime));
+      setSortedTable(currentBetLogs.filter(bet => moment.utc(bet.results).local().format("YYYY/MM/DD h:mm A") > currentTime)); 
+    });
+      
 
     setIsLoading(false);
+
   }, []);
+
+  function sortTable() {
+    if(sortVal.current.value === "completedBets") {
+      setSortedTable(completedBets);
+    } else if(sortVal.current.value === "activeBets") {
+      setSortedTable(activeBets);
+    } 
+  }
+
+
 
   if (isLoading) {
     return <Loading />;
   }
+
 
   return (
     <motion.div
@@ -43,27 +67,27 @@ const BetHistory = () => {
       animate={{ opacity: 1, filter: "blur(0)" }}
       exit={{ opacity: 0, filter: "blur(2px)" }}
     >
-      <div className="container d-flex align-items-center flex-column pt-5">
-        <h1 className="text-4xl">General Bet History</h1>
-        <div className="my-10 w-100 d-flex justify-items-end align-items-center">
-          <div className="d-flex flex-column">
-            <label className="mb-1" htmlFor="betHistorySort">
-              Sort By:
-            </label>
-            <select className="form-select">
-              <option value="betsCompleted" defaultValue>
-                Bets Completed
-              </option>
-              <option value="activeBets">Active Bets</option>
-            </select>
-          </div>
+      <div className="bet-history pt-4">
+        <h1 className="text-4xl bet-history__title">General Betting History</h1>
+        <div class="bet-history__desc bet-history__bg">
+          <p>The below bets are either completed or active bets related from every Bet Royale User.</p>
+          {/* <QuestionCircle size={90}/> */}
         </div>
-        <div className="mt-5 d-flex justify-items-center align-items-center w-100">
-          <BetHistoryTable data={betHistory} />
+        <div className="bet-history__filter">
+          <label htmlFor="betHistorySort">
+            Sort by:
+          </label>
+          <Form.Select onChange={() => sortTable()} size="sm" ref={sortVal}>
+            <option value="activeBets">Active bets</option>
+            <option value="completedBets">Completed bets</option>
+          </Form.Select>
+        </div>
+        <div className="bet-history__table-wrapper">
+          <BetHistoryTable data={sortedTable} />
         </div>
       </div>
     </motion.div>
   );
 };
 
-export default BetHistory;
+export default MyBetHistory;
