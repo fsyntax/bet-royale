@@ -5,14 +5,13 @@ import BetHistoryTable from "../components/BetHistoryTable";
 import { motion } from "framer-motion";
 import BetService from "../api/Bet";
 import '../styles/bet-history.scss'
-// import { QuestionCircle } from 'react-bootstrap-icons';
 import { Form } from 'react-bootstrap';
 import moment from "moment";
 
 
 
 
-const MyBetHistory = (props) => {
+const MyBetHistory = () => {
   const [activeBets, setActiveBets] = useState([]);
   const [completedBets, setCompletedBets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

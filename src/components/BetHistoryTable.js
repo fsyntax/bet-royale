@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import '../styles/bet-history-table.scss';
 import Masonry from "react-masonry-css";
-
+import { Link } from 'react-router-dom';
+import { BoxArrowUpRight } from 'react-bootstrap-icons';
 const BetHistoryTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -44,6 +45,15 @@ const BetHistoryTable = (props) => {
         >
           <div className="betting-table__bet__header">
             <h3 className="betting-table__bet__name">{currentBet.name}</h3>
+            <Link
+                className="betting-table__bet__header__link"
+                to={{
+                  pathname: "/bet/" + currentBet.id,
+                  state: { currentBet: currentBet },
+                }}
+              >
+                <BoxArrowUpRight />
+              </Link>
           </div>
           <div className="betting-table__bet__body mt-3">
             <div className="betting-table__bet__body__data">
