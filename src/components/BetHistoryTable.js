@@ -1,6 +1,8 @@
 import moment from "moment";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import '../styles/bet-history-table.scss';
+import Masonry from "react-masonry-css";
 
 const BetHistoryTable = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -8,6 +10,7 @@ const BetHistoryTable = (props) => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+  
   const variants = {
     loaded: {
       opacity: 1,
@@ -19,8 +22,18 @@ const BetHistoryTable = (props) => {
     notLoaded: { opacity: 0 },
   };
 
+  const breakpointColumnsObj = {
+    default: 3,
+    992: 2,
+    576: 1,
+  };
+
   return (
-    <div className="betting-table w-100">
+    <Masonry
+    breakpointCols={breakpointColumnsObj}
+    id="betting-table"
+    className="betting-table"
+  >
       {props.data.map((currentBet, index) => (
         <motion.div
           className="betting-table__bet"
@@ -62,7 +75,7 @@ const BetHistoryTable = (props) => {
           </div>
         </motion.div>
       ))}
-    </div>
+    </Masonry>
   );
 };
 

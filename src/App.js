@@ -16,6 +16,7 @@ import "./styles/bettingtable.scss";
 import "./styles/modal.scss";
 import "./styles/footer.scss";
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
