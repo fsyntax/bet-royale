@@ -90,7 +90,7 @@ const MyBetHistory = () => {
         </div>
         <div className="bet-history__filter">
           <label htmlFor="betHistorySort">
-            Sort By:
+            Sort by:
           </label>
           <Form.Select onChange={() => sortTable()} size="sm" ref={sortVal}>
             <option value="completedBets">Completed bets</option>
