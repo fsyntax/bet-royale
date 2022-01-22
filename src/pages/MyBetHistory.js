@@ -5,7 +5,7 @@ import BetHistoryTable from "../components/BetHistoryTable";
 import { motion } from "framer-motion";
 import BetService from "../api/Bet";
 
-const BettingHistory = () => {
+const MyBetHistory = () => {
   const [betHistory, setBetHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,7 +44,7 @@ const BettingHistory = () => {
       exit={{ opacity: 0, filter: "blur(2px)" }}
     >
       <div className="container d-flex align-items-center flex-column pt-5">
-        <h1 className="text-4xl">Betting History</h1>
+        <h1 className="text-4xl">My Betting History</h1>
         <div className="my-10 w-100 d-flex justify-items-end align-items-center">
           <div className="d-flex flex-column">
             <label className="mb-1" htmlFor="betHistorySort">
@@ -66,4 +66,4 @@ const BettingHistory = () => {
   );
 };
 
-export default BettingHistory;
+export default MyBetHistory;

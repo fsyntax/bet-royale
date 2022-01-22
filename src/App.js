@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import CreateBet from "./pages/CreateBet";
-import BettingHistory from "./pages/BettingHistory";
+import MyBetHistory from "./pages/MyBetHistory";
+import BetHistory from "./pages/BetHistory";
 import Guide from "./pages/Guide";
 import Footer from "./components/Footer";
 import Bet from "./pages/Bet"
@@ -33,8 +34,11 @@ const App = () => {
         <Route path="/createBet" exact>
           <CreateBet />
         </Route>
-        <Route path="/bettingHistory" exact>
-          <BettingHistory />
+        <Route path="/my-bets-history" exact>
+          <MyBetHistory />
+        </Route>
+        <Route path="/bets-history" exact>
+          <BetHistory />
         </Route>
         <Route path="/guide" exact>
           <Guide />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Modal, Navbar, Nav, Container } from "react-bootstrap";
+import { Modal, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 
 import {
   HouseFill,
@@ -171,21 +171,40 @@ const Header = () => {
                 <NodePlusFill className="main-nav__icon" />
                 Create Bet
               </Link>
-              <Link
-                onClick={() => {
-                  setExpanded(false);
-                  animHamMenu();
-                }}
-                className={
-                  location.pathname === "/bettingHistory"
-                    ? "active text-decoration-none main-nav__item"
-                    : "text-white text-decoration-none main-nav__item"
-                }
-                to="/bettingHistory"
+              <NavDropdown
+                title="Betting History"
+                className="pr-3 text-decoration-none main-nav__item main-nav__dropdown"
               >
-                <ClockHistory className="main-nav__icon" />
-                Betting History
-              </Link>
+                                
+                  <Link
+                  onClick={() => {
+                    setExpanded(false);
+                    animHamMenu();
+                  }}
+                  className={
+                    location.pathname === "/bet-history"
+                      ? "active text-decoration-none main-nav__item"
+                      : "text-white text-decoration-none main-nav__item"
+                  }
+                  to="/bets-history">
+                    All Bets
+                  </Link>
+                  <Link
+                  onClick={() => {
+                    setExpanded(false);
+                    animHamMenu();
+                  }}
+                  className={
+                    location.pathname === "/bettingHistory"
+                      ? "active text-decoration-none main-nav__item"
+                      : "text-white text-decoration-none main-nav__item"
+                  }
+                  to="/my-bets-history">
+                    My Bets
+                  </Link>
+                  
+
+              </NavDropdown>
               <Link
                 onClick={() => {
                   setExpanded(false);
