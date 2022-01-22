@@ -33,7 +33,7 @@ function Bet(props) {
   const [betOptionModal, setBetOptionModal] = useState(false);
   // const [betDeleteModal, setBetDeleteModal] = useState(false);
   const [betResultModal, setBetResultModal] = useState(false);
-
+  const [creatorUrl, setCreatorUrl] = useState();
   const web3 = new Web3(Web3.givenProvider);
 
 
@@ -59,13 +59,14 @@ function Bet(props) {
         }
         const betIndex = currentBetLogs.findIndex((bet) => bet.id === id);
         setCurrentBet(currentBetLogs[betIndex]);
+        setCreatorUrl(currentBetLogs[betIndex].betCreator.replace(/[0-9]/g, "").replace('#', ""));
 
       });
-    setIsLoading(false);
+      setIsLoading(false);
+      
+    }, [id]);
 
-  }, [id]);
-
-
+console.log(creatorUrl);
 
   function openBetOptionModal(bet) {
     if (!window.ethereum) {
@@ -213,6 +214,8 @@ function Bet(props) {
     BetService.getInstance().logBet(data);
   }
 
+  
+
 
   if (isLoading) {
     return <Loading />;
@@ -239,7 +242,9 @@ function Bet(props) {
           <div className="bet-details__sub">
 
             <div className="bet-details__sub__avatar">
-              <div className="bet-details__sub__avatar__img"></div>
+              <div className="bet-details__sub__avatar__img">
+              <img src={`https://avatars.dicebear.com/api/initials/${creatorUrl}.svg`} alt=""/>                
+              </div>
               <span className="bet-details__sub__avatar__name">{currentBet.betCreator}</span>
             </div>
             <p className="bet-details__sub__text bet-details__bg">{currentBet.shortDescription}</p>
